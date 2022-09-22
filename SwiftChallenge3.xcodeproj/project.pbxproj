@@ -20,6 +20,7 @@
 		E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25328DB742A008CC3E0 /* PlayerViewController.swift */; };
 		E465C25728DB7525008CC3E0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25628DB7525008CC3E0 /* SearchViewController.swift */; };
 		E465C26028DB76CB008CC3E0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E465C25F28DB76CB008CC3E0 /* SnapKit */; };
+		E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C26128DC6793008CC3E0 /* TrackDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		E465C25028DB73AC008CC3E0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E465C25328DB742A008CC3E0 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E465C25628DB7525008CC3E0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E465C26128DC6793008CC3E0 /* TrackDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				E465C24228DB6C2B008CC3E0 /* NetworkService.swift */,
 				E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */,
+				E465C26128DC6793008CC3E0 /* TrackDataModel.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
 				E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */,
 				E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */,
+				E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */,
 				E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */,
 				E465C25128DB73AC008CC3E0 /* ListViewController.swift in Sources */,
 				E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */,
