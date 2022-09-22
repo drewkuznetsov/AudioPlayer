@@ -19,7 +19,7 @@ class MainTabBarController: UITabBarController {
             generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
             generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
-            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
+            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")           
         ]
     }
     
