@@ -18,7 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let sceneWindow = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: sceneWindow)
-//        window?.rootViewController =
+        
+        let list = ListViewController()
+        list.configurePlaylist(PlaylistTest(title: "Recently Played", tracks: list.playlist.tracks))
+        window?.rootViewController = UINavigationController(rootViewController: list)
         window?.makeKeyAndVisible()
     }
 
