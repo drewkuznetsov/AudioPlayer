@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7528DE1D0700F44109 /* MainSongCell.swift */; };
+		43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */; };
 		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43B40E7528DE1D0700F44109 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
+		43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				E465C24C28DB7371008CC3E0 /* MainViewController.swift */,
+				43B40E7528DE1D0700F44109 /* MainSongCell.swift */,
+				43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -273,6 +279,8 @@
 				E465C24328DB6C2B008CC3E0 /* NetworkService.swift in Sources */,
 				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
+				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
+				43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */,
 				E465C26628DC718D008CC3E0 /* PlayListModel.swift in Sources */,
 				E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */,
 				E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */,

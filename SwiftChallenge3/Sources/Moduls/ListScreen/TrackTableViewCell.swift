@@ -18,6 +18,7 @@ class TrackTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -26,12 +27,14 @@ class TrackTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     private let trackNameLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
         view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
+    
     private let artistNameLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
