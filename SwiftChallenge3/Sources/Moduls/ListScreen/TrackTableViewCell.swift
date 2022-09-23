@@ -77,7 +77,9 @@ class TrackTableViewCell: UITableViewCell {
     }
     
     func configure(_ track: TrackModel) {
-//        trackImageView.image = UIImage(named: track.previewURL)
+        if let coverURL = track.coverURL {
+            trackImageView.downloadedFrom(link: coverURL)
+        }
         trackNameLabel.text = track.trackName
         artistNameLabel.text = track.artistName
     }

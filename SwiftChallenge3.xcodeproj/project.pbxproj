@@ -25,6 +25,7 @@
 		E465C26028DB76CB008CC3E0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E465C25F28DB76CB008CC3E0 /* SnapKit */; };
 		E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C26128DC6793008CC3E0 /* TrackDataModel.swift */; };
 		E465C26628DC718D008CC3E0 /* PlayListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C26528DC718D008CC3E0 /* PlayListModel.swift */; };
+		E4B1B3E728DDF4CE00F57483 /* ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1B3E628DDF4CE00F57483 /* ImageDownload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		E465C25628DB7525008CC3E0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E465C26128DC6793008CC3E0 /* TrackDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDataModel.swift; sourceTree = "<group>"; };
 		E465C26528DC718D008CC3E0 /* PlayListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListModel.swift; sourceTree = "<group>"; };
+		E4B1B3E628DDF4CE00F57483 /* ImageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				E465C26128DC6793008CC3E0 /* TrackDataModel.swift */,
 				E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */,
 				E465C26528DC718D008CC3E0 /* PlayListModel.swift */,
+				E4B1B3E628DDF4CE00F57483 /* ImageDownload.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				E465C25728DB7525008CC3E0 /* SearchViewController.swift in Sources */,
 				E465C24D28DB7371008CC3E0 /* MainViewController.swift in Sources */,
 				E465C24328DB6C2B008CC3E0 /* NetworkService.swift in Sources */,
+				E4B1B3E728DDF4CE00F57483 /* ImageDownload.swift in Sources */,
 				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
 				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
