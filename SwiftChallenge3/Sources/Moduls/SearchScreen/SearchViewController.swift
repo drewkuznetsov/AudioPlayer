@@ -8,38 +8,84 @@
 import UIKit
 
 class SearchViewController: UITableViewController {
+    
+    let searchLimit = 25
+    
+    private var searchController = UISearchController(searchResultsController: nil)
+    
+    private let networkService = NetworkService()
+    
+    private var tracks: [TrackModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.navigationItem.title = "Search"
+        
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defoultCell")
+        
+        self.setupSearchBar()
+        
+        self.networkService.delegate = self
+    }
+    
+    private func setupSearchBar() {
+        self.searchController.searchBar.delegate = self
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tracks.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
+        let track = self.tracks[indexPath.row]
+        cell.textLabel?.text = track.trackName + "\n" + track.artistName
+        cell.textLabel?.numberOfLines = 2
+        cell.imageView?.image = UIImage(named: "cover")
         return cell
     }
-    */
+}
+
+//MARK: - Extensions
+
+extension SearchViewController: NetworkServiceDelegate {
+    
+    func didFetchTracks(tracks: [TrackModel]) {
+        self.tracks = tracks
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func didFinishWithError(error: Error) {
+        print("Error fetching tracks!")
+        print(error.localizedDescription)
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.networkService.fetchData(searchRequest: searchText, limit: searchLimit)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.tracks = []
+        self.tableView.reloadData()
+    }
+    
+}
 
     /*
     // Override to support conditional editing of the table view.
@@ -85,5 +131,3 @@ class SearchViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-}
