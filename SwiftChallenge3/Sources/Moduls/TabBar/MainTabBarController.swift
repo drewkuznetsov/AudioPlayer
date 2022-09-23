@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
         self.tabBar.tintColor = .purple
         
         viewControllers = [
-            generateViewController(rootViewController: ViewController(), imageVC: "person", titelVC: "Search")
+            generateViewController(rootViewController: ViewController(), imageVC: "person", titelVC: "Search"),
         ]
     }
     
