@@ -16,12 +16,15 @@ class SearchViewController: UITableViewController {
     private let networkService = NetworkService()
     
     private var tracks: [TrackModel] = []
+    
+    private var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Search"
         
+        self.tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defoultCell")
         
         self.setupSearchBar()
@@ -47,11 +50,19 @@ class SearchViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
+            let track = self.tracks[indexPath.row]
+            cell.textLabel?.text = track.trackName + "\n" + track.artistName
+            cell.textLabel?.numberOfLines = 2
+            if let coverURL = track.coverURL {
+                cell.imageView?.downloadedFrom(link: coverURL)
+            }
+            return cell
+        }
         let track = self.tracks[indexPath.row]
-        cell.textLabel?.text = track.trackName + "\n" + track.artistName
-        cell.textLabel?.numberOfLines = 2
-        cell.imageView?.image = UIImage(named: "cover")
+        cell.configure(track)
         return cell
     }
 }
@@ -77,7 +88,10 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        self.networkService.fetchData(searchRequest: searchText, limit: searchLimit)
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            self.networkService.fetchData(searchRequest: searchText, limit: self.searchLimit)
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

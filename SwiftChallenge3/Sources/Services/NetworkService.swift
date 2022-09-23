@@ -33,6 +33,7 @@ class NetworkService {
                             trackName: track.trackName,
                             artistName: track.artistName,
                             albumName: track.collectionName ?? "",
+//                            coverSmallURL: track.artworkUrl60 ?? "",
                             coverURL: track.artworkUrl100 ?? "",
                             previewURL: track.previewUrl ?? "")
                     }
