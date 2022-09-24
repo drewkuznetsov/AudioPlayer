@@ -22,7 +22,7 @@ class PlayerViewController: UIViewController {
     private lazy var trackImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cover")
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -227,16 +227,16 @@ class PlayerViewController: UIViewController {
     private func setupConstraintsActivate() {
         NSLayoutConstraint.activate([
 
-            self.trackImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 150),
+            self.trackImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
             self.trackImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.trackImageView.heightAnchor.constraint(equalToConstant: 250),
             self.trackImageView.widthAnchor.constraint(equalToConstant: 250),
 
 
             self.stackView.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
-            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -60),
+            self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
 
 
             self.stackTimerView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
