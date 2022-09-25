@@ -13,9 +13,10 @@ class RecentlyCell: MainSongCell {
 }
 ///Главная ячейка  содержащая в себе ячейку коллекции и заголовок. 
 class MainSongCell: UITableViewCell {
-    //MARK: - static let
+    //MARK: - Static let
     static let reuseIdentifier = String(describing: MainSongCell.self)
     
+    //MARK: - Let / Var
     var playlist = PlayListModel(playListName: "Recentli Played", tracks: [
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
@@ -23,11 +24,14 @@ class MainSongCell: UITableViewCell {
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
     ])
+    // Создаём массив треков.
     var trackArray = [TrackModel]() {
         didSet {
             self.songCollection.reloadData()
         }
     }
+    
+    // Создаём хедер-лейбл.
     public lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,20 +41,22 @@ class MainSongCell: UITableViewCell {
         return label
     } ()
     
+    //Создаём коллекшн-вью
     private lazy var songCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .lightGray
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        //Подписываемся под делегат и дата-сорс.
         collectionView.delegate = self
         collectionView.dataSource = self
+        //регистрируем ячейку по Идентификатору.
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         return collectionView
     } ()
     
-    //MARK: - override init
+    //MARK: - Override init
     override init (style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
@@ -60,12 +66,9 @@ class MainSongCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Private Methods
-    private func setupView () {
-        self.addSubview(contentView)
-        self.contentView.addSubview(self.headerLabel)
-        self.contentView.addSubview(self.songCollection)
-        self.contentView.backgroundColor = .white
+    //MARK: - Override Methods
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
         contentView.snp.makeConstraints { make in
             make.top.equalTo(self.snp_topMargin)
@@ -81,15 +84,23 @@ class MainSongCell: UITableViewCell {
         }
         
         songCollection.snp.makeConstraints { make in
-            make.top.equalTo(headerLabel.snp_bottomMargin)
-            make.leading.equalTo(contentView.snp_leadingMargin)
-            make.trailing.equalTo(contentView.snp_trailingMargin)
-            make.bottom.equalTo(contentView.snp_bottomMargin)
+            make.top.equalTo(headerLabel.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
+    //MARK: - Private Methods
+    private func setupView () {
+        self.addSubview(contentView)
+        self.contentView.addSubview(self.headerLabel)
+        self.contentView.addSubview(self.songCollection)
+    }
 }
+
 //MARK: - Extension + Delegate
 extension MainSongCell: UICollectionViewDelegateFlowLayout {
+    
     private var sideInset: CGFloat { return 12 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -106,7 +117,7 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
 extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return playlist.tracks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
             self.SongTableView.reloadData()
         }
     }
-    //MARK: - LifeCycle
+    //MARK: - LifeCycle viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         //        self.view = self.SongTableView
@@ -32,24 +32,25 @@ class MainViewController: UIViewController {
         configureTableView()
         setupUI()
     }
-    
+    //Создаём таблицу на всю вью.
     var SongTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.separatorColor = .clear
         return tableView
     }()
+    
     //MARK: - Private Methods
+    ///Подписка на делегат/датасорс. Регистрация ниба
     private func configureTableView() {
         SongTableView.register(MainSongCell.self, forCellReuseIdentifier: MainSongCell.reuseIdentifier)
         SongTableView.delegate = self
         SongTableView.dataSource = self
     }
-    
+    ///Добавление Таблицы в MainVC.
     private func setupUI() {
         self.overrideUserInterfaceStyle = .light
         self.view.addSubview(SongTableView)
-        
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
@@ -58,6 +59,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    //Кейсы
     enum SongTableSection: Int {
         case madeForYou
         case recently

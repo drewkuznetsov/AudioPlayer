@@ -4,10 +4,11 @@ import SnapKit
 
 ///Вспомогательная ячейка  содержащая в себе постер, имя, дату.
 class CollectionViewCell: UICollectionViewCell {
-    //MARK: - static let
+    //MARK: - Static let
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
     
-    //MARK: - var
+    //MARK: - Let / Var
+    //Создаём ImageView с картинкой трека.
     private lazy var trackImageView: UIImageView = {
         let poster = UIImageView()
         poster.backgroundColor = .clear
@@ -16,10 +17,10 @@ class CollectionViewCell: UICollectionViewCell {
         poster.sizeToFit()
         poster.contentMode = .scaleAspectFill
         poster.translatesAutoresizingMaskIntoConstraints = false
-
         return poster
     }()
     
+    //Создаём Лейбл с неймингом трека.
     private lazy var trackNameLabel: UILabel = {
         let name = UILabel()
         name.backgroundColor = .clear
@@ -30,6 +31,7 @@ class CollectionViewCell: UICollectionViewCell {
         return name
     }()
     
+    //Создаём Лейбл с неймингом артиста.
     private lazy var artistNameLabel: UILabel = {
         let date = UILabel()
         date.backgroundColor = .clear
@@ -40,7 +42,7 @@ class CollectionViewCell: UICollectionViewCell {
         return date
     }()
     
-    //MARK: - override init
+    //MARK: - Override init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -50,7 +52,7 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Private Methods
+    //MARK: - Override Methods
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -75,40 +77,26 @@ class CollectionViewCell: UICollectionViewCell {
             make.height.equalTo(20)
         }
     }
-    
+    //MARK: - Private Methods
     private func setupView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
-    }
-    //MARK: - Public Methods
-    public func setupCell(title: String, release_Date: String, posterURL: URL?) {
-        //        self.isSkeletonable = true
-        //        self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(1))
-        self.trackNameLabel.text = title
-        self.artistNameLabel.text = DateFromWebtoApp(release_Date)
-        self.trackImageView.image = UIImage(named: "\(posterURL)")
-        //        self.stopSkeletonAnimation()
-        //        self.hideSkeleton(reloadDataAfter: false, transition: .crossDissolve(1))
+    
     }
     
-    func configure(_ track: TrackModel) {
+    //MARK: - Public Methods
+        //        self.isSkeletonable = true
+        //        self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(1))
+     
+        //        self.stopSkeletonAnimation()
+        //        self.hideSkeleton(reloadDataAfter: false, transition: .crossDissolve(1))
+///Конфигурируем Ячейку под TrackModel.
+  public func configure(_ track: TrackModel) {
         if let coverURL = track.coverURL {
             trackImageView.downloadedFrom(link: coverURL)
         }
         trackNameLabel.text = track.trackName
         artistNameLabel.text = track.artistName
     }
-}
-
-public func DateFromWebtoApp(_ date: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd"
-    let date = dateFormatter.date(from: date)
-    dateFormatter.dateFormat = "MMM dd, yyyy"
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-    let thisDate = dateFormatter.string(from: date!)
-    let first = String(thisDate.prefix(1)).capitalized
-    let other = String(thisDate.dropFirst())
-    return first+other
 }
