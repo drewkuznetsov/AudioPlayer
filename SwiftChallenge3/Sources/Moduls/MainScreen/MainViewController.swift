@@ -18,16 +18,23 @@ class MainViewController: UIViewController {
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
     ])
-    
+    var trackArray = [TrackModel]() {
+        didSet {
+            self.SongTableView.reloadData()
+        }
+    }
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        self.view = self.SongTableView
+        navigationItem.title = "iTunes"
+        navigationController?.navigationBar.prefersLargeTitles = true
         configureTableView()
         setupUI()
     }
     
-  var SongTableView: UITableView = {
-      let tableView = UITableView()
+    var SongTableView: UITableView = {
+        let tableView = UITableView()
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.separatorColor = .clear
         return tableView
@@ -50,6 +57,20 @@ class MainViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
+    
+    enum SongTableSection: Int {
+        case madeForYou
+        case recently
+        
+        var title: String {
+            switch self {
+            case .madeForYou:
+                return "Made for yoy"
+            case .recently:
+                return "Recently Played"
+            }
+        }
+    }
 }
 
 //MARK: - Table Delegate
@@ -58,12 +79,16 @@ extension MainViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Did tap on \(playlist.tracks.count)")
     }
+    
 }
 
 //MARK: - Table DataSource
 extension MainViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playlist.tracks.count
+        return 1
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        self.playlist.tracks.isEmpty ? 2 : 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,5 +96,67 @@ extension MainViewController : UITableViewDataSource {
             return UITableViewCell()
         }
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if playlist.playListName.count == 0 {
+            switch indexPath.section {
+            case 0: return (self.view.frame.size.height)/2.5
+            case 1: return (self.view.frame.size.height)/2.8
+            default: return 0
+            }
+        } else {
+            switch indexPath.section {
+            case 0: return (self.view.frame.size.height)/2.5
+            case 1: return (self.view.frame.size.height)/2.8
+            case 2: return (self.view.frame.size.height)/3
+            default: return 0
+            }
+        }
+    }
+    func makeSongCell(for indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
+        let section = SongTableSection(rawValue: indexPath.section)!
+        
+        let song: [TrackModel] = {
+            switch section {
+            case .madeForYou:
+                return self.trackArray
+            case .recently:
+                return self.trackArray
+                
+            }
+        }()
+        
+        //        let cinemaType: CinemaType = {
+        //            switch section {
+        //            case .popularMovie:
+        //                return .films
+        //            case .tvShos:
+        //                return .tvShows
+        //            case .favourites:
+        //                return .films
+        //            }
+        //        }()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as! MainSongCell
+        
+        cell.trackArray = song
+        
+        //        cell.SongTableSection = {
+        //            if section == .favourites {
+        //                return self.favoriteFilmsArray.map { $0.type }
+        //            } else {
+        //                return []
+        //            }
+        //        }()
+        
+        //        cell.cinemaType = cinemaType
+        //        cell.headerLabel.text = section.title
+        //        cell.onFilmTap = {
+        //            [weak self] type, filmID in
+        //            self?.toNextVC?(type, filmID)
+        //        }
+        return cell
+        
     }
 }

@@ -11,26 +11,38 @@ import UIKit
 
 class RecentlyCell: MainSongCell {
 }
-
+///Главная ячейка  содержащая в себе ячейку коллекции и заголовок. 
 class MainSongCell: UITableViewCell {
+    //MARK: - static let
+    static let reuseIdentifier = String(describing: MainSongCell.self)
     
-static let reuseIdentifier = String(describing: MainSongCell.self)
-    
+    var playlist = PlayListModel(playListName: "Recentli Played", tracks: [
+        TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
+        TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
+        TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
+        TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
+        TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
+    ])
+    var trackArray = [TrackModel]() {
+        didSet {
+            self.songCollection.reloadData()
+        }
+    }
     public lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Default header"
-        label.textColor = .white
+        label.text = "Header"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
         return label
     } ()
     
-    
     private lazy var songCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .lightGray
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -38,6 +50,7 @@ static let reuseIdentifier = String(describing: MainSongCell.self)
         return collectionView
     } ()
     
+    //MARK: - override init
     override init (style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
@@ -46,13 +59,13 @@ static let reuseIdentifier = String(describing: MainSongCell.self)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - Private Methods
     private func setupView () {
         self.addSubview(contentView)
         self.contentView.addSubview(self.headerLabel)
         self.contentView.addSubview(self.songCollection)
-        
-        self.contentView.backgroundColor = .black
+        self.contentView.backgroundColor = .white
         
         contentView.snp.makeConstraints { make in
             make.top.equalTo(self.snp_topMargin)
@@ -75,7 +88,7 @@ static let reuseIdentifier = String(describing: MainSongCell.self)
         }
     }
 }
-//MARK: - delegate Cell
+//MARK: - Extension + Delegate
 extension MainSongCell: UICollectionViewDelegateFlowLayout {
     private var sideInset: CGFloat { return 12 }
     
@@ -89,21 +102,20 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//MARK: - dataSource Cell
+//MARK: - Extension + DataSource
 extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
         //     self.isSkeletonable = true
         //     self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(5))
         //    self.stopSkeletonAnimation()
         //   self.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(5))
-        
+        cell.configure(playlist.tracks[indexPath.row])
         return cell
     }
     
