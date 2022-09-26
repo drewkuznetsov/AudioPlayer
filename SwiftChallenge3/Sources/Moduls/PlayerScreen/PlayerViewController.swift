@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class PlayerViewController: UIViewController {
 
@@ -74,7 +75,7 @@ class PlayerViewController: UIViewController {
 
     private lazy var pauseButton: UIButton = {
         let pauseButton = UIButton()
-        pauseButton.setImage(UIImage(named: "pause1"), for: .normal)
+        pauseButton.setImage(UIImage(named: "pause"), for: .normal)
         pauseButton.addTarget(self, action: #selector(self.playPauseAction), for: .touchUpInside)
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
         pauseButton.startAnimatingPressActions()
@@ -261,11 +262,30 @@ class PlayerViewController: UIViewController {
         ])
     }
     //MARK: - Navigation
+    let player: AVPlayer = {
+        let avPlayer = AVPlayer()
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
+        return avPlayer
+    }()
 
-    @objc func playPauseAction() {
-
+    private func playTrack(previewURL: String?) {
+        guard let url = URL(string: previewURL ?? "") else { return }
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
     }
 
+
+    @objc func playPauseAction(sender: AnyObject) {
+
+        if player.timeControlStatus == .paused {
+            player.play()
+            pauseButton.setImage(UIImage(named: "pause"), for: .normal)
+        } else {
+            player.pause()
+            pauseButton.setImage(UIImage(named: "play"), for: .normal)
+        }
+    }
     @objc func previousTrack() {
 
     }
@@ -296,11 +316,11 @@ extension UIButton {
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 8,
+                       initialSpringVelocity: 3,
                        options: [.curveEaseInOut],
                        animations: {
-                        button.transform = transform
-            }, completion: nil)
+            button.transform = transform
+        }, completion: nil)
 
     }
 
