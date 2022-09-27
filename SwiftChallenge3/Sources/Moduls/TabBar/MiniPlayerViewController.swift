@@ -12,11 +12,13 @@ import AVFoundation
 
 protocol MiniPlayerDelegate {
     func presentPlayerView()
+    func hidePlayerView()
 }
 
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
+    
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -29,12 +31,14 @@ class MiniPlayerViewController: UIViewController {
         
         view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
+        
+        //setup Views
         configureUI()
         setupConstraints()
         // add a tap gesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
+        setupGestureRecognizers()
+        
+        
     }
     
     //MARK: - Private LazyVar
@@ -134,7 +138,7 @@ class MiniPlayerViewController: UIViewController {
         сontrollersStackView.addArrangedSubview(pauseButton)
         сontrollersStackView.addArrangedSubview(rightBackwardButton)
     }
-    ///Laylout
+    ///Laylout, констрейны.
     private func setupConstraints() {
         trackImageView.layer.cornerRadius = 25
         trackImageView.layer.masksToBounds = true
@@ -155,6 +159,29 @@ class MiniPlayerViewController: UIViewController {
             make.top.equalTo(view.snp.top).offset(25)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
+    }
+    ///Установка жестов.
+    private func setupGestureRecognizers() {
+        //Тап по Вью.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        //Верхний свайп
+        let swipeGestureRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeUp(_:)))
+        swipeGestureRecognizerUp.direction = .up
+        view.addGestureRecognizer(swipeGestureRecognizerUp)
+        //Нижний свайп
+        let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
+        swipeGestureRecognizerDown.direction = .down
+        view.addGestureRecognizer(swipeGestureRecognizerDown)
+        //Левый свайп
+        let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
+        swipeGestureRecognizerDown.direction = .left
+        view.addGestureRecognizer(swipeGestureRecognizerLeft)
+        //Правый свайп
+        let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
+        swipeGestureRecognizerDown.direction = .right
+        view.addGestureRecognizer(swipeGestureRecognizerRight)
     }
     
     func configure(_ track: TrackModel) {
@@ -180,6 +207,27 @@ class MiniPlayerViewController: UIViewController {
         delegate.presentPlayerView()
     }
     
+    @objc private func didSwipeUp(_ sender: UISwipeGestureRecognizer) {
+        guard let delegate = delegate else { return }
+        delegate.presentPlayerView()
+    }
+    ///Свайп вклчающий следующий трек.
+    @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
+    }
+    ///Свайп вклчающий предыдущий трек.
+    @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
+    }
+    ///Свайп скрывающий мини-плеер
+    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+        // Current Frame
+           var frame = view.frame
+           // New Frame
+           frame.origin.y += 200
+           UIView.animate(withDuration: 0.25) {
+               self.view.frame = frame
+           }
+    }
+    
     ///Замечает тап по кнопке плэй.
     @objc func playPauseAction() {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
@@ -194,7 +242,6 @@ class MiniPlayerViewController: UIViewController {
     
     ///Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
-        
     }
     ///Замечает тап по кнопке следующего трека..
     @objc func nextTrack() {

@@ -41,13 +41,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
     
     //MARK: - Methods
-    ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
-    func presentPlayerView() {
-        let vc = ChildPlayerViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
-    
+  
     ///Функция установки мини-плеера.
     func setupMiniPlayer() {
         view.addSubview(containerView)
@@ -101,5 +95,21 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         roundLayer.fillColor = UIColor.mainWhite.cgColor
         tabBar.tintColor = .tabBarItemAccent
         tabBar.unselectedItemTintColor = .tabBarItemLight
+    }
+}
+//MARK: - Extension PlayerView Delegate
+extension MainTabBarController {
+    ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
+    func presentPlayerView() {
+        let vc = ChildPlayerViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    ///Скрытие Мини-плэера.
+    func hidePlayerView() {
+        UIView.animate(withDuration: 0.3) { [self] in
+            containerView.isHidden = true
+            miniPlayer.dismiss(animated: true)
+        }
     }
 }
