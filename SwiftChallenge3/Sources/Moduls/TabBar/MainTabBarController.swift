@@ -9,20 +9,19 @@ import UIKit
 import SwiftUI
 class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     //MARK: - Let / var
-    let trackView = TrackView()
     let miniPlayer = MiniPlayerViewController()
     
-  private lazy var containerView : UIView = {
+    private lazy var containerView : UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
-      uiView.layer.cornerRadius = 32
+        uiView.layer.cornerRadius = 32
         return uiView
     }()
-       
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         self.tabBar.tintColor = .purple
         
@@ -33,10 +32,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
             generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
             generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
-            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")           
+            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
         ]
         
-        view.addSubview(trackView)
         setConstraints()
         miniPlayer.delegate = self
     }
@@ -44,10 +42,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     //MARK: - Methods
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerView() {
-            let vc = ChildPlayerViewController()
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
-        }
+        let vc = ChildPlayerViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
     
     ///Функция установки мини-плеера.
     func setupMiniPlayer() {
@@ -65,12 +63,12 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         
         return navigationVC
     }
-
+    
     
     func setConstraints() {
         containerView.snp.makeConstraints { make in
             let safeArea = view.safeAreaLayoutGuide.snp
-
+            
             make.leading.equalTo(safeArea.leading)
             make.trailing.equalTo(safeArea.trailing)
             make.bottom.equalTo(tabBar.snp.top).offset(-16)
@@ -82,7 +80,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
             make.top.equalTo(containerView.snp.top)
             make.bottom.equalTo(containerView.snp.bottom)
         }
-        }
+    }
     ///Создаёт закруглённый тап-бар
     private func setTapBarApppearance() {
         let positionOnX: CGFloat = 10
