@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     //MARK: - private let/var
+    private let trackView = TrackView()
     var playlist = PlayListModel(playListName: "Recentli Played", tracks: [
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
@@ -51,12 +52,22 @@ class MainViewController: UIViewController {
     private func setupUI() {
         self.overrideUserInterfaceStyle = .light
         self.view.addSubview(SongTableView)
+//        self.view.addSubview(trackView)
+        
+//        trackView.snp.makeConstraints { make in
+//            make.top.equalTo(SongTableView.safeAreaLayoutGuide.snp.bottom).offset(-40)
+//            make.leading.equalTo(view.snp.leading)
+//            make.trailing.equalTo(view.snp.trailing)
+//            make.height.equalTo(90)
+//        }
+//        trackView.backgroundColor = .black
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
+        
     }
     
     //Кейсы
@@ -162,3 +173,4 @@ extension MainViewController : UITableViewDataSource {
         
     }
 }
+

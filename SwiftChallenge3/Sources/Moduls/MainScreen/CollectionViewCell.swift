@@ -15,7 +15,7 @@ class CollectionViewCell: UICollectionViewCell {
         poster.clipsToBounds = true
         poster.layer.cornerRadius = 16
         poster.sizeToFit()
-        poster.contentMode = .scaleAspectFill
+        poster.contentMode = .scaleAspectFit
         poster.translatesAutoresizingMaskIntoConstraints = false
         return poster
     }()
@@ -25,7 +25,7 @@ class CollectionViewCell: UICollectionViewCell {
         let name = UILabel()
         name.backgroundColor = .clear
         name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        name.text = "Name"
+        name.text = "Track Name"
         name.textColor = .lightGray
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -36,7 +36,7 @@ class CollectionViewCell: UICollectionViewCell {
         let date = UILabel()
         date.backgroundColor = .clear
         date.font = .systemFont(ofSize: 16, weight: .regular)
-        date.text = "Date"
+        date.text = "Artist Name"
         date.textColor = .lightGray
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
