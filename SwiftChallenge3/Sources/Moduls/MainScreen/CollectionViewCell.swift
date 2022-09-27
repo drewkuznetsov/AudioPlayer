@@ -11,35 +11,32 @@ class CollectionViewCell: UICollectionViewCell {
     //Создаём ImageView с картинкой трека.
     private lazy var trackImageView: UIImageView = {
         let poster = UIImageView()
-        poster.backgroundColor = .clear
+        poster.tintColor = UIColor.mainWhite
+        poster.backgroundColor = UIColor.anotherWhite
         poster.clipsToBounds = true
         poster.layer.cornerRadius = 16
         poster.sizeToFit()
-        poster.contentMode = .scaleAspectFit
-        poster.translatesAutoresizingMaskIntoConstraints = false
+        poster.image = UIImage(named: "test")
+        poster.contentMode = .scaleToFill
         return poster
     }()
     
     //Создаём Лейбл с неймингом трека.
     private lazy var trackNameLabel: UILabel = {
-        let name = UILabel()
-        name.backgroundColor = .clear
-        name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        name.text = "Track Name"
-        name.textColor = .lightGray
-        name.translatesAutoresizingMaskIntoConstraints = false
-        return name
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.text = "Track Name"
+        label.textColor = .black
+        return label
     }()
     
     //Создаём Лейбл с неймингом артиста.
     private lazy var artistNameLabel: UILabel = {
-        let date = UILabel()
-        date.backgroundColor = .clear
-        date.font = .systemFont(ofSize: 16, weight: .regular)
-        date.text = "Artist Name"
-        date.textColor = .lightGray
-        date.translatesAutoresizingMaskIntoConstraints = false
-        return date
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.text = "Artist Name"
+        label.textColor = .lightGray
+        return label
     }()
     
     //MARK: - Override init
@@ -59,21 +56,21 @@ class CollectionViewCell: UICollectionViewCell {
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
-            make.trailing.equalTo(contentView.snp_leadingMargin)
-            make.bottom.equalTo(trackNameLabel.snp_topMargin)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(trackNameLabel.snp.top)
         }
         
         trackNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp_leadingMargin)
-            make.trailing.equalTo(contentView.snp_trailingMargin)
-            make.bottom.equalTo(artistNameLabel.snp_topMargin)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(artistNameLabel.snp.top)
             make.height.equalTo(27)
         }
         
         artistNameLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(contentView.snp_bottomMargin)
-            make.leading.equalTo(contentView.snp_leadingMargin)
-            make.trailing.equalTo(contentView.snp_trailingMargin)
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
             make.height.equalTo(20)
         }
     }

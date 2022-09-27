@@ -30,12 +30,11 @@ class MainSongCell: UITableViewCell {
             self.songCollection.reloadData()
         }
     }
-    
+    //MARK: - Let / Var
     // Создаём хедер-лейбл.
-    public lazy var headerLabel: UILabel = {
+    private lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Header"
+        label.text = "Заголовочек"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
         return label
@@ -47,7 +46,6 @@ class MainSongCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         //Подписываемся под делегат и дата-сорс.
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -71,15 +69,15 @@ class MainSongCell: UITableViewCell {
         super.layoutSubviews()
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp_topMargin)
-            make.leading.equalTo(self.snp_leadingMargin)
-            make.trailing.equalTo(self.snp_trailingMargin)
-            make.bottom.equalTo(self.snp_bottomMargin)
+            make.top.equalTo(self.snp.top)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.bottom.equalTo(self.snp.bottom).offset(-50)
         }
         
         headerLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp_topMargin)
-            make.leading.equalTo(contentView.snp_leadingMargin)
+            make.top.equalTo(contentView.snp.top)
+            make.leading.equalTo(contentView.snp.leading)
             make.height.equalTo(50)
         }
         

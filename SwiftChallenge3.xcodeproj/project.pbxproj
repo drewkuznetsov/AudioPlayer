@@ -69,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43CDEAF628E3983D00D059AE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				43224E0528E1BF210013A829 /* UIColor + Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		E465C21E28DB6B44008CC3E0 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +139,7 @@
 			children = (
 				E465C24A28DB70A4008CC3E0 /* Supporting */,
 				E465C24428DB6C35008CC3E0 /* Services */,
+				43CDEAF628E3983D00D059AE /* Extension */,
 				E465C24128DB6BD7008CC3E0 /* Moduls */,
 				E465C23E28DB6BB9008CC3E0 /* Controllers */,
 			);
@@ -168,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */,
-				43224E0528E1BF210013A829 /* UIColor + Extension.swift */,
 				43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */,
 				43CDEAF428E321A900D059AE /* ChildPlayerViewController.swift */,
 			);

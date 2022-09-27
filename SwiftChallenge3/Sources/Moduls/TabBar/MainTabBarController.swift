@@ -41,7 +41,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
     
     //MARK: - Methods
-  
+    
     ///Функция установки мини-плеера.
     func setupMiniPlayer() {
         view.addSubview(containerView)
@@ -100,7 +100,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
 //MARK: - Extension PlayerView Delegate
 extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
-    func presentPlayerView() {
+    func presentPlayerVC() {
         let vc = ChildPlayerViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)

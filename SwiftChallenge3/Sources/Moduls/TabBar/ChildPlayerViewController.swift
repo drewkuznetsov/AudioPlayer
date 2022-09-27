@@ -7,6 +7,7 @@
 
 import UIKit
 
+//TODO: - Это вью удалим когда будет кнопка диссмисс в PlayerViewController.
 class ChildPlayerViewController: UIViewController {
     
     var dismissButton: UIButton = {

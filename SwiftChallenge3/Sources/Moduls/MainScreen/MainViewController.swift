@@ -33,8 +33,8 @@ class MainViewController: UIViewController {
         configureTableView()
         setupUI()
     }
-    //Создаём таблицу на всю вью.
-    var SongTableView: UITableView = {
+    //Создаём таблицу на весь фрейм Вью.
+   private lazy var SongTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.separatorColor = .clear
@@ -55,8 +55,9 @@ class MainViewController: UIViewController {
         self.view.addSubview(SongTableView)
         
         SongTableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(90)
+//            make.bottom.equalToSuperview()
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
@@ -82,13 +83,23 @@ class MainViewController: UIViewController {
 extension MainViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Did tap on \(playlist.tracks.count)")
+        print("Did tap on \(playlist.tracks.count) in MainViewController" )
     }
     
 }
 
 //MARK: - Table DataSource
 extension MainViewController : UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let naming = SongTableSection(rawValue: 0)
+//        if section == 0 {
+//            return SongTableSection.madeForYou.title
+//        } else if section == 1 {
+//            return SongTableSection.recently.title
+//        } else {
+//            return "Another Track"
+//        }
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }

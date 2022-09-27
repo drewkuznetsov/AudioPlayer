@@ -11,7 +11,7 @@ import SwiftUI
 import AVFoundation
 
 protocol MiniPlayerDelegate {
-    func presentPlayerView()
+    func presentPlayerVC()
     func hidePlayerView()
 }
 
@@ -82,7 +82,7 @@ class MiniPlayerViewController: UIViewController {
     }()
     
     ///Создаем лейбл имени артиста трека.
-    private let artistNameLabel: UILabel = {
+    private lazy var artistNameLabel: UILabel = {
         let view = UILabel()
         view.text = "Artist Name"
         view.numberOfLines = 1
@@ -198,37 +198,6 @@ class MiniPlayerViewController: UIViewController {
         player.replaceCurrentItem(with: playerItem)
         player.play()
     }
-    
-    //MARK: - Objc func
-    ///Замечает тап по контейнер-вью и показывает детальное представление трека.
-    @objc func tapDetected() {
-        // 3
-        guard let delegate = delegate else { return }
-        delegate.presentPlayerView()
-    }
-    
-    @objc private func didSwipeUp(_ sender: UISwipeGestureRecognizer) {
-        guard let delegate = delegate else { return }
-        delegate.presentPlayerView()
-    }
-    ///Свайп вклчающий следующий трек.
-    @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
-        makeLeftAnimation()
-    }
-    ///Свайп вклчающий предыдущий трек.
-    @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
-        makeRightAnimation()
-    }
-    ///Свайп скрывающий мини-плеер
-    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
-        // Current Frame
-           var frame = view.frame
-           // New Frame
-           frame.origin.y += 200
-           UIView.animate(withDuration: 0.25) {
-               self.view.frame = frame
-           }
-    }
     ///Анимация свайпа трека в левую сторону.
     private func makeLeftAnimation() {
         var frame = labelStackView.frame
@@ -237,7 +206,7 @@ class MiniPlayerViewController: UIViewController {
         }
         frame.origin.x -= 400
         UIView.animate(withDuration: 0.6) {
-        
+            
             self.labelStackView.frame = frame
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
@@ -259,6 +228,38 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     
+    //MARK: - Objc Gesture Methods
+    ///Замечает тап по контейнер-вью и показывает детальное представление трека.
+    @objc func tapDetected() {
+        // 3
+        guard let delegate = delegate else { return }
+        delegate.presentPlayerVC()
+    }
+    
+    @objc private func didSwipeUp(_ sender: UISwipeGestureRecognizer) {
+        guard let delegate = delegate else { return }
+        delegate.presentPlayerVC()
+    }
+    ///Свайп вклчающий следующий трек.
+    @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
+        makeLeftAnimation()
+    }
+    ///Свайп вклчающий предыдущий трек.
+    @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
+        makeRightAnimation()
+    }
+    ///Свайп скрывающий мини-плеер
+    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+        // Current Frame
+        var frame = view.frame
+        // New Frame
+        frame.origin.y += 200
+        UIView.animate(withDuration: 0.25) {
+            self.view.frame = frame
+        }
+    }
+    
+    //MARK: - Objc Buttons Methods
     ///Замечает тап по кнопке плэй.
     @objc func playPauseAction() {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
@@ -270,7 +271,6 @@ class MiniPlayerViewController: UIViewController {
             pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
     }
-    
     ///Кнопка. Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
         makeLeftAnimation()
