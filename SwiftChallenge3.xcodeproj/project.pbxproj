@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43224E0528E1BF210013A829 /* UIColor + Extension.swift */; };
-		43AB30D428E19C57003B2ABE /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AB30D328E19C57003B2ABE /* TrackView.swift */; };
 		43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7528DE1D0700F44109 /* MainSongCell.swift */; };
 		43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */; };
 		43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		43224E0528E1BF210013A829 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
-		43AB30D328E19C57003B2ABE /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
 		43B40E7528DE1D0700F44109 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
 		43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				E465C24C28DB7371008CC3E0 /* MainViewController.swift */,
 				43B40E7528DE1D0700F44109 /* MainSongCell.swift */,
 				43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */,
-				43AB30D328E19C57003B2ABE /* TrackView.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -296,7 +293,6 @@
 				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
 				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
-				43AB30D428E19C57003B2ABE /* TrackView.swift in Sources */,
 				43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */,
 				43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */,
 				43CDEAF528E321A900D059AE /* ChildPlayerViewController.swift in Sources */,

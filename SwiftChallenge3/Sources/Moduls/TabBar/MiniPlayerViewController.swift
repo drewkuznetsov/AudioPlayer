@@ -22,6 +22,7 @@ class MiniPlayerViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.mainWhite
+        view.layer.cornerRadius = 16
         configureUI()
         setupConstraints()
         // add a tap gesture
@@ -145,8 +146,8 @@ class MiniPlayerViewController: UIViewController {
         }
         
         сontrollersStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(16)
-            make.trailing.equalTo(view.snp.trailing)
+            make.top.equalTo(view.snp.top).offset(18)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
     }
     

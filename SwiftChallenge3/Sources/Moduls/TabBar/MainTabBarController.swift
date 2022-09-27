@@ -8,25 +8,27 @@
 import UIKit
 import SwiftUI
 class MainTabBarController: UITabBarController, MiniPlayerDelegate {
-    
+    //MARK: - Let / var
     let trackView = TrackView()
     let miniPlayer = MiniPlayerViewController()
-    var containerView : UIView = {
+    
+  private lazy var containerView : UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
+      uiView.layer.cornerRadius = 32
         return uiView
     }()
        
-    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         view.backgroundColor = .white
         self.tabBar.tintColor = .purple
         
         setTapBarApppearance()
         setupMiniPlayer()
+        
         viewControllers = [
             generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
@@ -39,12 +41,14 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         miniPlayer.delegate = self
     }
     
+    //MARK: - Methods
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerView() {
             let vc = ChildPlayerViewController()
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true)
         }
+    
     ///Функция установки мини-плеера.
     func setupMiniPlayer() {
         view.addSubview(containerView)
@@ -66,13 +70,12 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     func setConstraints() {
         containerView.snp.makeConstraints { make in
             let safeArea = view.safeAreaLayoutGuide.snp
-            
+
             make.leading.equalTo(safeArea.leading)
             make.trailing.equalTo(safeArea.trailing)
-            make.bottom.equalTo(tabBar.snp.top)
+            make.bottom.equalTo(tabBar.snp.top).offset(-16)
             make.height.equalTo(64)
         }
-        
         miniPlayer.view.snp.makeConstraints { make in
             make.leading.equalTo(containerView.snp.leading)
             make.trailing.equalTo(containerView.snp.trailing)
@@ -80,28 +83,6 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
             make.bottom.equalTo(containerView.snp.bottom)
         }
         }
-    
-    func setTrackView() {
-        let positionOnX: CGFloat = 10
-        let positionOnY: CGFloat = 14
-        let width = tabBar.bounds.width - positionOnX * 2
-        let height = tabBar.bounds.height + positionOnY
-        let roundLayer = CAShapeLayer()
-        
-        let bezierPath = UIBezierPath(
-            roundedRect: CGRect(
-                x: positionOnX,
-                y: trackView.frame.minY - positionOnY,
-                width: width * 2, height: height * 2),
-            cornerRadius: 60)
-        
-        trackView.layer.insertSublayer(roundLayer, at: 1)
-        roundLayer.path = bezierPath.cgPath
-        
-        ///Цвета Вью.
-        roundLayer.fillColor = UIColor.tabBarItemAccent.cgColor
-        
-    }
     ///Создаёт закруглённый тап-бар
     private func setTapBarApppearance() {
         let positionOnX: CGFloat = 10
