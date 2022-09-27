@@ -21,7 +21,7 @@ class MiniPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.mainWhite
+        view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
         configureUI()
         setupConstraints()
@@ -84,32 +84,29 @@ class MiniPlayerViewController: UIViewController {
     //Создаем кнопки управления треками для воспроизведения музыки.
     ///Создаем кнопку предыдущего трека.
     private lazy var leftBackwardButton: UIButton = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
         let leftButton = UIButton()
-        leftButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        leftButton.setImage(UIImage(systemName: "backward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         leftButton.tintColor = .black
         leftButton.addTarget(self, action: #selector(self.previousTrack), for: .touchUpInside)
-        leftButton.translatesAutoresizingMaskIntoConstraints = false
         return leftButton
     } ()
     ///Создаем кнопку предыдущего трека.
     private lazy var rightBackwardButton: UIButton = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
         let rightButton = UIButton()
-        rightButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
-        rightButton.configuration?.buttonSize = .large
-        rightButton.configuration?.imagePadding = 25
+        rightButton.setImage(UIImage(systemName: "forward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         rightButton.tintColor = .black
         rightButton.addTarget(self, action: #selector(self.nextTrack), for: .touchUpInside)
-        
-        rightButton.translatesAutoresizingMaskIntoConstraints = false
         return rightButton
     } ()
     ///Создаем кнопку приостановки / плэя трека.
     private lazy var pauseButton: UIButton = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
         let pauseButton = UIButton()
-        pauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         pauseButton.tintColor = .black
         pauseButton.addTarget(self, action: #selector(self.playPauseAction), for: .touchUpInside)
-        pauseButton.translatesAutoresizingMaskIntoConstraints = false
         return pauseButton
     } ()
     
@@ -146,7 +143,7 @@ class MiniPlayerViewController: UIViewController {
         }
         
         сontrollersStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(18)
+            make.top.equalTo(view.snp.top).offset(25)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
         }
     }
@@ -160,7 +157,6 @@ class MiniPlayerViewController: UIViewController {
     }
     
     //MARK: - Objc func
-    
     ///Замечает тап по контейнер-вью и показывает детальное представление трека.
     @objc func tapDetected() {
         // 3

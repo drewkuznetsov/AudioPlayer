@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
         TrackModel(trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
     ])
+    
     var trackArray = [TrackModel]() {
         didSet {
             self.SongTableView.reloadData()
@@ -27,7 +28,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //        self.view = self.SongTableView
-        navigationItem.title = "iTunes"
+        navigationItem.title = "Айтюнс"
         navigationController?.navigationBar.prefersLargeTitles = true
         configureTableView()
         setupUI()
@@ -47,6 +48,7 @@ class MainViewController: UIViewController {
         SongTableView.delegate = self
         SongTableView.dataSource = self
     }
+    
     ///Добавление Таблицы в MainVC.
     private func setupUI() {
         self.overrideUserInterfaceStyle = .light
@@ -54,11 +56,10 @@ class MainViewController: UIViewController {
         
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-70)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
-        
     }
     
     //Кейсы
@@ -131,35 +132,8 @@ extension MainViewController : UITableViewDataSource {
             }
         }()
         
-        //        let cinemaType: CinemaType = {
-        //            switch section {
-        //            case .popularMovie:
-        //                return .films
-        //            case .tvShos:
-        //                return .tvShows
-        //            case .favourites:
-        //                return .films
-        //            }
-        //        }()
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as! MainSongCell
-        
         cell.trackArray = song
-        
-        //        cell.SongTableSection = {
-        //            if section == .favourites {
-        //                return self.favoriteFilmsArray.map { $0.type }
-        //            } else {
-        //                return []
-        //            }
-        //        }()
-        
-        //        cell.cinemaType = cinemaType
-        //        cell.headerLabel.text = section.title
-        //        cell.onFilmTap = {
-        //            [weak self] type, filmID in
-        //            self?.toNextVC?(type, filmID)
-        //        }
         return cell
         
     }

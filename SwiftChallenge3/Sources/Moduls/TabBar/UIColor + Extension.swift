@@ -17,4 +17,7 @@ extension UIColor {
     static var tabBarItemLight : UIColor {
         #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
     }
+    static var anotherWhite : UIColor {
+        #colorLiteral(red: 0.9713905454, green: 0.947568953, blue: 0.9777812362, alpha: 0.8627970108)
+    }
 }

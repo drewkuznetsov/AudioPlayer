@@ -28,6 +28,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         setTapBarApppearance()
         setupMiniPlayer()
         
+        ///Задаём 4 кнопки вью-контроллера в тап-бар.
         viewControllers = [
             generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
@@ -60,11 +61,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
         navigationVC.tabBarItem.title = titelVC
         navigationVC.navigationBar.prefersLargeTitles = true
-        
         return navigationVC
     }
     
-    
+    ///Устанавливаем констрейны для контейнер-вью и мини-плеера внутри него.
     func setConstraints() {
         containerView.snp.makeConstraints { make in
             let safeArea = view.safeAreaLayoutGuide.snp
@@ -95,7 +95,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         
         tabBar.itemWidth = width / 5
-        tabBar.itemPositioning = .centered
+        tabBar.itemPositioning = .automatic
         
         ///Цвета тап-бара.
         roundLayer.fillColor = UIColor.mainWhite.cgColor
