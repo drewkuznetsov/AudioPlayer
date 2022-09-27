@@ -213,9 +213,11 @@ class MiniPlayerViewController: UIViewController {
     }
     ///Свайп вклчающий следующий трек.
     @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
+        makeLeftAnimation()
     }
     ///Свайп вклчающий предыдущий трек.
     @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
+        makeRightAnimation()
     }
     ///Свайп скрывающий мини-плеер
     @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
@@ -226,6 +228,35 @@ class MiniPlayerViewController: UIViewController {
            UIView.animate(withDuration: 0.25) {
                self.view.frame = frame
            }
+    }
+    ///Анимация свайпа трека в левую сторону.
+    private func makeLeftAnimation() {
+        var frame = labelStackView.frame
+        UIView.animate(withDuration: 0.25) {
+            self.labelStackView.alpha = 0.1
+        }
+        frame.origin.x -= 400
+        UIView.animate(withDuration: 0.6) {
+        
+            self.labelStackView.frame = frame
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
+            labelStackView.alpha = 1
+            labelStackView.frame.origin.x += 400
+        }
+    }
+    ///Анимация свайпа трека в правую сторону.
+    private func makeRightAnimation() {
+        var frame = labelStackView.frame
+        frame.origin.x += 400
+        UIView.animate(withDuration: 0.6) {
+            self.labelStackView.alpha = 0.1
+            self.labelStackView.frame = frame
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
+            labelStackView.alpha = 1
+            labelStackView.frame.origin.x -= 400
+        }
     }
     
     ///Замечает тап по кнопке плэй.
@@ -240,11 +271,12 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     
-    ///Замечает тап по кнопке предыдущего трека.
+    ///Кнопка. Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
+        makeLeftAnimation()
     }
-    ///Замечает тап по кнопке следующего трека..
+    ///Кнопка. Замечает тап по кнопке следующего трека.
     @objc func nextTrack() {
-        
+        makeRightAnimation()
     }
 }
