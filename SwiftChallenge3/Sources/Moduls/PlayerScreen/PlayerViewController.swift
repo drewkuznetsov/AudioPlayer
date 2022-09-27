@@ -194,12 +194,26 @@ class PlayerViewController: UIViewController {
         return soundMax
     } ()
 
+    private lazy var addFavoritBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "heart.circle"),
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(buttonTapped))
+
+        return barButton
+    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.rightBarButtonItem = addFavoritBarButton
         setupView()
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
 
     private func setupView() {
@@ -275,8 +289,11 @@ class PlayerViewController: UIViewController {
         player.play()
     }
 
+    @objc func buttonTapped(sender: UIBarButtonItem!) {
 
-    @objc func playPauseAction(sender: AnyObject) {
+    }
+
+    @objc func playPauseAction(_ sender: Any) {
 
         if player.timeControlStatus == .paused {
             player.play()
@@ -286,6 +303,7 @@ class PlayerViewController: UIViewController {
             pauseButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
+
     @objc func previousTrack() {
 
     }
@@ -316,7 +334,7 @@ extension UIButton {
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 3,
+                       initialSpringVelocity: 4,
                        options: [.curveEaseInOut],
                        animations: {
             button.transform = transform
