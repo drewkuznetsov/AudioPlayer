@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import AVFoundation
 
 protocol MiniPlayerDelegate {
     func presentPlayerView()
@@ -16,6 +17,11 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
+    let player: AVPlayer = {
+        let avPlayer = AVPlayer()
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
+        return avPlayer
+    }()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -88,6 +94,7 @@ class MiniPlayerViewController: UIViewController {
         let leftButton = UIButton()
         leftButton.setImage(UIImage(systemName: "backward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         leftButton.tintColor = .black
+        leftButton.startAnimatingPressActions()
         leftButton.addTarget(self, action: #selector(self.previousTrack), for: .touchUpInside)
         return leftButton
     } ()
@@ -97,6 +104,7 @@ class MiniPlayerViewController: UIViewController {
         let rightButton = UIButton()
         rightButton.setImage(UIImage(systemName: "forward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         rightButton.tintColor = .black
+        rightButton.startAnimatingPressActions()
         rightButton.addTarget(self, action: #selector(self.nextTrack), for: .touchUpInside)
         return rightButton
     } ()
@@ -106,6 +114,7 @@ class MiniPlayerViewController: UIViewController {
         let pauseButton = UIButton()
         pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         pauseButton.tintColor = .black
+        pauseButton.startAnimatingPressActions()
         pauseButton.addTarget(self, action: #selector(self.playPauseAction), for: .touchUpInside)
         return pauseButton
     } ()
@@ -156,6 +165,13 @@ class MiniPlayerViewController: UIViewController {
         artistNameLabel.text = track.artistName
     }
     
+    private func playTrack(previewURL: String?) {
+        guard let url = URL(string: previewURL ?? "") else { return }
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
+    }
+    
     //MARK: - Objc func
     ///Замечает тап по контейнер-вью и показывает детальное представление трека.
     @objc func tapDetected() {
@@ -166,8 +182,16 @@ class MiniPlayerViewController: UIViewController {
     
     ///Замечает тап по кнопке плэй.
     @objc func playPauseAction() {
-        
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
+        if player.timeControlStatus == .paused {
+            player.play()
+            pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
+        } else {
+            player.pause()
+            pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
+        }
     }
+    
     ///Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
         

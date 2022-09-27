@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
         
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-70)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
