@@ -31,6 +31,7 @@ class ListViewController: UITableViewController {
         let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
         sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
         self.navigationItem.rightBarButtonItem  = sortButtonItem
+        title = "Плейлист"
     }
     
     func configurePlaylist(_ playlist: PlayListModel) {

@@ -41,6 +41,13 @@ class TrackTableViewCell: UITableViewCell {
         view.font = .systemFont(ofSize: 14, weight: .light)
         return view
     }()
+    private lazy var favoriteButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "heart"), for: .normal)
+        view.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,22 +71,39 @@ class TrackTableViewCell: UITableViewCell {
         stackView.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(25)
             make.left.equalTo(trackImageView.snp.right).offset(15)
-            make.right.equalTo(contentView.snp.right).offset(-10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-25)
+            make.right.equalTo(favoriteButton.snp.left).offset(-10)
+            make.bottom.equalTo(contentView).offset(-25)
+        }
+
+        favoriteButton.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(10)
+            make.width.equalTo(50)
+            make.right.equalTo(contentView).offset(-10)
+            make.bottom.equalTo(contentView).offset(-10)
         }
     }
     
     private func configureUI() {
         contentView.addSubview(trackImageView)
         contentView.addSubview(stackView)
+        contentView.addSubview(favoriteButton)
         stackView.addArrangedSubview(trackNameLabel)
         stackView.addArrangedSubview(artistNameLabel)
+    }
+    
+    @objc private func favoriteButtonPressed(sender: UIButton!) {
+        if favoriteButton.image(for: .normal) == UIImage(systemName: "heart") {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
     }
     
     func configure(_ track: TrackModel) {
         if let coverURL = track.coverURL {
             trackImageView.downloadedFrom(link: coverURL)
         }
+        trackImageView.image = UIImage(named: "test")
         trackNameLabel.text = track.trackName
         artistNameLabel.text = track.artistName
     }
