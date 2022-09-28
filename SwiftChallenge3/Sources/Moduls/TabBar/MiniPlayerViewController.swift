@@ -18,7 +18,8 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
-var playerVC = PlayerViewController()
+    #warning("тут ты создавал новй экземпляр который нигде больше не существовал кроме как этого класса, а нам нужно было обращаться к тому плееру который в таббаре")
+//    var playerVC = PlayerViewController()
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -31,7 +32,8 @@ var playerVC = PlayerViewController()
         
         view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
-        playerVC.delegate = self
+        #warning("тут ты присваивал новый экземпляр а нужно было тот который у нас в таббаре")
+//        playerVC.delegate = self
         //setup Views
         configureUI()
         setupConstraints()
@@ -199,7 +201,7 @@ var playerVC = PlayerViewController()
         player.play()
     }
     ///Анимация свайпа трека в левую сторону.
-     func makeLeftAnimation() {
+    func makeLeftAnimation() {
         var frame = labelStackView.frame
         UIView.animate(withDuration: 0.25) {
             self.labelStackView.alpha = 0.1
@@ -215,7 +217,7 @@ var playerVC = PlayerViewController()
         }
     }
     ///Анимация свайпа трека в правую сторону.
-     func makeRightAnimation() {
+    func makeRightAnimation() {
         var frame = labelStackView.frame
         frame.origin.x += 400
         UIView.animate(withDuration: 0.6) {
@@ -293,7 +295,7 @@ extension MiniPlayerViewController : ChangeTrackDelegate {
         print("Пауза.Стоп делегата .")
         playPauseAction()
     }
-   
+    
     func previousTrackD() {
         print("Выполнена анимация делегата смахивание трека влево.")
         makeLeftAnimation()

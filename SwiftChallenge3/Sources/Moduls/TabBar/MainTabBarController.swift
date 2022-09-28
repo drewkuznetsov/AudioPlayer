@@ -35,7 +35,6 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
             generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
             generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
         ]
-        
         setConstraints()
         miniPlayer.delegate = self
     }
@@ -51,6 +50,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
     
     private func generateViewController(rootViewController: UIViewController, imageVC: String, titelVC: String) -> UIViewController {
+        #warning("здесь я нахожу наш плеер, делаю каст и потом к нему присваиваю наш мини плеер, они оба существуют в таббаре и оба друг с другом связаны")
+        if let player = rootViewController as? PlayerViewController {
+            player.delegate = miniPlayer
+        }
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
         navigationVC.tabBarItem.title = titelVC
