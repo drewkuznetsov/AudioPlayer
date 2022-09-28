@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class PlayerViewController: UIViewController {
 
@@ -59,6 +60,7 @@ class PlayerViewController: UIViewController {
         leftButton.setImage(UIImage(named: "Left"), for: .normal)
         leftButton.addTarget(self, action: #selector(self.previousTrack), for: .touchUpInside)
         leftButton.translatesAutoresizingMaskIntoConstraints = false
+        leftButton.startAnimatingPressActions()
         return leftButton
     } ()
 
@@ -67,14 +69,17 @@ class PlayerViewController: UIViewController {
         rightButton.setImage(UIImage(named: "Right"), for: .normal)
         rightButton.addTarget(self, action: #selector(self.nextTrack), for: .touchUpInside)
         rightButton.translatesAutoresizingMaskIntoConstraints = false
+        rightButton.startAnimatingPressActions()
         return rightButton
     } ()
 
     private lazy var pauseButton: UIButton = {
         let pauseButton = UIButton()
-        pauseButton.setImage(UIImage(named: "pause1"), for: .normal)
+        pauseButton.setImage(UIImage(named: "pause"), for: .normal)
         pauseButton.addTarget(self, action: #selector(self.playPauseAction), for: .touchUpInside)
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        pauseButton.startAnimatingPressActions()
+
         return pauseButton
     } ()
 
@@ -95,15 +100,15 @@ class PlayerViewController: UIViewController {
     }()
 
     // создаем стек для слайдера и стека с минутами
-        private lazy var stackTimerView: UIStackView = {
-            let stackTimer = UIStackView()
-            stackTimer.axis = .vertical
-            stackTimer.spacing = 15
-            stackTimer.distribution = .fillEqually
-            stackTimer.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var stackTimerView: UIStackView = {
+        let stackTimer = UIStackView()
+        stackTimer.axis = .vertical
+        stackTimer.spacing = 15
+        stackTimer.distribution = .fillEqually
+        stackTimer.translatesAutoresizingMaskIntoConstraints = false
 
-            return stackTimer
-        } ()
+        return stackTimer
+    } ()
 
     // создаем стек для слайдера громкости
     private lazy var stackSoundView: UIStackView = {
@@ -189,12 +194,26 @@ class PlayerViewController: UIViewController {
         return soundMax
     } ()
 
+    private lazy var addFavoritBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "heart.circle"),
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(buttonTapped))
+
+        return barButton
+    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.rightBarButtonItem = addFavoritBarButton
         setupView()
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
 
     private func setupView() {
@@ -256,10 +275,33 @@ class PlayerViewController: UIViewController {
 
         ])
     }
-//MARK: - Navigation
+    //MARK: - Navigation
+    let player: AVPlayer = {
+        let avPlayer = AVPlayer()
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
+        return avPlayer
+    }()
 
-    @objc func playPauseAction() {
+    private func playTrack(previewURL: String?) {
+        guard let url = URL(string: previewURL ?? "") else { return }
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
+    }
 
+    @objc func buttonTapped(sender: UIBarButtonItem!) {
+
+    }
+
+    @objc func playPauseAction(_ sender: Any) {
+
+        if player.timeControlStatus == .paused {
+            player.play()
+            pauseButton.setImage(UIImage(named: "pause"), for: .normal)
+        } else {
+            player.pause()
+            pauseButton.setImage(UIImage(named: "play"), for: .normal)
+        }
     }
 
     @objc func previousTrack() {
@@ -267,6 +309,36 @@ class PlayerViewController: UIViewController {
     }
 
     @objc func nextTrack() {
+
+    }
+
+}
+//MARK: - Extension
+
+extension UIButton {
+
+    func startAnimatingPressActions() {
+        addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
+        addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
+    }
+
+    @objc private func animateDown(sender: UIButton) {
+        animate(sender, transform: CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2))
+    }
+
+    @objc private func animateUp(sender: UIButton) {
+        animate(sender, transform: .identity)
+    }
+
+    private func animate(_ button: UIButton, transform: CGAffineTransform) {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 4,
+                       options: [.curveEaseInOut],
+                       animations: {
+            button.transform = transform
+        }, completion: nil)
 
     }
 

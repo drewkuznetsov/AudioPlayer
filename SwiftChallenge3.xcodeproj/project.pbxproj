@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43224E0528E1BF210013A829 /* UIColor + Extension.swift */; };
+		43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7528DE1D0700F44109 /* MainSongCell.swift */; };
+		43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */; };
+		43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */; };
+		43CDEAF528E321A900D059AE /* ChildPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF428E321A900D059AE /* ChildPlayerViewController.swift */; };
 		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
@@ -27,6 +32,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43224E0528E1BF210013A829 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
+		43B40E7528DE1D0700F44109 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
+		43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
+		43CDEAF428E321A900D059AE /* ChildPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildPlayerViewController.swift; sourceTree = "<group>"; };
 		A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43CDEAF628E3983D00D059AE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				43224E0528E1BF210013A829 /* UIColor + Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		E465C21E28DB6B44008CC3E0 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +139,7 @@
 			children = (
 				E465C24A28DB70A4008CC3E0 /* Supporting */,
 				E465C24428DB6C35008CC3E0 /* Services */,
+				43CDEAF628E3983D00D059AE /* Extension */,
 				E465C24128DB6BD7008CC3E0 /* Moduls */,
 				E465C23E28DB6BB9008CC3E0 /* Controllers */,
 			);
@@ -158,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */,
+				43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */,
+				43CDEAF428E321A900D059AE /* ChildPlayerViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -166,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				E465C24C28DB7371008CC3E0 /* MainViewController.swift */,
+				43B40E7528DE1D0700F44109 /* MainSongCell.swift */,
+				43B40E7728DE1D2100F44109 /* CollectionViewCell.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -277,7 +300,12 @@
 				E4B1B3E728DDF4CE00F57483 /* ImageDownload.swift in Sources */,
 				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
+				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
+				43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */,
+				43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */,
+				43CDEAF528E321A900D059AE /* ChildPlayerViewController.swift in Sources */,
 				E465C26628DC718D008CC3E0 /* PlayListModel.swift in Sources */,
+				43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */,
 				E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */,
 				E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */,
 				E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */,
