@@ -98,6 +98,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
 }
 //MARK: - Extension PlayerView Delegate
+//TODO: - Делегат
 extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {

@@ -18,7 +18,7 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
-    
+var playerVC = PlayerViewController()
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -31,7 +31,7 @@ class MiniPlayerViewController: UIViewController {
         
         view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
-        
+        playerVC.delegate = self
         //setup Views
         configureUI()
         setupConstraints()
@@ -199,7 +199,7 @@ class MiniPlayerViewController: UIViewController {
         player.play()
     }
     ///Анимация свайпа трека в левую сторону.
-    private func makeLeftAnimation() {
+     func makeLeftAnimation() {
         var frame = labelStackView.frame
         UIView.animate(withDuration: 0.25) {
             self.labelStackView.alpha = 0.1
@@ -215,7 +215,7 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     ///Анимация свайпа трека в правую сторону.
-    private func makeRightAnimation() {
+     func makeRightAnimation() {
         var frame = labelStackView.frame
         frame.origin.x += 400
         UIView.animate(withDuration: 0.6) {
@@ -273,10 +273,35 @@ class MiniPlayerViewController: UIViewController {
     }
     ///Кнопка. Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
+        print("left animation")
         makeLeftAnimation()
     }
     ///Кнопка. Замечает тап по кнопке следующего трека.
     @objc func nextTrack() {
+        print("right animation")
         makeRightAnimation()
     }
+}
+
+extension MiniPlayerViewController : ChangeTrackDelegate {
+    func nextTrackD() {
+        print("Выполнена анимация делегата смахивание трека вправо.")
+        makeRightAnimation()
+    }
+    
+    func playPauseActionD() {
+        print("Пауза.Стоп делегата .")
+        playPauseAction()
+    }
+   
+    func previousTrackD() {
+        print("Выполнена анимация делегата смахивание трека влево.")
+        makeLeftAnimation()
+    }
+    
+    
+    
+    
+    
+    
 }

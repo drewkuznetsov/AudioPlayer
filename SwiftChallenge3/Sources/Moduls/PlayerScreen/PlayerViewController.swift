@@ -8,8 +8,14 @@
 import UIKit
 import AVKit
 
-class PlayerViewController: UIViewController {
+protocol ChangeTrackDelegate {
+    func nextTrackD()
+    func playPauseActionD()
+    func previousTrackD()
+}
 
+class PlayerViewController: UIViewController {
+    var delegate : ChangeTrackDelegate?
     //MARK: - View
     //создаем стек для всего отображаемого контента
     private lazy var stackView: UIStackView = {
@@ -255,7 +261,7 @@ class PlayerViewController: UIViewController {
             self.stackView.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
 
 
             self.stackTimerView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
@@ -292,9 +298,10 @@ class PlayerViewController: UIViewController {
     @objc func buttonTapped(sender: UIBarButtonItem!) {
 
     }
-
+    //TODO: - Делегат
     @objc func playPauseAction(_ sender: Any) {
-
+        guard let delegate = delegate else { return }
+        delegate.playPauseActionD()
         if player.timeControlStatus == .paused {
             player.play()
             pauseButton.setImage(UIImage(named: "pause"), for: .normal)
@@ -303,13 +310,19 @@ class PlayerViewController: UIViewController {
             pauseButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
-
+//TODO: - Делегат
     @objc func previousTrack() {
-
+        print("Тык перед Превиус")
+        guard let delegate = delegate else { return }
+        print("Тык после Превиус")
+        delegate.previousTrackD()
     }
 
     @objc func nextTrack() {
-
+        print("Тык перед Некстстеп")
+       
+        print("Тык после Некстеп")
+        delegate?.nextTrackD()
     }
 
 }
