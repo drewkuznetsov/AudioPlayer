@@ -50,7 +50,6 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
     
     private func generateViewController(rootViewController: UIViewController, imageVC: String, titelVC: String) -> UIViewController {
-        #warning("здесь я нахожу наш плеер, делаю каст и потом к нему присваиваю наш мини плеер, они оба существуют в таббаре и оба друг с другом связаны")
         if let player = rootViewController as? PlayerViewController {
             player.delegate = miniPlayer
         }
@@ -101,12 +100,11 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
 }
 //MARK: - Extension PlayerView Delegate
-//TODO: - Делегат
 extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
-        let vc = ChildPlayerViewController()
-        vc.modalPresentationStyle = .fullScreen
+        let vc = PlayerViewController()
+        vc.modalPresentationStyle = .formSheet
         present(vc, animated: true)
     }
     ///Скрытие Мини-плэера.

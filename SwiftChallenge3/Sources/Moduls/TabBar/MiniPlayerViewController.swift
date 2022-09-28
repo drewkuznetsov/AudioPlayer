@@ -18,8 +18,6 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
-    #warning("тут ты создавал новй экземпляр который нигде больше не существовал кроме как этого класса, а нам нужно было обращаться к тому плееру который в таббаре")
-//    var playerVC = PlayerViewController()
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -32,8 +30,6 @@ class MiniPlayerViewController: UIViewController {
         
         view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
-        #warning("тут ты присваивал новый экземпляр а нужно было тот который у нас в таббаре")
-//        playerVC.delegate = self
         //setup Views
         configureUI()
         setupConstraints()
