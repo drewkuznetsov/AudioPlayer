@@ -315,7 +315,7 @@ class PlayerViewController: UIViewController {
         view.addGestureRecognizer(swipeGestureRecognizerDown)
     }
     
-  
+    
     
     //MARK: - Navigation
     let player: AVPlayer = {
@@ -359,7 +359,7 @@ class PlayerViewController: UIViewController {
     }
     ///Скрытие Вью-контроллера.
     @objc func dismissButtonTapped() {
-        print("Dismiss Button Pressed ")
+        print("Dismiss Button Pressed")
         self.dismiss(animated: true)
     }
     
