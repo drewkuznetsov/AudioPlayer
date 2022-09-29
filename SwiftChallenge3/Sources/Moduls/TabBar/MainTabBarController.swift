@@ -91,10 +91,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         
         tabBar.itemWidth = width / 5
-        tabBar.itemPositioning = .automatic
+        tabBar.itemPositioning = .fill
         
         ///Цвета тап-бара.
-        roundLayer.fillColor = UIColor.mainWhite.cgColor
+        roundLayer.fillColor = UIColor.anotherWhite.cgColor
         tabBar.tintColor = .tabBarItemAccent
         tabBar.unselectedItemTintColor = .tabBarItemLight
     }
@@ -104,7 +104,8 @@ extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
         let vc = PlayerViewController()
-        vc.modalPresentationStyle = .formSheet
+        vc.showDismissButton()
+        vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
     ///Скрытие Мини-плэера.

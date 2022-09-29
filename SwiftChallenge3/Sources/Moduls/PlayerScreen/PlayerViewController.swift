@@ -89,10 +89,24 @@ class PlayerViewController: UIViewController {
         return pauseButton
     } ()
     
+    ///Кнопка со стрелочкой скрывающая представление вью-контроллера.
+    private lazy var dismissButton: UIButton = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
+        let dismissButton = UIButton()
+        dismissButton.setImage(UIImage(systemName: "chevron.compact.down", withConfiguration: largeConfig), for: .normal)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        dismissButton.tintColor = .systemGray
+        dismissButton.isHidden = true
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        dismissButton.startAnimatingPressActions()
+        
+        return dismissButton
+    } ()
     
     //создаем слайдер времени
     private lazy var sliderTime: UISlider = {
         let slider = UISlider()
+        slider.tintColor = UIColor.tabBarItemLight
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
@@ -100,6 +114,7 @@ class PlayerViewController: UIViewController {
     //создаем слайдер громкости
     private lazy var sliderSound: UISlider = {
         let slider = UISlider()
+        slider.tintColor = UIColor.tabBarItemLight
         slider.value = 1
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
@@ -205,6 +220,7 @@ class PlayerViewController: UIViewController {
                                         style: .plain,
                                         target: self,
                                         action: #selector(buttonTapped))
+        barButton.tintColor = UIColor.tabBarItemLight
         
         return barButton
     }()
@@ -215,6 +231,7 @@ class PlayerViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = addFavoritBarButton
         setupView()
+        setupGestureRecognizer()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -222,9 +239,15 @@ class PlayerViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
+    public func showDismissButton() {
+        dismissButton.isHidden = false
+    }
+    
     private func setupView() {
+        
         view.addSubview(trackImageView)
         view.addSubview(stackView)
+        view.addSubview(dismissButton)
         
         stackView.addArrangedSubview(stackTimerView)
         stackView.addArrangedSubview(labelStackView)
@@ -252,6 +275,9 @@ class PlayerViewController: UIViewController {
     private func setupConstraintsActivate() {
         NSLayoutConstraint.activate([
             
+            self.dismissButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
+            self.dismissButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 60),
+            
             self.trackImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
             self.trackImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.trackImageView.heightAnchor.constraint(equalToConstant: 250),
@@ -261,7 +287,7 @@ class PlayerViewController: UIViewController {
             self.stackView.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -120),
             
             
             self.stackTimerView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
@@ -281,6 +307,16 @@ class PlayerViewController: UIViewController {
             
         ])
     }
+    ///Нижний свайп
+    private func setupGestureRecognizer() {
+        //Нижний свайп
+        let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
+        swipeGestureRecognizerDown.direction = .down
+        view.addGestureRecognizer(swipeGestureRecognizerDown)
+    }
+    
+  
+    
     //MARK: - Navigation
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
@@ -317,6 +353,14 @@ class PlayerViewController: UIViewController {
     @objc func nextTrack() {
         delegate?.nextTrackD()
     }
+    ///Свайп скрывающий детальное представление плеера.
+    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+        self.dismiss(animated: true)
+    }
+    ///Скрытие Вью-контроллера.
+    @objc func dismissButtonTapped() {
+        print("Dismiss Button Pressed ")
+        self.dismiss(animated: true)
+    }
     
 }
-
