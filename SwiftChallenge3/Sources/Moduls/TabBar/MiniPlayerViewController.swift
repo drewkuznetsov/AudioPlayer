@@ -172,8 +172,7 @@ class MiniPlayerViewController: UIViewController {
         view.addGestureRecognizer(swipeGestureRecognizerUp)
         //Нижний свайп
         let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
-        swipeGestureRecognizerDown.direction = .down
-        view.addGestureRecognizer(swipeGestureRecognizerDown)
+        swipeGestureRecognizerDown.direction = .down 
         //Левый свайп
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
         swipeGestureRecognizerDown.direction = .left
