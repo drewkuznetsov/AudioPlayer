@@ -9,9 +9,9 @@ import UIKit
 import AVKit
 
 protocol ChangeTrackDelegate {
-    func nextTrackD()
-    func playPauseActionD()
-    func previousTrackD()
+    func nextTrackDelegate()
+    func playPauseActionDelegate()
+    func previousTrackDelegate()
 }
 
 class PlayerViewController: UIViewController {
@@ -336,7 +336,7 @@ class PlayerViewController: UIViewController {
     }
     //TODO: - Делегат
     @objc func playPauseAction(_ sender: Any) {
-        delegate?.playPauseActionD()
+        delegate?.playPauseActionDelegate()
         if player.timeControlStatus == .paused {
             player.play()
             pauseButton.setImage(UIImage(named: "pause"), for: .normal)
@@ -347,11 +347,11 @@ class PlayerViewController: UIViewController {
     }
     //TODO: - Делегат
     @objc func previousTrack() {
-        delegate?.previousTrackD()
+        delegate?.previousTrackDelegate()
     }
     
     @objc func nextTrack() {
-        delegate?.nextTrackD()
+        delegate?.nextTrackDelegate()
     }
     ///Свайп скрывающий детальное представление плеера.
     @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {

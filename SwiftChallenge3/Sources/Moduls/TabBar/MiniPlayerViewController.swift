@@ -264,23 +264,23 @@ class MiniPlayerViewController: UIViewController {
     }
     ///Кнопка. Замечает тап по кнопке следующего трека.
     @objc func nextTrack() {
-        print("right animation")
+        print("Right animation")
         makeRightAnimation()
     }
 }
 
 extension MiniPlayerViewController : ChangeTrackDelegate {
-    func nextTrackD() {
+    func nextTrackDelegate() {
         print("Выполнена анимация делегата смахивание трека вправо.")
         makeRightAnimation()
     }
     
-    func playPauseActionD() {
+    func playPauseActionDelegate() {
         print("Пауза.Стоп делегата .")
         playPauseAction()
     }
     
-    func previousTrackD() {
+    func previousTrackDelegate() {
         print("Выполнена анимация делегата смахивание трека влево.")
         makeLeftAnimation()
     }
