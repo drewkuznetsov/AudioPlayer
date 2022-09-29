@@ -18,7 +18,7 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
-    
+    //Player аналогичный в PlayerVC.
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -31,7 +31,6 @@ class MiniPlayerViewController: UIViewController {
         
         view.backgroundColor = UIColor.anotherWhite
         view.layer.cornerRadius = 16
-        
         //setup Views
         configureUI()
         setupConstraints()
@@ -170,16 +169,13 @@ class MiniPlayerViewController: UIViewController {
         let swipeGestureRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeUp(_:)))
         swipeGestureRecognizerUp.direction = .up
         view.addGestureRecognizer(swipeGestureRecognizerUp)
-        //Нижний свайп
-        let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
-        swipeGestureRecognizerDown.direction = .down 
         //Левый свайп
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
-        swipeGestureRecognizerDown.direction = .left
+        swipeGestureRecognizerLeft.direction = .left
         view.addGestureRecognizer(swipeGestureRecognizerLeft)
         //Правый свайп
         let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
-        swipeGestureRecognizerDown.direction = .right
+        swipeGestureRecognizerRight.direction = .right
         view.addGestureRecognizer(swipeGestureRecognizerRight)
     }
     
@@ -198,7 +194,7 @@ class MiniPlayerViewController: UIViewController {
         player.play()
     }
     ///Анимация свайпа трека в левую сторону.
-    private func makeLeftAnimation() {
+    func makeLeftAnimation() {
         var frame = labelStackView.frame
         UIView.animate(withDuration: 0.25) {
             self.labelStackView.alpha = 0.1
@@ -214,7 +210,7 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     ///Анимация свайпа трека в правую сторону.
-    private func makeRightAnimation() {
+    func makeRightAnimation() {
         var frame = labelStackView.frame
         frame.origin.x += 400
         UIView.animate(withDuration: 0.6) {
@@ -247,16 +243,7 @@ class MiniPlayerViewController: UIViewController {
     @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
         makeRightAnimation()
     }
-    ///Свайп скрывающий мини-плеер
-    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
-        // Current Frame
-        var frame = view.frame
-        // New Frame
-        frame.origin.y += 200
-        UIView.animate(withDuration: 0.25) {
-            self.view.frame = frame
-        }
-    }
+    
     
     //MARK: - Objc Buttons Methods
     ///Замечает тап по кнопке плэй.
@@ -272,10 +259,35 @@ class MiniPlayerViewController: UIViewController {
     }
     ///Кнопка. Замечает тап по кнопке предыдущего трека.
     @objc func previousTrack() {
+        print("left animation")
         makeLeftAnimation()
     }
     ///Кнопка. Замечает тап по кнопке следующего трека.
     @objc func nextTrack() {
+        print("right animation")
         makeRightAnimation()
     }
+}
+
+extension MiniPlayerViewController : ChangeTrackDelegate {
+    func nextTrackD() {
+        print("Выполнена анимация делегата смахивание трека вправо.")
+        makeRightAnimation()
+    }
+    
+    func playPauseActionD() {
+        print("Пауза.Стоп делегата .")
+        playPauseAction()
+    }
+    
+    func previousTrackD() {
+        print("Выполнена анимация делегата смахивание трека влево.")
+        makeLeftAnimation()
+    }
+    
+    
+    
+    
+    
+    
 }

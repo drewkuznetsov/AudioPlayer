@@ -35,7 +35,6 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
             generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
             generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
         ]
-        
         setConstraints()
         miniPlayer.delegate = self
     }
@@ -51,6 +50,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     }
     
     private func generateViewController(rootViewController: UIViewController, imageVC: String, titelVC: String) -> UIViewController {
+        if let player = rootViewController as? PlayerViewController {
+            player.delegate = miniPlayer
+        }
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
         navigationVC.tabBarItem.title = titelVC
@@ -89,10 +91,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         
         tabBar.itemWidth = width / 5
-        tabBar.itemPositioning = .automatic
+        tabBar.itemPositioning = .fill
         
         ///Цвета тап-бара.
-        roundLayer.fillColor = UIColor.mainWhite.cgColor
+        roundLayer.fillColor = UIColor.anotherWhite.cgColor
         tabBar.tintColor = .tabBarItemAccent
         tabBar.unselectedItemTintColor = .tabBarItemLight
     }
@@ -101,8 +103,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
 extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
-        let vc = ChildPlayerViewController()
-        vc.modalPresentationStyle = .fullScreen
+        let vc = PlayerViewController()
+        vc.showDismissButton()
+        vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
     ///Скрытие Мини-плэера.
