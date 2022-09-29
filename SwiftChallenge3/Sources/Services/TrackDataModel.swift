@@ -8,6 +8,7 @@
 import Foundation
 
 struct Track: Decodable {
+    let trackId: Int
     let artistName: String
     let trackName: String
     let collectionName: String?
