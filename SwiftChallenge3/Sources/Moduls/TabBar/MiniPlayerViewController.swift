@@ -18,6 +18,7 @@ protocol MiniPlayerDelegate {
 class MiniPlayerViewController: UIViewController {
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
+    //Player аналогичный в PlayerVC.
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -168,17 +169,13 @@ class MiniPlayerViewController: UIViewController {
         let swipeGestureRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeUp(_:)))
         swipeGestureRecognizerUp.direction = .up
         view.addGestureRecognizer(swipeGestureRecognizerUp)
-        //Нижний свайп
-        let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
-        swipeGestureRecognizerDown.direction = .down
-        view.addGestureRecognizer(swipeGestureRecognizerDown)
         //Левый свайп
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
-        swipeGestureRecognizerDown.direction = .left
+        swipeGestureRecognizerLeft.direction = .left
         view.addGestureRecognizer(swipeGestureRecognizerLeft)
         //Правый свайп
         let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
-        swipeGestureRecognizerDown.direction = .right
+        swipeGestureRecognizerRight.direction = .right
         view.addGestureRecognizer(swipeGestureRecognizerRight)
     }
     
@@ -246,16 +243,7 @@ class MiniPlayerViewController: UIViewController {
     @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
         makeRightAnimation()
     }
-    ///Свайп скрывающий мини-плеер
-    @objc private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
-        // Current Frame
-        var frame = view.frame
-        // New Frame
-        frame.origin.y += 200
-        UIView.animate(withDuration: 0.25) {
-            self.view.frame = frame
-        }
-    }
+    
     
     //MARK: - Objc Buttons Methods
     ///Замечает тап по кнопке плэй.
