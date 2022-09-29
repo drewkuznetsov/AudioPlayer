@@ -30,6 +30,7 @@ class NetworkService {
                 if let trackResult = self.parseJSON(data) {
                     let tracks = trackResult.map { track in
                         return TrackModel(
+                            trackID: track.trackId, 
                             trackName: track.trackName,
                             artistName: track.artistName,
                             albumName: track.collectionName ?? "",
