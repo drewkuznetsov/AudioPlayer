@@ -60,7 +60,7 @@ extension ListViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(playList.tracks[indexPath.row])
+        cell.track = playList.tracks[indexPath.row]
         return cell
     }
 }
