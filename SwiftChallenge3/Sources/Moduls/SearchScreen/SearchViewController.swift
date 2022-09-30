@@ -62,7 +62,7 @@ class SearchViewController: UITableViewController {
             return cell
         }
         let track = self.tracks[indexPath.row]
-        cell.configure(track)
+        cell.track = track
         return cell
     }
     

@@ -11,6 +11,16 @@ import SnapKit
 class TrackTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = String(describing: TrackTableViewCell.self)
+    var track: TrackModel! {
+        didSet {
+            trackImageView.image = UIImage(named: "test")
+            if let coverURL = track.coverURL {
+                trackImageView.downloadedFrom(link: coverURL)
+            }
+            trackNameLabel.text = track.trackName
+            artistNameLabel.text = track.artistName
+        }
+    }
     
     private let trackImageView: UIImageView = {
         let view = UIImageView()
@@ -97,14 +107,5 @@ class TrackTableViewCell: UITableViewCell {
         } else {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
-    }
-    
-    func configure(_ track: TrackModel) {
-        if let coverURL = track.coverURL {
-            trackImageView.downloadedFrom(link: coverURL)
-        }
-        trackImageView.image = UIImage(named: "test")
-        trackNameLabel.text = track.trackName
-        artistNameLabel.text = track.artistName
     }
 }
