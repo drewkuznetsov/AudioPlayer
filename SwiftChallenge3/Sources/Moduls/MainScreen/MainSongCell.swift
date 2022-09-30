@@ -9,24 +9,18 @@ import Foundation
 import UIKit
 
 
-class RecentlyCell: MainSongCell {
-}
+
 ///Главная ячейка  содержащая в себе ячейку коллекции и заголовок. 
 class MainSongCell: UITableViewCell {
     //MARK: - Static let
     static let reuseIdentifier = String(describing: MainSongCell.self)
     
     //MARK: - Let / Var
-    var playlist = PlayListModel(playListName: "Recentli Played", tracks: [
-        TrackModel(trackID: 0, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 1, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 2, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 3, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 4, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-    ])
+   
     // Создаём массив треков.
-    var trackArray = [TrackModel]() {
+    var playlist : PlayListModel? {
         didSet {
+            headerLabel.text = playlist?.playListName
             self.songCollection.reloadData()
         }
     }
@@ -115,16 +109,13 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
 extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return playlist.tracks.count
+        return playlist?.tracks.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        //     self.isSkeletonable = true
-        //     self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(5))
-        //    self.stopSkeletonAnimation()
-        //   self.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(5))
-        cell.configure(playlist.tracks[indexPath.row])
+      
+        cell.track = playlist?.tracks[indexPath.row]
         return cell
     }
     
@@ -132,3 +123,16 @@ extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
         
     }
 }
+
+
+
+
+
+
+
+
+
+//     self.isSkeletonable = true
+//     self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(5))
+//    self.stopSkeletonAnimation()
+//   self.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(5))

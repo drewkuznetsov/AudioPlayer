@@ -10,24 +10,26 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    //MARK: - private let/var
-    var playlist = PlayListModel(playListName: "Recentli Played", tracks: [
-        TrackModel(trackID: 0, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 1, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 2, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 3, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-        TrackModel(trackID: 4, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-    ])
-    
-    var trackArray = [TrackModel]() {
+    //MARK: - Private let/var
+
+    var favorites: PlayListModel? {
         didSet {
-            self.SongTableView.reloadData()
+            title = favorites?.playListName
+            SongTableView.reloadData()
         }
     }
+    
+    var recently: PlayListModel? {
+            didSet {
+                title = recently?.tracks.description
+                SongTableView.reloadData()
+            }
+    }
+   
+   
     //MARK: - LifeCycle viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        self.view = self.SongTableView
         navigationItem.title = "Айтюнс"
         navigationController?.navigationBar.prefersLargeTitles = true
         configureTableView()
@@ -57,7 +59,6 @@ class MainViewController: UIViewController {
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(90)
-//            make.bottom.equalToSuperview()
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
@@ -83,7 +84,7 @@ class MainViewController: UIViewController {
 extension MainViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Did tap on \(playlist.tracks.count) in MainViewController" )
+        print("Did tap on track in MainViewController" )
     }
     
 }
@@ -100,22 +101,30 @@ extension MainViewController : UITableViewDataSource {
 //            return "Another Track"
 //        }
 //    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   
+    func numberOfSections(in tableView: UITableView) -> Int {
+//        self.playlist.tracks.isEmpty ? 2 : 2
         return 1
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        self.playlist.tracks.isEmpty ? 2 : 2
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as? MainSongCell else {
             return UITableViewCell()
         }
+        if indexPath.row == 0 {
+            cell.playlist = favorites
+        } else {
+            cell.playlist = recently
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if playlist.playListName.count == 0 {
+        if favorites?.tracks.count == 0 {
             switch indexPath.section {
             case 0: return (self.view.frame.size.height)/2.5
             case 1: return (self.view.frame.size.height)/2.8
@@ -130,21 +139,22 @@ extension MainViewController : UITableViewDataSource {
             }
         }
     }
+    
     func makeSongCell(for indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
         let section = SongTableSection(rawValue: indexPath.section)!
         
         let song: [TrackModel] = {
             switch section {
             case .madeForYou:
-                return self.trackArray
+                return favorites?.tracks ?? []
             case .recently:
-                return self.trackArray
+                return recently?.tracks ?? []
                 
             }
         }()
         
         let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as! MainSongCell
-        cell.trackArray = song
+        cell.playlist?.tracks = song
         return cell
         
     }
