@@ -16,7 +16,12 @@ class ListViewController: UITableViewController {
 //        TrackModel(trackID: 3, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
 //        TrackModel(trackID: 4, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
 //    ])
-    var playList = PlayListModel(playListName: "defoult")
+    var playList: PlayListModel? {
+        didSet {
+            title = playList?.playListName
+            tableView.reloadData()
+        }
+    }
     
     var realmManager = RealmBaseManager()
     
@@ -36,12 +41,6 @@ class ListViewController: UITableViewController {
         let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
         sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
         self.navigationItem.rightBarButtonItem  = sortButtonItem
-        title = "Плейлист"
-    }
-    
-    func configurePlaylist(_ playlist: PlayListModel) {
-        title = self.playList.playListName
-        self.playList = playlist
     }
     
     @objc private func sortPlaylist() {
@@ -53,14 +52,14 @@ class ListViewController: UITableViewController {
 
 extension ListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playList.tracks.count
+        return playList?.tracks.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell else {
             return UITableViewCell()
         }
-        cell.track = playList.tracks[indexPath.row]
+        cell.track = playList?.tracks[indexPath.row]
         return cell
     }
 }
@@ -87,7 +86,7 @@ extension ListViewController: RealmBaseManagerDelegate {
     }
     
     func favouriteTracksDidLoad(_ playList: PlayListModel) {
-        self.configurePlaylist(playList)
+        self.playList = playList
         self.configureUI()
     }
     
