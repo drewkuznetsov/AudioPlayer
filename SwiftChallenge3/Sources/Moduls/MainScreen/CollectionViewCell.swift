@@ -8,6 +8,16 @@ class CollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
     
     //MARK: - Let / Var
+    var track : TrackModel! {
+        didSet {
+            if let coverURL = track.coverURL {
+                trackImageView.downloadedFrom(link: coverURL)
+            }
+            trackNameLabel.text = track.trackName
+            artistNameLabel.text = track.artistName
+        }
+        }
+    
     //Создаём ImageView с картинкой трека.
     private lazy var trackImageView: UIImageView = {
         let poster = UIImageView()
@@ -43,8 +53,11 @@ class CollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        //setup View
         self.setupView()
+        configure(track)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
