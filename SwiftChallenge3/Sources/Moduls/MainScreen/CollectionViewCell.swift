@@ -55,7 +55,7 @@ class CollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .white
         //setup View
         self.setupView()
-        configure(track)
+//        configure(track)
     }
     
     required init?(coder: NSCoder) {

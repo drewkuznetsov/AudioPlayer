@@ -20,32 +20,34 @@ protocol RealmBaseManagerDelegate {
     func recentPlayedTracksDidLoad(_ playList: PlayListModel)
 }
 
-
 class RealmBaseManager {
     
     var delegate: RealmBaseManagerDelegate?
     
     private let realmManager: Realm = {
-//        let paths = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)
-//        let path = URL(fileURLWithPath: paths[0].path + "/RealmBase.realm")
-//        let manager = try! Realm(fileURL: path)
         let manager = try! Realm()
         return manager
     }()
     
     init() {
+        self.creatPlayList(playListName: PlaylistNames.favourite)
+        self.creatPlayList(playListName: PlaylistNames.recentPlayed)
+    }
+    
+    private func creatPlayList(playListName: String) {
+        if let _ = self.realmManager.object(ofType: PlayListBase.self, forPrimaryKey: playListName) { return }
         
-        if let _ = self.realmManager.object(ofType: PlayListBase.self, forPrimaryKey: PlaylistNames.favourite) { return }
-        
-        let favourites = PlayListBase()
-        favourites.playListName = PlaylistNames.favourite
+        let playList = PlayListBase()
+        playList.playListName = playListName
 
         do {
             try realmManager.write({
-                self.realmManager.add(favourites)
+                self.realmManager.add(playList)
             })
         } catch {
-            print(error)
+            print("Realm Base Error - Creat PlayList \(playListName)")
+            print(error.localizedDescription)
+            delegate?.showError(error: error)
         }
     }
 }
@@ -69,6 +71,8 @@ extension RealmBaseManager {
         } catch {
             delegate?.showError(error: error)
         }
+        
+        self.loadFavourites()
     }
     
     func loadFavourites() {
@@ -101,6 +105,8 @@ extension RealmBaseManager {
         } catch {
             delegate?.showError(error: error)
         }
+        
+        self.loadFavourites()
     }
     
     func isFavourite(track: TrackModel) -> Bool {
@@ -109,6 +115,8 @@ extension RealmBaseManager {
         
         return favourites.tracks.first(where: {$0.trackID == track.trackID}) != nil
     }
+    
+    
 }
 
 //MARK: - Reacent Played
@@ -141,6 +149,8 @@ extension RealmBaseManager {
                 delegate?.showError(error: error)
             }
         }
+        
+        self.loadRecentPlayed()
     }
     
     func loadRecentPlayed() {
