@@ -16,25 +16,40 @@ class MainViewController: UIViewController {
         didSet {
             title = favorites?.playListName
             SongTableView.reloadData()
+            print("FAVOURITES UPDATED")
         }
     }
     
-    var recently: PlayListModel? {
+    var recentePlayed: PlayListModel? {
             didSet {
-                title = recently?.tracks.description
+                title = recentePlayed?.tracks.description
                 SongTableView.reloadData()
+                print("RECENT UPDATED")
             }
     }
+    
+    let realmManager = RealmBaseManager()
    
    
     //MARK: - LifeCycle viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        realmManager.delegate = self
+       
+        
         navigationItem.title = "Айтюнс"
         navigationController?.navigationBar.prefersLargeTitles = true
         configureTableView()
         setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        realmManager.loadFavourites()
+        realmManager.loadRecentPlayed()
+    }
+    
     //Создаём таблицу на весь фрейм Вью.
    private lazy var SongTableView: UITableView = {
         let tableView = UITableView()
@@ -118,7 +133,7 @@ extension MainViewController : UITableViewDataSource {
         if indexPath.row == 0 {
             cell.playlist = favorites
         } else {
-            cell.playlist = recently
+            cell.playlist = recentePlayed
         }
         return cell
     }
@@ -148,7 +163,7 @@ extension MainViewController : UITableViewDataSource {
             case .madeForYou:
                 return favorites?.tracks ?? []
             case .recently:
-                return recently?.tracks ?? []
+                return recentePlayed?.tracks ?? []
                 
             }
         }()
@@ -157,6 +172,25 @@ extension MainViewController : UITableViewDataSource {
         cell.playlist?.tracks = song
         return cell
         
+    }
+}
+
+
+extension MainViewController: RealmBaseManagerDelegate {
+    
+    func showError(error: Error) {
+        print("MainViewController - Realm Base Error")
+        print(error.localizedDescription)
+    }
+    
+    func favouriteTracksDidLoad(_ playList: PlayListModel) {
+        self.favorites = playList
+        print("MainViewController - FAVOURITES tracks")
+    }
+    
+    func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
+        self.recentePlayed = playList
+        print("MainViewController - RECENT tracks")
     }
 }
 

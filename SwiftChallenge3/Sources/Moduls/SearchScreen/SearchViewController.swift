@@ -18,6 +18,8 @@ class SearchViewController: UITableViewController {
     private var tracks: [TrackModel] = []
     
     private var timer: Timer?
+    
+    private var realmManager = RealmBaseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,12 @@ class SearchViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let track = tracks[indexPath.row]
+        realmManager.addToRecentPlayed(track: track)
+        print("Segue in controller player")
     }
 }
 

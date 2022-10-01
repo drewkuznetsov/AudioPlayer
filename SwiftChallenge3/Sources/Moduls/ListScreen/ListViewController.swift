@@ -9,13 +9,6 @@ import UIKit
 
 class ListViewController: UITableViewController {
     
-//    var playList = PlayListModel(playListName: "Recentli Played", tracks: [
-//        TrackModel(trackID: 0, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-//        TrackModel(trackID: 1, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-//        TrackModel(trackID: 2, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-//        TrackModel(trackID: 3, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-//        TrackModel(trackID: 4, trackName: "trackName", artistName: "artistName", albumName: "AlbumName", coverURL: "coverURL", previewURL: "previewURL"),
-//    ])
     var playList: PlayListModel? {
         didSet {
             title = playList?.playListName
@@ -72,6 +65,8 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard  let track = playList?.tracks[indexPath.row] else { return }
+        realmManager.addToRecentPlayed(track: track)
         print("Segue in controller player")
     }
 }
