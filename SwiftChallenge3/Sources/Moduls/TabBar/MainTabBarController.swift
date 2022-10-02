@@ -31,7 +31,6 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         viewControllers = [
             generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
-            generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titleVC: "Player"),
             generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
         ]
         setConstraints()
@@ -64,9 +63,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         containerView.snp.makeConstraints { make in
             let safeArea = view.safeAreaLayoutGuide.snp
             
-            make.leading.equalTo(safeArea.leading)
-            make.trailing.equalTo(safeArea.trailing)
-            make.bottom.equalTo(tabBar.snp.top).offset(-16)
+            make.leading.equalTo(safeArea.leading).offset(13)
+            make.trailing.equalTo(safeArea.trailing).offset(-13)
+            make.bottom.equalTo(tabBar.snp.top).offset(-4)
             make.height.equalTo(64)
         }
         miniPlayer.view.snp.makeConstraints { make in
@@ -79,7 +78,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     ///Создаёт закруглённый тап-бар
     private func setTapBarApppearance() {
         let positionOnX: CGFloat = 10
-        let positionOnY: CGFloat = 14
+        let positionOnY: CGFloat = 2
         let width = tabBar.bounds.width - positionOnX * 2
         let height = tabBar.bounds.height + positionOnY
         
@@ -89,8 +88,8 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         roundLayer.path = bezierPath.cgPath
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         
-        tabBar.itemWidth = width / 5
-        tabBar.itemPositioning = .fill
+        tabBar.itemWidth = width / 2
+        tabBar.itemPositioning = .centered
         
         ///Цвета тап-бара.
         roundLayer.fillColor = UIColor.anotherWhite.cgColor
