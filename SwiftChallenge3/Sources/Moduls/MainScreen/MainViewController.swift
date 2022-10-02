@@ -116,7 +116,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
         
         if favourites?.tracks.count == 0 {
             switch indexPath.section {
-            case 0: return (self.view.frame.size.height)/3.3
+            case 0: return (self.view.frame.size.height)/3
             case 1: return (self.view.frame.size.height)/2.9
             default: return 0
             }
