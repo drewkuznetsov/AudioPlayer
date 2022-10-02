@@ -17,10 +17,16 @@ class TrackTableViewCell: UITableViewCell {
             if let coverURL = track.coverURL {
                 trackImageView.downloadedFrom(link: coverURL)
             }
+            if realmManager.isFavourite(track: track) {
+                favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            } else {
+                favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
             trackNameLabel.text = track.trackName
             artistNameLabel.text = track.artistName
         }
     }
+    var realmManager = RealmBaseManager()
     
     private let trackImageView: UIImageView = {
         let view = UIImageView()
@@ -103,8 +109,10 @@ class TrackTableViewCell: UITableViewCell {
     
     @objc private func favoriteButtonPressed(sender: UIButton!) {
         if favoriteButton.image(for: .normal) == UIImage(systemName: "heart") {
+            realmManager.addToFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
+            realmManager.deleteFromFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
     }
