@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import SwiftUI
 class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     //MARK: - Let / var
     let miniPlayer = MiniPlayerViewController()
     
+    ///Устанавливаем контейнер вью в котором находятся кнопки и имя трека.
     private lazy var containerView : UIView = {
         let uiView = UIView()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
         uiView.layer.cornerRadius = 32
         return uiView
     }()
@@ -30,10 +29,10 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         
         ///Задаём 4 кнопки вью-контроллера в тап-бар.
         viewControllers = [
-            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
-            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
-            generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
-            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
+            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
+            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
+            generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titleVC: "Player"),
+            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
         ]
         setConstraints()
         miniPlayer.delegate = self
@@ -49,13 +48,13 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         miniPlayer.didMove(toParent: self)
     }
     
-    private func generateViewController(rootViewController: UIViewController, imageVC: String, titelVC: String) -> UIViewController {
+    private func generateViewController(rootViewController: UIViewController, imageVC: String, titleVC: String) -> UIViewController {
         if let player = rootViewController as? PlayerViewController {
             player.delegate = miniPlayer
         }
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
-        navigationVC.tabBarItem.title = titelVC
+        navigationVC.tabBarItem.title = titleVC
         navigationVC.navigationBar.prefersLargeTitles = true
         return navigationVC
     }

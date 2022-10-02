@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 import AVFoundation
 
 protocol MiniPlayerDelegate {
@@ -16,6 +15,7 @@ protocol MiniPlayerDelegate {
 }
 
 class MiniPlayerViewController: UIViewController {
+    
     // Делегат позволяющий вернуть мини-плэер на тап-бар после дис-мисса.
     var delegate: MiniPlayerDelegate?
     //Player аналогичный в PlayerVC.
@@ -47,7 +47,6 @@ class MiniPlayerViewController: UIViewController {
         view.axis = .vertical
         view.distribution = .fillEqually
         view.alignment = .fill
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -58,7 +57,6 @@ class MiniPlayerViewController: UIViewController {
         stackView.alignment = .center
         stackView.spacing = 5
         stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     } ()
     
@@ -67,7 +65,6 @@ class MiniPlayerViewController: UIViewController {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.image = UIImage(named: "test")
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -90,10 +87,10 @@ class MiniPlayerViewController: UIViewController {
     }()
     
     
-    //Создаем кнопки управления треками для воспроизведения музыки.
+    ///Создаем кнопки управления треками для воспроизведения музыки.
     ///Создаем кнопку предыдущего трека.
     private lazy var leftBackwardButton: UIButton = {
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold, scale: .large)
         let leftButton = UIButton()
         leftButton.setImage(UIImage(systemName: "backward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         leftButton.tintColor = .black
@@ -101,9 +98,9 @@ class MiniPlayerViewController: UIViewController {
         leftButton.addTarget(self, action: #selector(self.previousTrack), for: .touchUpInside)
         return leftButton
     } ()
-    ///Создаем кнопку предыдущего трека.
+    ///Создаем кнопку следующего трека.
     private lazy var rightBackwardButton: UIButton = {
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold, scale: .large)
         let rightButton = UIButton()
         rightButton.setImage(UIImage(systemName: "forward.end.alt.fill", withConfiguration: largeConfig), for: .normal)
         rightButton.tintColor = .black
@@ -113,7 +110,7 @@ class MiniPlayerViewController: UIViewController {
     } ()
     ///Создаем кнопку приостановки / плэя трека.
     private lazy var pauseButton: UIButton = {
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .large)
         let pauseButton = UIButton()
         pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         pauseButton.tintColor = .black
@@ -161,19 +158,19 @@ class MiniPlayerViewController: UIViewController {
     }
     ///Установка жестов.
     private func setupGestureRecognizers() {
-        //Тап по Вью.
+        ///Тап по Вью.
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
         view.addGestureRecognizer(tap)
         view.isUserInteractionEnabled = true
-        //Верхний свайп
+        ///Верхний свайп
         let swipeGestureRecognizerUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeUp(_:)))
         swipeGestureRecognizerUp.direction = .up
         view.addGestureRecognizer(swipeGestureRecognizerUp)
-        //Левый свайп
+        ///Левый свайп
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
         swipeGestureRecognizerLeft.direction = .left
         view.addGestureRecognizer(swipeGestureRecognizerLeft)
-        //Правый свайп
+        ///Правый свайп
         let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
         swipeGestureRecognizerRight.direction = .right
         view.addGestureRecognizer(swipeGestureRecognizerRight)
@@ -257,18 +254,18 @@ class MiniPlayerViewController: UIViewController {
             pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
     }
-    ///Кнопка. Замечает тап по кнопке предыдущего трека.
+    ///Кнопка. Замечает нажатие по кнопке предыдущего трека.
     @objc func previousTrack() {
         print("left animation")
         makeLeftAnimation()
     }
-    ///Кнопка. Замечает тап по кнопке следующего трека.
+    ///Кнопка. Замечает нажатие по кнопке следующего трека.
     @objc func nextTrack() {
         print("Right animation")
         makeRightAnimation()
     }
 }
-
+//MARK: - ChangeTrackDelegate
 extension MiniPlayerViewController : ChangeTrackDelegate {
     func nextTrackDelegate() {
         print("Выполнена анимация делегата смахивание трека вправо.")

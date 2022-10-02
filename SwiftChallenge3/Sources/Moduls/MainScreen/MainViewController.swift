@@ -8,64 +8,75 @@
 import SnapKit
 import UIKit
 
+enum SongTableSection: Int {
+    case favourite
+    case recently
+    
+    var title: String {
+        switch self {
+        case .favourite:
+            return "Made for yoy"
+        case .recently:
+            return "Recently Played"
+        }
+    }
+}
+
 class MainViewController: UIViewController {
     
-    //MARK: - Private let/var
-
-    var favorites: PlayListModel? {
+    //MARK: - Let / Var
+    var favourites: PlayListModel? {
         didSet {
-            title = favorites?.playListName
             SongTableView.reloadData()
             print("FAVOURITES UPDATED")
         }
     }
     
-    var recentePlayed: PlayListModel? {
-            didSet {
-                title = recentePlayed?.tracks.description
-                SongTableView.reloadData()
-                print("RECENT UPDATED")
-            }
+    var recentlyPlayed: PlayListModel? {
+        didSet {
+            SongTableView.reloadData()
+            print("RECENT UPDATED")
+        }
     }
     
     let realmManager = RealmBaseManager()
-   
-   
-    //MARK: - LifeCycle viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        realmManager.delegate = self
-       
-        
-        navigationItem.title = "Айтюнс"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        configureTableView()
-        setupUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        realmManager.loadFavourites()
-        realmManager.loadRecentPlayed()
-    }
     
     //Создаём таблицу на весь фрейм Вью.
-   private lazy var SongTableView: UITableView = {
+    private lazy var SongTableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.separatorColor = .clear
         return tableView
     }()
     
+    //MARK: - ViewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        realmManager.delegate = self
+        
+        navigationItem.title = "Айтюнс"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        
+        configureSongTableView()
+        setupUI()
+    }
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        realmManager.loadFavourites()
+        realmManager.loadRecentPlayed()
+    }
     //MARK: - Private Methods
     ///Подписка на делегат/датасорс. Регистрация ниба
-    private func configureTableView() {
+    private func configureSongTableView() {
         SongTableView.register(MainSongCell.self, forCellReuseIdentifier: MainSongCell.reuseIdentifier)
         SongTableView.delegate = self
         SongTableView.dataSource = self
+        self.SongTableView.allowsSelection = false
+        SongTableView.sectionHeaderTopPadding = 0
     }
-    
     ///Добавление Таблицы в MainVC.
     private func setupUI() {
         self.overrideUserInterfaceStyle = .light
@@ -73,105 +84,50 @@ class MainViewController: UIViewController {
         
         SongTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(90)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
-    
-    //Кейсы
-    enum SongTableSection: Int {
-        case madeForYou
-        case recently
-        
-        var title: String {
-            switch self {
-            case .madeForYou:
-                return "Made for yoy"
-            case .recently:
-                return "Recently Played"
-            }
-        }
-    }
 }
 
-//MARK: - Table Delegate
-extension MainViewController : UITableViewDelegate {
+//MARK: - Delegate + DataSource TableView.
+extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Did tap on track in MainViewController" )
-    }
-    
-}
-
-//MARK: - Table DataSource
-extension MainViewController : UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let naming = SongTableSection(rawValue: 0)
-//        if section == 0 {
-//            return SongTableSection.madeForYou.title
-//        } else if section == 1 {
-//            return SongTableSection.recently.title
-//        } else {
-//            return "Another Track"
-//        }
-//    }
-   
     func numberOfSections(in tableView: UITableView) -> Int {
-//        self.playlist.tracks.isEmpty ? 2 : 2
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as? MainSongCell else {
             return UITableViewCell()
         }
         if indexPath.row == 0 {
-            cell.playlist = favorites
+            cell.playlist = favourites
         } else {
-            cell.playlist = recentePlayed
+            cell.playlist = recentlyPlayed
         }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if favorites?.tracks.count == 0 {
+        if favourites?.tracks.count == 0 {
             switch indexPath.section {
-            case 0: return (self.view.frame.size.height)/2.5
-            case 1: return (self.view.frame.size.height)/2.8
+            case 0: return (self.view.frame.size.height)/3.3
+            case 1: return (self.view.frame.size.height)/2.9
             default: return 0
             }
         } else {
             switch indexPath.section {
-            case 0: return (self.view.frame.size.height)/2.5
+            case 0: return (self.view.frame.size.height)/3.2
             case 1: return (self.view.frame.size.height)/2.8
             case 2: return (self.view.frame.size.height)/3
             default: return 0
             }
         }
-    }
-    
-    func makeSongCell(for indexPath: IndexPath, tableView: UITableView) -> UITableViewCell {
-        let section = SongTableSection(rawValue: indexPath.section)!
-        
-        let song: [TrackModel] = {
-            switch section {
-            case .madeForYou:
-                return favorites?.tracks ?? []
-            case .recently:
-                return recentePlayed?.tracks ?? []
-                
-            }
-        }()
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as! MainSongCell
-        cell.playlist?.tracks = song
-        return cell
-        
     }
 }
 
@@ -185,12 +141,12 @@ extension MainViewController: RealmBaseManagerDelegate {
     }
     
     func favouriteTracksDidLoad(_ playList: PlayListModel) {
-        self.favorites = playList
+        self.favourites = playList
         print("MainViewController - FAVOURITES tracks")
     }
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
-        self.recentePlayed = playList
+        self.recentlyPlayed = playList
         print("MainViewController - RECENT tracks")
     }
 }

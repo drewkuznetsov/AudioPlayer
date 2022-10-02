@@ -16,7 +16,6 @@ class MainSongCell: UITableViewCell {
     static let reuseIdentifier = String(describing: MainSongCell.self)
     
     //MARK: - Let / Var
-   
     // Создаём массив треков.
     var playlist : PlayListModel? {
         didSet {
@@ -24,13 +23,14 @@ class MainSongCell: UITableViewCell {
             self.songCollection.reloadData()
         }
     }
-    //MARK: - Let / Var
+    
+    //MARK: - Lazy var
     // Создаём хедер-лейбл.
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Заголовочек"
+        label.text = "Header"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         return label
     } ()
     
@@ -48,21 +48,11 @@ class MainSongCell: UITableViewCell {
         return collectionView
     } ()
     
-    //MARK: - Override init
-    override init (style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupView()
-    }
-    
+    //MARK: - Override func
     override func setSelected(_ selected: Bool, animated: Bool) {
-            super.setSelected(selected, animated: animated)
-            self.setupView()
-            self.songCollection.reloadData()
-        }
-
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.setSelected(selected, animated: animated)
+        self.setupView()
+        self.songCollection.reloadData()
     }
     
     //MARK: - Override Methods
@@ -73,7 +63,7 @@ class MainSongCell: UITableViewCell {
             make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(self.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom).offset(-50)
+            make.bottom.equalTo(self.snp.bottom).offset(-5)
         }
         
         headerLabel.snp.makeConstraints { make in
@@ -89,6 +79,7 @@ class MainSongCell: UITableViewCell {
             make.bottom.equalTo(contentView.snp.bottom)
         }
     }
+    
     //MARK: - Private Methods
     private func setupView () {
         self.addSubview(contentView)
@@ -121,13 +112,13 @@ extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-      
+        
         cell.track = playlist?.tracks[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print("Selected track - `\(playlist?.tracks[indexPath.row].trackName ?? "Selected cell in MainSongCell")` in MainSongCell")
     }
 }
 
