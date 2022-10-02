@@ -8,20 +8,6 @@
 import SnapKit
 import UIKit
 
-enum SongTableSection: Int {
-    case favourite
-    case recently
-    
-    var title: String {
-        switch self {
-        case .favourite:
-            return "Made for yoy"
-        case .recently:
-            return "Recently Played"
-        }
-    }
-}
-
 class MainViewController: UIViewController {
     
     //MARK: - Let / Var
@@ -109,6 +95,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
             cell.playlist = favourites
         } else {
             cell.playlist = recentlyPlayed
+            
         }
         return cell
     }
