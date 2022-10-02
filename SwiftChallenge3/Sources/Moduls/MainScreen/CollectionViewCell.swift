@@ -10,24 +10,22 @@ class CollectionViewCell: UICollectionViewCell {
     //MARK: - Let / Var
     var track : TrackModel! {
         didSet {
-            if let coverURL = track.coverURL {
+            if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
                 trackImageView.downloadedFrom(link: coverURL)
             }
             trackNameLabel.text = track.trackName
             artistNameLabel.text = track.artistName
         }
-        }
+    }
     
     //Создаём ImageView с картинкой трека.
     private lazy var trackImageView: UIImageView = {
         let poster = UIImageView()
-        poster.tintColor = UIColor.mainWhite
-        poster.backgroundColor = UIColor.anotherWhite
         poster.clipsToBounds = true
         poster.layer.cornerRadius = 16
         poster.sizeToFit()
         poster.image = UIImage(named: "test")
-        poster.contentMode = .scaleToFill
+        poster.contentMode = .scaleAspectFill
         return poster
     }()
     
@@ -55,7 +53,6 @@ class CollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .white
         //setup View
         self.setupView()
-//        configure(track)
     }
     
     required init?(coder: NSCoder) {
@@ -92,21 +89,13 @@ class CollectionViewCell: UICollectionViewCell {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
-    
+        
     }
     
     //MARK: - Public Methods
-        //        self.isSkeletonable = true
-        //        self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(1))
-     
-        //        self.stopSkeletonAnimation()
-        //        self.hideSkeleton(reloadDataAfter: false, transition: .crossDissolve(1))
-///Конфигурируем Ячейку под TrackModel.
-  public func configure(_ track: TrackModel) {
-        if let coverURL = track.coverURL {
-            trackImageView.downloadedFrom(link: coverURL)
-        }
-        trackNameLabel.text = track.trackName
-        artistNameLabel.text = track.artistName
-    }
+    //        self.isSkeletonable = true
+    //        self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(1))
+    
+    //        self.stopSkeletonAnimation()
+    //        self.hideSkeleton(reloadDataAfter: false, transition: .crossDissolve(1))
 }

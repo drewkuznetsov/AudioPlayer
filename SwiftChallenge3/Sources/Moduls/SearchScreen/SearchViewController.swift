@@ -58,7 +58,7 @@ class SearchViewController: UITableViewController {
             let track = self.tracks[indexPath.row]
             cell.textLabel?.text = track.trackName + "\n" + track.artistName
             cell.textLabel?.numberOfLines = 2
-            if let coverURL = track.coverURL {
+            if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
                 cell.imageView?.downloadedFrom(link: coverURL)
             }
             return cell

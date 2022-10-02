@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import SwiftUI
 class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     //MARK: - Let / var
     let miniPlayer = MiniPlayerViewController()
     
+    ///Устанавливаем контейнер вью в котором находятся кнопки и имя трека.
     private lazy var containerView : UIView = {
         let uiView = UIView()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
         uiView.layer.cornerRadius = 32
         return uiView
     }()
@@ -30,10 +29,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         
         ///Задаём 4 кнопки вью-контроллера в тап-бар.
         viewControllers = [
-            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titelVC: "Main"),
-            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titelVC: "List"),
-            generateViewController(rootViewController: PlayerViewController(), imageVC: "play.circle", titelVC: "Player"),
-            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titelVC: "Search")
+            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
+            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
+            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
         ]
         setConstraints()
         miniPlayer.delegate = self
@@ -49,13 +47,13 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         miniPlayer.didMove(toParent: self)
     }
     
-    private func generateViewController(rootViewController: UIViewController, imageVC: String, titelVC: String) -> UIViewController {
+    private func generateViewController(rootViewController: UIViewController, imageVC: String, titleVC: String) -> UIViewController {
         if let player = rootViewController as? PlayerViewController {
             player.delegate = miniPlayer
         }
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
-        navigationVC.tabBarItem.title = titelVC
+        navigationVC.tabBarItem.title = titleVC
         navigationVC.navigationBar.prefersLargeTitles = true
         return navigationVC
     }
@@ -65,9 +63,9 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         containerView.snp.makeConstraints { make in
             let safeArea = view.safeAreaLayoutGuide.snp
             
-            make.leading.equalTo(safeArea.leading)
-            make.trailing.equalTo(safeArea.trailing)
-            make.bottom.equalTo(tabBar.snp.top).offset(-16)
+            make.leading.equalTo(safeArea.leading).offset(13)
+            make.trailing.equalTo(safeArea.trailing).offset(-13)
+            make.bottom.equalTo(tabBar.snp.top).offset(-4)
             make.height.equalTo(64)
         }
         miniPlayer.view.snp.makeConstraints { make in
@@ -80,7 +78,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     ///Создаёт закруглённый тап-бар
     private func setTapBarApppearance() {
         let positionOnX: CGFloat = 10
-        let positionOnY: CGFloat = 14
+        let positionOnY: CGFloat = 2
         let width = tabBar.bounds.width - positionOnX * 2
         let height = tabBar.bounds.height + positionOnY
         
@@ -90,8 +88,8 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         roundLayer.path = bezierPath.cgPath
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         
-        tabBar.itemWidth = width / 5
-        tabBar.itemPositioning = .fill
+        tabBar.itemWidth = width / 2
+        tabBar.itemPositioning = .centered
         
         ///Цвета тап-бара.
         roundLayer.fillColor = UIColor.anotherWhite.cgColor
