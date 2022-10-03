@@ -34,7 +34,29 @@ class PlayerViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     } ()
-    
+
+
+    private lazy var labelHeartStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 5
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stackView
+    } ()
+
+    private lazy var heartStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .trailing
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stackView
+    } ()
+
     // создаем стек для лейблов с названиями (артиста и трека)
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView()
@@ -215,28 +237,29 @@ class PlayerViewController: UIViewController {
         return soundMax
     } ()
     
-    private lazy var addFavoritBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: UIImage(systemName: "heart.circle"),
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(buttonTapped))
-        barButton.tintColor = UIColor.tabBarItemLight
+    private lazy var addFavoritBarButton: UIButton = {
+
+        let setConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "heart", withConfiguration: setConfig), for: .normal)
+        button.addTarget(self,  action: #selector(buttonTapped), for: .touchUpInside)
+        button.tintColor = .systemPink
+
+        button.translatesAutoresizingMaskIntoConstraints = false
         
-        return barButton
+        return button
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.navigationItem.rightBarButtonItem = addFavoritBarButton
         setupView()
         setupGestureRecognizer()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
     }
     
     public func showDismissButton() {
@@ -250,14 +273,19 @@ class PlayerViewController: UIViewController {
         view.addSubview(dismissButton)
         
         stackView.addArrangedSubview(stackTimerView)
-        stackView.addArrangedSubview(labelStackView)
+        stackView.addArrangedSubview(labelHeartStackView)
+
         stackTimerView.addArrangedSubview(sliderTime)
         stackTimerView.addArrangedSubview(stackTime)
         
         stackTime.addArrangedSubview(leftTimeLabel)
         stackTime.addArrangedSubview(rightTimeLabel)
+        labelHeartStackView.addArrangedSubview(labelStackView)
         labelStackView.addArrangedSubview(nameTrackLabel)
         labelStackView.addArrangedSubview(nameAuthorLabel)
+        labelHeartStackView.addArrangedSubview(heartStackView)
+        heartStackView.addArrangedSubview(addFavoritBarButton)
+
         
         stackView.addArrangedSubview(сontrollersStackView)
         сontrollersStackView.addArrangedSubview(leftBackwardButton)
@@ -278,7 +306,7 @@ class PlayerViewController: UIViewController {
             self.dismissButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
             self.dismissButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 60),
             
-            self.trackImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            self.trackImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
             self.trackImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.trackImageView.heightAnchor.constraint(equalToConstant: 250),
             self.trackImageView.widthAnchor.constraint(equalToConstant: 250),
@@ -287,24 +315,26 @@ class PlayerViewController: UIViewController {
             self.stackView.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -120),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -80),
             
             
             self.stackTimerView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
-            self.stackTimerView.heightAnchor.constraint(equalToConstant: 44),
+            self.stackTimerView.heightAnchor.constraint(equalToConstant: 50),
             
             
-            self.labelStackView.topAnchor.constraint(equalTo: self.stackTime.bottomAnchor, constant: 10),
+            self.labelHeartStackView.topAnchor.constraint(equalTo: self.stackTimerView.bottomAnchor),
             self.nameTrackLabel.heightAnchor.constraint(equalToConstant: 20),
             self.nameAuthorLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            self.сontrollersStackView.topAnchor.constraint(equalTo: self.labelStackView.bottomAnchor, constant: 20),
-            
+            self.сontrollersStackView.topAnchor.constraint(equalTo: self.labelHeartStackView.bottomAnchor, constant: 10),
+
             self.soundMinImage.heightAnchor.constraint(equalToConstant: 17),
             self.soundMinImage.widthAnchor.constraint(equalToConstant: 17),
             self.soundMaxImage.heightAnchor.constraint(equalToConstant: 17),
-            self.soundMaxImage.widthAnchor.constraint(equalToConstant: 17)
-            
+            self.soundMaxImage.widthAnchor.constraint(equalToConstant: 17),
+
+            self.labelStackView.leadingAnchor.constraint(equalTo: self.labelHeartStackView.leadingAnchor, constant: 32),
+            self.heartStackView.widthAnchor.constraint(equalToConstant: 35)
         ])
     }
     ///Нижний свайп
@@ -331,8 +361,14 @@ class PlayerViewController: UIViewController {
         player.play()
     }
     
-    @objc func buttonTapped(sender: UIBarButtonItem!) {
-        
+    @objc func buttonTapped(sender: UIButton) {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
+        if addFavoritBarButton.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: largeConfig) {
+            addFavoritBarButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
+
+        } else {
+            addFavoritBarButton.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
+        }
     }
     //TODO: - Делегат
     @objc func playPauseAction(_ sender: Any) {
