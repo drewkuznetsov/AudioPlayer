@@ -271,11 +271,11 @@ class PlayerViewController: UIViewController {
         view.addSubview(trackImageView)
         view.addSubview(stackView)
         view.addSubview(dismissButton)
-        
+        view.addSubview(sliderTime)
         stackView.addArrangedSubview(stackTimerView)
         stackView.addArrangedSubview(labelHeartStackView)
 
-        stackTimerView.addArrangedSubview(sliderTime)
+        //stackTimerView.addArrangedSubview(sliderTime)
         stackTimerView.addArrangedSubview(stackTime)
         
         stackTime.addArrangedSubview(leftTimeLabel)
@@ -310,23 +310,31 @@ class PlayerViewController: UIViewController {
             self.trackImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.trackImageView.heightAnchor.constraint(equalToConstant: 250),
             self.trackImageView.widthAnchor.constraint(equalToConstant: 250),
+
+
+            self.sliderTime.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
+            self.sliderTime.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            self.sliderTime.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+
+            self.sliderTime.heightAnchor.constraint(equalToConstant: 15),
+
+
             
-            
-            self.stackView.topAnchor.constraint(equalTo: self.trackImageView.bottomAnchor, constant: 30),
+            self.stackView.topAnchor.constraint(equalTo: self.sliderTime.bottomAnchor, constant: 5),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -80),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120),
             
             
             self.stackTimerView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
-            self.stackTimerView.heightAnchor.constraint(equalToConstant: 50),
+            self.stackTimerView.heightAnchor.constraint(equalToConstant: 20),
             
             
             self.labelHeartStackView.topAnchor.constraint(equalTo: self.stackTimerView.bottomAnchor),
             self.nameTrackLabel.heightAnchor.constraint(equalToConstant: 20),
             self.nameAuthorLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            self.сontrollersStackView.topAnchor.constraint(equalTo: self.labelHeartStackView.bottomAnchor, constant: 10),
+            self.сontrollersStackView.topAnchor.constraint(equalTo: self.labelHeartStackView.bottomAnchor),
 
             self.soundMinImage.heightAnchor.constraint(equalToConstant: 17),
             self.soundMinImage.widthAnchor.constraint(equalToConstant: 17),
