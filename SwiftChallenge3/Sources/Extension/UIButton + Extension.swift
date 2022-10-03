@@ -28,7 +28,7 @@ extension UIButton {
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 4,
+                       initialSpringVelocity: 8,
                        options: [.curveEaseInOut],
                        animations: {
             button.transform = transform
