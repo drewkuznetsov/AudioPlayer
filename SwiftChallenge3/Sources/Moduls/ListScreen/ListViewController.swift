@@ -23,6 +23,10 @@ class ListViewController: UITableViewController {
         configureTableView()
         configureUI()
         realmManager.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         realmManager.loadFavourites()
     }
     
