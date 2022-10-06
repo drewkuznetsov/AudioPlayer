@@ -179,9 +179,9 @@
 		E465C24728DB6FB6008CC3E0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E465C24A28DB70A4008CC3E0 /* Supporting */,
 				E465C24428DB6C35008CC3E0 /* Services */,
 				E465C24128DB6BD7008CC3E0 /* Moduls */,
+				E465C24A28DB70A4008CC3E0 /* Supporting */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

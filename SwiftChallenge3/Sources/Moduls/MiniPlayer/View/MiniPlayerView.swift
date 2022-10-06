@@ -80,7 +80,7 @@ class MiniPlayerView: BaseView {
     
     override func configure() {
         configureUI()
-        setupConstraints()
+        configureConstraints()
     }
 }
 
@@ -129,7 +129,7 @@ private extension MiniPlayerView {
         pauseButton.startAnimatingPressActions()
     }
     
-    func setupConstraints() {
+    func configureConstraints() {
         
         addSubview(trackImageView)
         trackImageView.snp.makeConstraints { make in
