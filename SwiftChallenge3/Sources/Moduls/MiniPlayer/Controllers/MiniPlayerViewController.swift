@@ -22,6 +22,7 @@ class MiniPlayerViewController: BaseViewController<MiniPlayerView> {
 //MARK: - ChangeTrackDelegate
 
 extension MiniPlayerViewController : ChangeTrackDelegate {
+    
     func nextTrackDelegate() {
         print("Выполнена анимация делегата смахивание трека вправо.")
         makeRightAnimation()
@@ -133,7 +134,6 @@ private extension MiniPlayerViewController {
     
     ///Замечает тап по контейнер-вью и показывает детальное представление трека.
     @objc func tapDetected() {
-        // 3
         guard let delegate = delegate else { return }
         delegate.presentPlayerVC()
     }

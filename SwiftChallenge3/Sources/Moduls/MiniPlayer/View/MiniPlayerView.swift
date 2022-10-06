@@ -130,7 +130,6 @@ private extension MiniPlayerView {
     }
     
     func configureConstraints() {
-        
         addSubview(trackImageView)
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(Constants.TrackImageView.top)
