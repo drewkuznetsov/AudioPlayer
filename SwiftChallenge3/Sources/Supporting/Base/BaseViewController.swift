@@ -1,8 +1,10 @@
-//
-//  BaseViewController.swift
-//  SwiftChallenge3
-//
-//  Created by Nikita Rekaev on 06.10.2022.
-//
+import UIKit
 
-import Foundation
+class BaseViewController<View: UIView>: UIViewController {
+    
+    var mainView: View { view as! View }
+    
+    override func loadView() {
+        view = View()
+    }
+}

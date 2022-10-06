@@ -11,7 +11,8 @@ class BaseView: UIView {
         super.init(coder: coder)
     }
     
+    /// Method for override
     func setup() {
-        // for ovveride
+        
     }
 }
