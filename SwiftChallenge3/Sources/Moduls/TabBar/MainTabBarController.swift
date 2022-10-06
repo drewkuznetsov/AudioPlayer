@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController, MiniPlayerDelegate {
         
         ///Задаём 4 кнопки вью-контроллера в тап-бар.
         viewControllers = [
-            generateViewController(rootViewController: MainViewControllers(), imageVC: "music.note.list", titleVC: "Main"),
+            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
             generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
             generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
         ]

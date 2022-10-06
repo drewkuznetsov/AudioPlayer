@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewControllers: BaseViewController<MainView> {
+class MainViewController: BaseViewController<MainView> {
     
     //MARK: - Let / Var
     let realmManager = RealmBaseManager()
@@ -32,7 +32,7 @@ class MainViewControllers: BaseViewController<MainView> {
 
 //MARK: - Delegate + DataSource TableView
 
-extension MainViewControllers : UITableViewDelegate, UITableViewDataSource  {
+extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -81,7 +81,7 @@ extension MainViewControllers : UITableViewDelegate, UITableViewDataSource  {
 
 //MARK: - Realm Base Manager Delegate
 
-extension MainViewControllers: RealmBaseManagerDelegate {
+extension MainViewController: RealmBaseManagerDelegate {
     
     func showError(error: Error) {
         print("MainViewController - Realm Base Error")
