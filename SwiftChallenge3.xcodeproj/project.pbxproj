@@ -18,7 +18,6 @@
 		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
-		E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22E28DB6B45008CC3E0 /* ViewController.swift */; };
 		E465C23428DB6B47008CC3E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E465C23328DB6B47008CC3E0 /* Assets.xcassets */; };
 		E465C23728DB6B47008CC3E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E465C23528DB6B47008CC3E0 /* LaunchScreen.storyboard */; };
 		E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */; };
@@ -51,7 +50,6 @@
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E465C22E28DB6B45008CC3E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E465C23328DB6B47008CC3E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E465C23628DB6B47008CC3E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E465C23828DB6B47008CC3E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -151,14 +149,6 @@
 			path = SwiftChallenge3;
 			sourceTree = "<group>";
 		};
-		E465C23E28DB6BB9008CC3E0 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E465C22E28DB6B45008CC3E0 /* ViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		E465C24128DB6BD7008CC3E0 /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,9 +181,7 @@
 			children = (
 				E465C24A28DB70A4008CC3E0 /* Supporting */,
 				E465C24428DB6C35008CC3E0 /* Services */,
-				43CDEAF628E3983D00D059AE /* Extension */,
 				E465C24128DB6BD7008CC3E0 /* Moduls */,
-				E465C23E28DB6BB9008CC3E0 /* Controllers */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -220,6 +208,7 @@
 		E465C24A28DB70A4008CC3E0 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				43CDEAF628E3983D00D059AE /* Extension */,
 				11A2A06C28EEBB5D00AD9EC5 /* Base */,
 				E465C24928DB7091008CC3E0 /* Application */,
 			);
@@ -355,7 +344,6 @@
 				11A2A06B28EEBB1000AD9EC5 /* MiniPlayerView.swift in Sources */,
 				11A2A07028EEBB7400AD9EC5 /* BaseViewController.swift in Sources */,
 				E4B1B3E728DDF4CE00F57483 /* ImageDownload.swift in Sources */,
-				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
 				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
 				438207F328E4C2680008DE49 /* UIButton + Extension.swift in Sources */,
