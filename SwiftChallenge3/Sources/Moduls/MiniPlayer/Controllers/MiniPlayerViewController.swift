@@ -12,6 +12,7 @@ class MiniPlayerViewController: BaseViewController<MiniPlayerView> {
     var delegate: MiniPlayerDelegate?
     
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGestureRecognizers()
