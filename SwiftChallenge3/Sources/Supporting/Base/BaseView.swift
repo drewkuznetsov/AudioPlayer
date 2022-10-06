@@ -4,7 +4,7 @@ class BaseView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -12,7 +12,7 @@ class BaseView: UIView {
     }
     
     /// Method for override
-    func setup() {
+    func configure() {
         
     }
 }
