@@ -1,12 +1,42 @@
+//
+//  CollectionViewCell.swift
+//  SwiftChallenge3
+//
+//  Created by Ilya Vasilev on 08.10.2022.
+//
 
 import UIKit
 import SnapKit
 
 final class CollectionViewCell: UICollectionViewCell {
     
-    //MARK: - Let / Var
+    // MARK: - Constants
+    
+    private enum Constants {
+        
+        enum TrackImageView {
+            static let image = UIImage(named: "test")
+            static let cornerRadius: CGFloat = 16
+        }
+        
+        enum TrackNameLabel {
+            static let text = "Track Name"
+            static let height : CGFloat = 27
+            static let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        }
+        
+        enum ArtistNameLabel {
+            static let text = "Artist Name"
+            static let height : CGFloat = 20
+            static let font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        }
+    }
+    
+    //MARK: - Identifier
     
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
+    
+    //MARK: - Playlist
     
     var track : TrackModel! {
         didSet {
@@ -18,37 +48,17 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private lazy var trackImageView: UIImageView = {
-        let poster = UIImageView()
-        poster.clipsToBounds = true
-        poster.layer.cornerRadius = 16
-        poster.sizeToFit()
-        poster.image = UIImage(named: "test")
-        poster.contentMode = .scaleAspectFill
-        return poster
-    }()
+    // MARK: - UI Elements
     
-    private lazy var trackNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.text = "Track Name"
-        label.textColor = .black
-        return label
-    }()
-
-    private lazy var artistNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = "Artist Name"
-        label.textColor = .lightGray
-        return label
-    }()
+    var trackImageView = UIImageView()
+    var trackNameLabel = UILabel()
+    var artistNameLabel = UILabel()
     
-    //MARK: - Override init
+    //MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        //setup View
         self.setupView()
     }
     
@@ -56,7 +66,8 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Override Methods
+    //MARK: - UI
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -67,32 +78,30 @@ final class CollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(trackNameLabel.snp.top)
         }
         
+        trackNameLabel.text = Constants.TrackNameLabel.text
+        trackNameLabel.font = Constants.TrackNameLabel.font
+        
         trackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(artistNameLabel.snp.top)
-            make.height.equalTo(27)
+            make.height.equalTo(Constants.TrackNameLabel.height)
         }
+        artistNameLabel.text = Constants.ArtistNameLabel.text
+        artistNameLabel.font = Constants.ArtistNameLabel.font
         
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
-            make.height.equalTo(20)
+            make.height.equalTo(Constants.ArtistNameLabel.height)
         }
     }
+    
     //MARK: - Private Methods
     private func setupView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
-        
     }
-    
-    //MARK: - Public Methods
-    //        self.isSkeletonable = true
-    //        self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(1))
-    
-    //        self.stopSkeletonAnimation()
-    //        self.hideSkeleton(reloadDataAfter: false, transition: .crossDissolve(1))
 }
