@@ -2,12 +2,12 @@
 import UIKit
 import SnapKit
 
-///Вспомогательная ячейка  содержащая в себе постер, имя, дату.
-class CollectionViewCell: UICollectionViewCell {
-    //MARK: - Static let
-    static let reuseIdentifier = String(describing: CollectionViewCell.self)
+final class CollectionViewCell: UICollectionViewCell {
     
     //MARK: - Let / Var
+    
+    static let reuseIdentifier = String(describing: CollectionViewCell.self)
+    
     var track : TrackModel! {
         didSet {
             if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
@@ -18,7 +18,6 @@ class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //Создаём ImageView с картинкой трека.
     private lazy var trackImageView: UIImageView = {
         let poster = UIImageView()
         poster.clipsToBounds = true
@@ -29,7 +28,6 @@ class CollectionViewCell: UICollectionViewCell {
         return poster
     }()
     
-    //Создаём Лейбл с неймингом трека.
     private lazy var trackNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -37,8 +35,7 @@ class CollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         return label
     }()
-    
-    //Создаём Лейбл с неймингом артиста.
+
     private lazy var artistNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)

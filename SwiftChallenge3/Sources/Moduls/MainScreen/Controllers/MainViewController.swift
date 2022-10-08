@@ -9,18 +9,29 @@ import UIKit
 
 class MainViewController: BaseViewController<MainView> {
     
-    //MARK: - Let / Var
+    enum SongTableSection: Int {
+        case favourite
+        case recently
+        
+        var title: String {
+            switch self {
+            case .favourite:
+                return "Made for yoy"
+            case .recently:
+                return "Recently Played"
+            }
+        }
+    }
+    // MARK: - RealmManager
+    
     let realmManager = RealmBaseManager()
 
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Айтюнс"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        selfView.songTableView.delegate = self
-        selfView.songTableView.dataSource = self
-        realmManager.delegate = self
+        setDelegate()
+        setNavigation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +41,23 @@ class MainViewController: BaseViewController<MainView> {
     }
 }
 
-//MARK: - Delegate + DataSource TableView
+// MARK: - Private Methodsf
+
+private extension MainViewController {
+    
+    func setDelegate() {
+        selfView.songTableView.delegate = self
+        selfView.songTableView.dataSource = self
+        realmManager.delegate = self
+    }
+    
+    func setNavigation() {
+        navigationItem.title = "Айтюнс"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+}
+
+// MARK: - Delegate + DataSource TableView
 
 extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     
@@ -44,7 +71,8 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as? MainSongCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainsTableViewCell.reuseIdentifier, for: indexPath) as? MainsTableViewCell
+        else {
             return UITableViewCell()
         }
         
@@ -79,7 +107,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     }
 }
 
-//MARK: - Realm Base Manager Delegate
+// MARK: - Realm Base Manager Delegate
 
 extension MainViewController: RealmBaseManagerDelegate {
     

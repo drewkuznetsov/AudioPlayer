@@ -44,9 +44,7 @@ class MainView : BaseView {
 private extension MainView {
     
     func configureSongTableView() {
-        songTableView.register(MainSongCell.self, forCellReuseIdentifier: MainSongCell.reuseIdentifier)
-//        songTableView.delegate = self
-//        songTableView.dataSource = self
+        songTableView.register(MainsTableViewCell.self, forCellReuseIdentifier: MainsTableViewCell.reuseIdentifier)
         songTableView.allowsSelection = false
         songTableView.separatorStyle = Constants.SongTableView.separator
         songTableView.sectionHeaderTopPadding = 0
