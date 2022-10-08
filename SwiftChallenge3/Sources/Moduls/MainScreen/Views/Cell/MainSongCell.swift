@@ -2,133 +2,165 @@
 //  MainSongCell.swift
 //  SwiftChallenge3
 //
-//  Created by Ilya Vasilev on 22.09.2022.
+//  Created by Ilya Vasilev on 07.10.2022.
 //
 
-import Foundation
 import UIKit
+import SnapKit
 
-//final class MainSongCell: UITableViewCell {
-//    
-//    //MARK: - Let / Var
-//    
-//    static let reuseIdentifier = String(describing: MainSongCell.self)
-//    
-//    var playlist : PlayListModel? {
-//        didSet {
-//            headerLabel.text = playlist?.playListName
-//            self.songCollection.reloadData()
-//        }
-//    }
-//    
-//    //MARK: - Lazy var
-//    
-//    private lazy var headerLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Header"
-//        label.textColor = .black
-//        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
-//        return label
-//    } ()
-//    
-//    private lazy var songCollection: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
-//        return collectionView
-//    } ()
-//    
-//    //MARK: - Override func
-//    
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//        self.setupView()
-//        self.songCollection.reloadData()
-//    }
-//    
-//    //MARK: - Override Methods
-//    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        
-//        contentView.snp.makeConstraints { make in
-//            make.top.equalTo(self.snp.top)
-//            make.leading.equalTo(self.snp.leading)
-//            make.trailing.equalTo(self.snp.trailing)
-//            make.bottom.equalTo(self.snp.bottom).offset(-5)
-//        }
-//        
-//        headerLabel.snp.makeConstraints { make in
-//            make.top.equalTo(contentView.snp.top)
-//            make.leading.equalTo(contentView.snp.leading)
-//            make.height.equalTo(50)
-//        }
-//        
-//        songCollection.snp.makeConstraints { make in
-//            make.top.equalTo(headerLabel.snp.bottom)
-//            make.leading.equalTo(contentView.snp.leading)
-//            make.trailing.equalTo(contentView.snp.trailing)
-//            make.bottom.equalTo(contentView.snp.bottom)
-//        }
-//    }
-//    
-//    //MARK: - Private Methods
-//    
-//    private func setupView () {
-//        self.addSubview(contentView)
-//        self.contentView.addSubview(self.headerLabel)
-//        self.contentView.addSubview(self.songCollection)
-//    }
-//}
-//
-////MARK: - Extension + Delegate
-//
-//extension MainSongCell: UICollectionViewDelegateFlowLayout {
-//    
-//    private var sideInset: CGFloat { return 12 }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let height = (collectionView.bounds.height)
-//        return CGSize(width: height/1.5, height: height)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        self.sideInset
-//    }
-//}
-//
-////MARK: - Extension + DataSource
-//extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
-//    
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return playlist?.tracks.count ?? 0
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-//        
-//        cell.track = playlist?.tracks[indexPath.row]
-//        return cell
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("Selected track - `\(playlist?.tracks[indexPath.row].trackName ?? "Selected cell in MainSongCell")` in MainSongCell")
-//    }
-//}
+class MainSongCell: UITableViewCell {
+    
+    //MARK: - Identifier
+    static let reuseIdentifier = String(describing: MainSongCell.self)
+    
+    var playlist : PlayListModel? {
+        didSet {
+            headerLabel.text = playlist?.playListName
+            self.songCollection.reloadData()
+        }
+    }
+    
+    // MARK: - Constants
+    private enum Constants {
+        
+        enum ContentView {
+            static let bot : CGFloat = -5
+        }
+        
+        enum HeaderLabel {
+            static let height : CGFloat = 50
+        }
+        
+        enum SongCollection {
+            static let sideInset : CGFloat = 15
+            static let sideHeight : CGFloat = 1.5
+        }
+    }
+    
+    // MARK: - UI Elements
+    
+    let headerLabel = UILabel()
+    var songCollection = MainSongCell.makeSongCollection()
+    
+    //MARK: - Init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureSongCollection()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureSongCollection()
+    }
+    
+    //MARK: - Override methods
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        self.configureHeader()
+        self.setupView()
+        self.setupDelegate()
+        self.songCollection.reloadData()
+    }
+    
+    //MARK: - UI
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(snp.top)
+            make.leading.equalTo(snp.leading)
+            make.trailing.equalTo(snp.trailing)
+            make.bottom.equalTo(snp.bottom).offset(Constants.ContentView.bot)
+        }
+        
+        headerLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top)
+            make.leading.equalTo(contentView.snp.leading)
+            make.height.equalTo(Constants.HeaderLabel.height)
+        }
+        
+        songCollection.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.bottom)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom)
+        }
+    }
+    
+    //MARK: - Private Methods
+    
+    private func setupView () {
+        self.addSubview(contentView)
+        self.contentView.addSubview(self.headerLabel)
+        self.contentView.addSubview(self.songCollection)
+    }
+    private func configureHeader() {
+        headerLabel.textColor = .black
+        headerLabel.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+    }
+    private func configureSongCollection() {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        songCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        songCollection.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+    }
+    private func setupDelegate() {
+        songCollection.delegate = self
+        songCollection.dataSource = self
+    }
+}
+// MARK: - Creating Subviews
 
+extension MainSongCell {
+    
+    static func makeSongCollection() -> UICollectionView {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        return collectionView
+    }
+}
 
+//MARK: - UICollection Delegate
 
+extension MainSongCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = (collectionView.bounds.height)
+        return CGSize(width: height/Constants.SongCollection.sideHeight, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Constants.SongCollection.sideInset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected track - `\(playlist?.tracks[indexPath.row].trackName ?? "Selected cell in MainSongCell")` in MainSongCell")
+    }
+}
 
+//MARK: - UICollection DataSource
 
-
-
-
-
-//     self.isSkeletonable = true
-//     self.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .black, secondaryColor: .darkGray), animation: nil, transition: .crossDissolve(5))
-//    self.stopSkeletonAnimation()
-//   self.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(5))
+extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return playlist?.tracks.count ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseIdentifier, for: indexPath) as! CollectionViewCell
+        
+        cell.track = playlist?.tracks[indexPath.row]
+        return cell
+    }
+    
+    
+}

@@ -34,8 +34,8 @@ class MainView : BaseView {
     }
     // MARK: - Initilization
     override func configure() {
-     configureConstraints()
-    configureSongTableView()
+        configureConstraints()
+        configureSongTableView()
     }
 }
 
@@ -44,7 +44,7 @@ class MainView : BaseView {
 private extension MainView {
     
     func configureSongTableView() {
-        songTableView.register(MainsTableViewCell.self, forCellReuseIdentifier: MainsTableViewCell.reuseIdentifier)
+        songTableView.register(MainSongCell.self, forCellReuseIdentifier: MainSongCell.reuseIdentifier)
         songTableView.allowsSelection = false
         songTableView.separatorStyle = Constants.SongTableView.separator
         songTableView.sectionHeaderTopPadding = 0

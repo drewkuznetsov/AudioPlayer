@@ -9,23 +9,10 @@ import UIKit
 
 class MainViewController: BaseViewController<MainView> {
     
-    enum SongTableSection: Int {
-        case favourite
-        case recently
-        
-        var title: String {
-            switch self {
-            case .favourite:
-                return "Made for yoy"
-            case .recently:
-                return "Recently Played"
-            }
-        }
-    }
     // MARK: - RealmManager
     
     let realmManager = RealmBaseManager()
-
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -41,7 +28,7 @@ class MainViewController: BaseViewController<MainView> {
     }
 }
 
-// MARK: - Private Methodsf
+// MARK: - Private Methods
 
 private extension MainViewController {
     
@@ -71,7 +58,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainsTableViewCell.reuseIdentifier, for: indexPath) as? MainsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainSongCell.reuseIdentifier, for: indexPath) as? MainSongCell
         else {
             return UITableViewCell()
         }
@@ -107,7 +94,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
     }
 }
 
-// MARK: - Realm Base Manager Delegate
+// MARK: - RealmBase Manager Delegate
 
 extension MainViewController: RealmBaseManagerDelegate {
     
