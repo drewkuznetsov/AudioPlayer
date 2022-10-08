@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MainSongCell: UITableViewCell {
+final class MainSongCell: UITableViewCell {
     
     //MARK: - Identifier
     static let reuseIdentifier = String(describing: MainSongCell.self)
@@ -42,7 +42,7 @@ class MainSongCell: UITableViewCell {
     let headerLabel = UILabel()
     var songCollection = MainSongCell.makeSongCollection()
     
-    //MARK: - Init
+    //MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -108,7 +108,7 @@ class MainSongCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         
         songCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        songCollection.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        songCollection.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdentifier)
     }
     private func setupDelegate() {
         songCollection.delegate = self
@@ -124,7 +124,7 @@ extension MainSongCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        collectionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdentifier)
         return collectionView
     }
 }
@@ -156,7 +156,7 @@ extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseIdentifier, for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCollectionViewCell.reuseIdentifier, for: indexPath) as! SecondCollectionViewCell
         
         cell.track = playlist?.tracks[indexPath.row]
         return cell
