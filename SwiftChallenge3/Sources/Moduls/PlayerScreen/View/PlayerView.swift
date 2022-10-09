@@ -55,35 +55,38 @@ class PlayerView: BaseView {
         
         
         enum LeftButton {
-            static let pointSize: CGFloat = 10
+            static let pointSize: CGFloat = 18
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.LeftButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "backward.end.alt.fill", withConfiguration: Constants.LeftButton.largeConfig)
         }
         
         enum RightButton {
-            static let pointSize: CGFloat = 10
+            static let pointSize: CGFloat = 18
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.RightButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "forward.end.alt.fill", withConfiguration: Constants.RightButton.largeConfig)
         }
         
         enum PauseButton {
-            static let pointSize: CGFloat = 15
+            static let pointSize: CGFloat = 28
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.PauseButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "pause.fill", withConfiguration: Constants.PauseButton.largeConfig)
         }
+        
         enum DismissButton {
-            static let pointSize : CGFloat = 15
+            
             static let top : CGFloat = 45
             static let trailing : CGFloat = 60
-            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.PauseButton.pointSize, weight: .bold, scale: .large)
+            
+            static let pointSize : CGFloat = 22
+            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.DismissButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "chevron.compact.down", withConfiguration: Constants.DismissButton.largeConfig)
             static let color = UIColor.systemGray
         }
         
         enum AddFavoriteButton {
-            static let pointSize: CGFloat = 15
-            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.PauseButton.pointSize, weight: .bold, scale: .large)
-            static let image = UIImage(systemName: "heart", withConfiguration: Constants.AddFavoriteButton.largeConfig)
+            static let pointSize: CGFloat = 22
+            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.AddFavoriteButton.pointSize, weight: .bold, scale: .large)
+            static let image = UIImage(systemName: "heart", withConfiguration: Constants.AddFavoriteButton.largeConfig) 
             static let color = UIColor.systemPink
         }
         
@@ -102,32 +105,33 @@ class PlayerView: BaseView {
         enum LeftTimeLabel {
             static let text = "00:00"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
         }
         enum RightTimeLabel {
             static let text = "--:--"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
         }
         
         enum AuthorNameLabel {
             static let text = "Author"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            static let font = UIFont.systemFont(ofSize: 24, weight: .light)
             static let height : CGFloat = 20
+            static let color = UIColor.systemPink
         }
         
         enum TrackNameLabel {
             static let text = "Track title"
-            static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 14, weight: .light)
+            static let numberOfLines = 0
+            static let font = UIFont.systemFont(ofSize: 24, weight: .semibold)
             static let height : CGFloat = 20
             
         }
         
         enum TrackImageView {
             static let image = UIImage(named: "test")
-            static let top: CGFloat = 30
+            static let top: CGFloat = 130
             static let height: CGFloat = 250
             static let widht: CGFloat = 250
         }
@@ -250,6 +254,7 @@ private extension PlayerView {
         authorNameLabel.text = Constants.AuthorNameLabel.text
         authorNameLabel.numberOfLines = Constants.AuthorNameLabel.numberOfLines
         authorNameLabel.font = Constants.AuthorNameLabel.font
+        authorNameLabel.textColor = Constants.AuthorNameLabel.color
         
         trackNameLabel.text = Constants.TrackNameLabel.text
         trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines
@@ -282,7 +287,7 @@ private extension PlayerView {
         }
         
         trackImageView.snp.makeConstraints { make in
-            make.top.equalTo(snp.top).offset(Constants.TrackImageView.top)
+            make.top.equalTo(snp.top).inset(Constants.TrackImageView.top)
             make.height.equalTo(Constants.TrackImageView.height)
             make.width.equalTo(Constants.TrackImageView.widht)
             make.centerX.equalTo(snp.centerX)

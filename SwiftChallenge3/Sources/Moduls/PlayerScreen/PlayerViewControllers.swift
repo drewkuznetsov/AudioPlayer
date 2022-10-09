@@ -76,14 +76,15 @@ private extension PlayerViewController {
         }
     }
     
-    func playPauseAction(_ sender: Any) {
-        delegate?.playPauseActionDelegate()
+    func playPauseAction(_ sender: UIButton) {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold, scale: .large)
         if selfView.player.timeControlStatus == .paused {
+            delegate?.playPauseActionDelegate()
             selfView.player.play()
-            selfView.pauseButton.setImage(UIImage(named: "pause"), for: .normal)
+            sender.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         } else {
             selfView.player.pause()
-            selfView.pauseButton.setImage(UIImage(named: "play"), for: .normal)
+            sender.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
     }
     
