@@ -102,7 +102,6 @@ extension MainTabBarController {
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
         let vc = PlayerViewController()
-        vc.showDismissButton()
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
