@@ -18,7 +18,7 @@
 		43B123D928EF349200EF5E9C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B123D828EF349200EF5E9C /* MainViewController.swift */; };
 		43C207AC28F0873900F20013 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C207AB28F0873900F20013 /* MainSongCell.swift */; };
 		43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */; };
-		43E7E5AC28F3206F00C6A27A /* PlayerViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E7E5AB28F3206F00C6A27A /* PlayerViewControllers.swift */; };
+		43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */; };
 		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
@@ -28,7 +28,6 @@
 		E465C24328DB6C2B008CC3E0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C24228DB6C2B008CC3E0 /* NetworkService.swift */; };
 		E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */; };
 		E465C25128DB73AC008CC3E0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25028DB73AC008CC3E0 /* ListViewController.swift */; };
-		E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25328DB742A008CC3E0 /* PlayerViewController.swift */; };
 		E465C25728DB7525008CC3E0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25628DB7525008CC3E0 /* SearchViewController.swift */; };
 		E465C26028DB76CB008CC3E0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E465C25F28DB76CB008CC3E0 /* SnapKit */; };
 		E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C26128DC6793008CC3E0 /* TrackDataModel.swift */; };
@@ -52,7 +51,7 @@
 		43B123D828EF349200EF5E9C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		43C207AB28F0873900F20013 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
 		43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
-		43E7E5AB28F3206F00C6A27A /* PlayerViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewControllers.swift; sourceTree = "<group>"; };
+		43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +63,6 @@
 		E465C24228DB6C2B008CC3E0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E465C25028DB73AC008CC3E0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		E465C25328DB742A008CC3E0 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E465C25628DB7525008CC3E0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E465C26128DC6793008CC3E0 /* TrackDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDataModel.swift; sourceTree = "<group>"; };
 		E465C26528DC718D008CC3E0 /* PlayListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListModel.swift; sourceTree = "<group>"; };
@@ -284,8 +282,7 @@
 		E465C25528DB742E008CC3E0 /* PlayerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E465C25328DB742A008CC3E0 /* PlayerViewController.swift */,
-				43E7E5AB28F3206F00C6A27A /* PlayerViewControllers.swift */,
+				43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */,
 				43AB87D028F210EE00E2063A /* View */,
 			);
 			path = PlayerScreen;
@@ -394,8 +391,7 @@
 				43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */,
 				E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */,
 				43B123D928EF349200EF5E9C /* MainViewController.swift in Sources */,
-				E465C25428DB742A008CC3E0 /* PlayerViewController.swift in Sources */,
-				43E7E5AC28F3206F00C6A27A /* PlayerViewControllers.swift in Sources */,
+				43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */,
 				E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */,
 				E4B1B3F028DE4C8600F57483 /* RealmDataModel.swift in Sources */,
 				E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */,
