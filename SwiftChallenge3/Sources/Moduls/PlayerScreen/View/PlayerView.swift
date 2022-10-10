@@ -1,9 +1,3 @@
-//
-//  PlayerView.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 08.10.2022.
-//
 import UIKit
 import SnapKit
 import AVFoundation
@@ -14,15 +8,13 @@ class PlayerView: BaseView {
     
     private enum Constants {
         
-        static let cornerRadius: CGFloat = 16
         static let spacing : CGFloat = 5
         static let indent : CGFloat = 16
         
         enum StackView {
-            
-            static let indent: CGFloat = 16
-            static let leading: CGFloat = 70
-            static let bottom : CGFloat = -120
+            static let indent : CGFloat = 16
+            static let leading : CGFloat = 70
+            static let bottom  : CGFloat = -120
         }
         
         enum LabelHeartStackView {
@@ -36,47 +28,46 @@ class PlayerView: BaseView {
         }
         
         enum ControllersStackView {
-            
+            static let spacing : CGFloat = 5
         }
         
         enum StackSoundView {
-            static let spacing: CGFloat = 5
-            static let top: CGFloat = 25
-            static let trealing: CGFloat = -16
+            static let spacing : CGFloat = 10
+            static let top : CGFloat = 25
+            static let trealing : CGFloat = -16
         }
         
         enum StackTimeLabels {
-            static let top: CGFloat = 25
-            static let trealing: CGFloat = -16
-        }
-        enum StackTimerView {
-            static let height: CGFloat = 20
+            static let top : CGFloat = 25
+            static let trealing : CGFloat = -16
         }
         
+        enum StackTimerView {
+            static let height : CGFloat = 20
+            static let spacing : CGFloat = 45
+        }
         
         enum LeftButton {
-            static let pointSize: CGFloat = 18
+            static let pointSize : CGFloat = 18
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.LeftButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "backward.end.alt.fill", withConfiguration: Constants.LeftButton.largeConfig)
         }
         
         enum RightButton {
-            static let pointSize: CGFloat = 18
+            static let pointSize : CGFloat = 18
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.RightButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "forward.end.alt.fill", withConfiguration: Constants.RightButton.largeConfig)
         }
         
         enum PauseButton {
-            static let pointSize: CGFloat = 28
+            static let pointSize : CGFloat = 28
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.PauseButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "pause.fill", withConfiguration: Constants.PauseButton.largeConfig)
         }
         
         enum DismissButton {
-            
             static let top : CGFloat = 45
             static let trailing : CGFloat = 60
-            
             static let pointSize : CGFloat = 22
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.DismissButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "chevron.compact.down", withConfiguration: Constants.DismissButton.largeConfig)
@@ -84,7 +75,7 @@ class PlayerView: BaseView {
         }
         
         enum AddFavoriteButton {
-            static let pointSize: CGFloat = 22
+            static let pointSize : CGFloat = 22
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.AddFavoriteButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "heart", withConfiguration: Constants.AddFavoriteButton.largeConfig) 
             static let color = UIColor.systemPink
@@ -96,17 +87,18 @@ class PlayerView: BaseView {
             static let bot : CGFloat = 30
             static let height : CGFloat = 16
         }
+        
         enum SliderSound {
             static let color = UIColor.tabBarItemLight
             static let value : Float = 1
         }
-        
-        
+
         enum LeftTimeLabel {
             static let text = "00:00"
             static let numberOfLines = 1
             static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
         }
+        
         enum RightTimeLabel {
             static let text = "--:--"
             static let numberOfLines = 1
@@ -135,15 +127,17 @@ class PlayerView: BaseView {
             static let height: CGFloat = 250
             static let widht: CGFloat = 250
         }
+        
         enum SoundMinimumImage {
             static let image = UIImage(named: "min")
-            static let height : CGFloat = 17
-            static let width : CGFloat = 17
+            static let height : CGFloat = 14
+            static let width : CGFloat = 14
         }
+        
         enum SoundMaximumImage {
             static let image = UIImage(named: "max")
-            static let height : CGFloat = 17
-            static let width : CGFloat = 17
+            static let height : CGFloat = 25
+            static let width : CGFloat = 25
         }
     }
     
@@ -212,11 +206,21 @@ private extension PlayerView {
         labelStackView.alignment = .center
         labelStackView.spacing = Constants.spacing
         
+        stackTime.axis = .horizontal
+        stackTime.distribution = .fillProportionally
+        
+        stackTimerView.axis = .vertical
+        stackTimerView.spacing = Constants.StackTimerView.spacing
+        stackTimerView.distribution = .fillEqually
+        
         controllersStackView.axis = .horizontal
         controllersStackView.alignment = .center
         controllersStackView.spacing = Constants.spacing
         controllersStackView.distribution = .fillEqually
         
+        stackSoundView.spacing = Constants.StackSoundView.spacing
+        stackSoundView.axis = .horizontal
+        stackSoundView.distribution = .fillProportionally
         
         leftBackwardButton.setImage(Constants.LeftButton.image, for: .normal)
         leftBackwardButton.tintColor = .black
@@ -247,6 +251,11 @@ private extension PlayerView {
         trackImageView.image = Constants.TrackImageView.image
         trackImageView.clipsToBounds = true
         
+        soundMinimimImage.image = Constants.SoundMinimumImage.image
+        soundMaximumImage.image = Constants.SoundMaximumImage.image
+        soundMaximumImage.contentMode = .scaleAspectFit
+        soundMinimimImage.contentMode = .scaleAspectFit
+        
         trackNameLabel.text = Constants.TrackNameLabel.text
         trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines
         trackNameLabel.font = Constants.TrackNameLabel.font
@@ -259,14 +268,16 @@ private extension PlayerView {
         trackNameLabel.text = Constants.TrackNameLabel.text
         trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines
         trackNameLabel.font = Constants.TrackNameLabel.font
-        
+
         leftTimeLabel.text = Constants.LeftTimeLabel.text
         leftTimeLabel.numberOfLines = Constants.LeftTimeLabel.numberOfLines
         leftTimeLabel.font = Constants.LeftTimeLabel.font
+        leftTimeLabel.textAlignment = .left
         
         rightTimeLabel.text = Constants.RightTimeLabel.text
         rightTimeLabel.numberOfLines = Constants.RightTimeLabel.numberOfLines
         rightTimeLabel.font = Constants.RightTimeLabel.font
+        rightTimeLabel.textAlignment = .right
     }
     
     private func configureConstraints() {
@@ -276,14 +287,23 @@ private extension PlayerView {
         addSubview(sliderTime)
         addSubview(trackImageView)
         
-        stackView.addArrangedSubview(stackTimerView)
-        stackView.addArrangedSubview(labelHeartStackView)
-        
         stackView.snp.makeConstraints { make in
             make.top.equalTo(sliderTime.snp.bottom).offset(Constants.spacing)
             make.trailing.equalTo(snp.trailing).offset(-Constants.indent)
             make.leading.equalTo(snp.leading).offset(Constants.indent)
             make.bottom.equalTo(snp.bottom).offset(Constants.StackView.bottom)
+        }
+        
+        dismissButton.snp.makeConstraints { make in
+            make.top.equalTo(snp.top).offset(Constants.DismissButton.top)
+            make.trailing.equalTo(snp.leading).offset(Constants.DismissButton.trailing)
+        }
+        
+        sliderTime.snp.makeConstraints { make in
+            make.top.equalTo(trackImageView.snp.bottom).offset(Constants.SliderTime.bot)
+            make.leading.equalTo(snp.leading).offset(Constants.indent)
+            make.trailing.equalTo(snp.trailing).offset(-Constants.indent)
+            make.height.equalTo(Constants.SliderTime.height)
         }
         
         trackImageView.snp.makeConstraints { make in
@@ -293,19 +313,22 @@ private extension PlayerView {
             make.centerX.equalTo(snp.centerX)
         }
         
-        dismissButton.snp.makeConstraints { make in
-            make.top.equalTo(snp.top).offset(Constants.DismissButton.top)
-            make.trailing.equalTo(snp.leading).offset(Constants.DismissButton.trailing)
-        }
-        
-        stackTimerView.addArrangedSubview(stackTime)
-        stackTime.addArrangedSubview(leftTimeLabel)
-        stackTime.addArrangedSubview(rightTimeLabel)
+        stackView.addArrangedSubview(stackTimerView)
         
         stackTimerView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.top)
             make.height.equalTo(Constants.StackTimerView.height)
         }
+        
+        stackView.addArrangedSubview(labelHeartStackView)
+        
+        labelHeartStackView.snp.makeConstraints { make in
+            make.top.equalTo(stackTimerView.snp.bottom)
+        }
+        
+        stackTimerView.addArrangedSubview(stackTime)
+        stackTime.addArrangedSubview(leftTimeLabel)
+        stackTime.addArrangedSubview(rightTimeLabel)
         
         labelHeartStackView.addArrangedSubview(labelStackView)
         labelStackView.addArrangedSubview(trackNameLabel)
@@ -313,8 +336,12 @@ private extension PlayerView {
         labelHeartStackView.addArrangedSubview(heartStackView)
         heartStackView.addArrangedSubview(addFavoriteButton)
         
-        labelHeartStackView.snp.makeConstraints { make in
-            make.top.equalTo(stackTimerView.snp.bottom)
+        trackNameLabel.snp.makeConstraints { make in
+            make.height.equalTo(Constants.TrackNameLabel.height)
+        }
+        
+        authorNameLabel.snp.makeConstraints { make in
+            make.height.equalTo(Constants.AuthorNameLabel.height)
         }
         
         labelStackView.snp.makeConstraints { make in
@@ -323,14 +350,6 @@ private extension PlayerView {
         
         heartStackView.snp.makeConstraints { make in
             make.width.equalTo(Constants.HeartStackView.width)
-        }
-        
-        trackNameLabel.snp.makeConstraints { make in
-            make.height.equalTo(Constants.TrackNameLabel.height)
-        }
-        
-        authorNameLabel.snp.makeConstraints { make in
-            make.height.equalTo(Constants.AuthorNameLabel.height)
         }
         
         stackView.addArrangedSubview(controllersStackView)
@@ -355,13 +374,6 @@ private extension PlayerView {
         soundMaximumImage.snp.makeConstraints { make in
             make.height.equalTo(Constants.SoundMaximumImage.height)
             make.width.equalTo(Constants.SoundMaximumImage.width)
-        }
-        
-        sliderTime.snp.makeConstraints { make in
-            make.top.equalTo(trackImageView.snp.bottom).offset(Constants.SliderTime.bot)
-            make.leading.equalTo(snp.leading).offset(Constants.indent)
-            make.trailing.equalTo(snp.trailing).offset(-Constants.indent)
-            make.height.equalTo(Constants.SliderTime.height)
         }
     }
 }
