@@ -1,10 +1,3 @@
-//
-//  MainTabBarController.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import UIKit
 class MainTabBarController: UITabBarController, MiniPlayerDelegate {
     //MARK: - Let / var

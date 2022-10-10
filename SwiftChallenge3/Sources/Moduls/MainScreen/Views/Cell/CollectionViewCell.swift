@@ -1,10 +1,3 @@
-//
-//  CollectionViewCell.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 08.10.2022.
-//
-
 import UIKit
 import SnapKit
 
@@ -15,7 +8,8 @@ final class CollectionViewCell: UICollectionViewCell {
     private enum Constants {
         
         enum TrackImageView {
-            static let image = UIImage(named: "test")
+            static let image = UIImage(systemName: "rectangle.badge.person.crop")
+            static let color = UIColor.tabBarItemLight
             static let cornerRadius: CGFloat = 16
         }
         
@@ -32,11 +26,11 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Identifier
+    // MARK: - Identifier
     
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
     
-    //MARK: - Playlist
+    // MARK: - Playlist
     
     var track : TrackModel! {
         didSet {
@@ -54,22 +48,26 @@ final class CollectionViewCell: UICollectionViewCell {
     var trackNameLabel = UILabel()
     var artistNameLabel = UILabel()
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        self.setupView()
+        self.setupDefaultView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - UI
+    // MARK: - UI
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        contentView.addSubview(self.trackImageView)
+        contentView.addSubview(self.trackNameLabel)
+        contentView.addSubview(self.artistNameLabel)
         
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
@@ -77,8 +75,6 @@ final class CollectionViewCell: UICollectionViewCell {
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(trackNameLabel.snp.top)
         }
-        
-        trackNameLabel.text = Constants.TrackNameLabel.text
         trackNameLabel.font = Constants.TrackNameLabel.font
         
         trackNameLabel.snp.makeConstraints { make in
@@ -87,9 +83,9 @@ final class CollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(artistNameLabel.snp.top)
             make.height.equalTo(Constants.TrackNameLabel.height)
         }
-        artistNameLabel.text = Constants.ArtistNameLabel.text
-        artistNameLabel.font = Constants.ArtistNameLabel.font
         
+        artistNameLabel.font = Constants.ArtistNameLabel.font
+
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
             make.leading.equalTo(contentView.snp.leading)
@@ -98,10 +94,11 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Private Methods
-    private func setupView() {
-        contentView.addSubview(self.trackImageView)
-        contentView.addSubview(self.trackNameLabel)
-        contentView.addSubview(self.artistNameLabel)
+    // MARK: - Private Methods
+    private func setupDefaultView() {
+        trackNameLabel.text = Constants.TrackNameLabel.text
+        artistNameLabel.text = Constants.ArtistNameLabel.text
+        trackImageView.image = Constants.TrackImageView.image
+        trackImageView.tintColor = Constants.TrackImageView.color
     }
 }
