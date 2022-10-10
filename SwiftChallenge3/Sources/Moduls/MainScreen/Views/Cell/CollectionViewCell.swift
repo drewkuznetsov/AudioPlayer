@@ -71,6 +71,9 @@ final class CollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        trackNameLabel.font = Constants.TrackNameLabel.font
+        artistNameLabel.font = Constants.ArtistNameLabel.font
+        
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
@@ -78,17 +81,14 @@ final class CollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(trackNameLabel.snp.top)
         }
         
-        trackNameLabel.text = Constants.TrackNameLabel.text
-        trackNameLabel.font = Constants.TrackNameLabel.font
-        
         trackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(artistNameLabel.snp.top)
             make.height.equalTo(Constants.TrackNameLabel.height)
         }
-        artistNameLabel.text = Constants.ArtistNameLabel.text
-        artistNameLabel.font = Constants.ArtistNameLabel.font
+
+        
         
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
@@ -103,5 +103,9 @@ final class CollectionViewCell: UICollectionViewCell {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
+        trackNameLabel.text = Constants.TrackNameLabel.text
+        artistNameLabel.text = Constants.ArtistNameLabel.text
+        trackImageView.image = Constants.TrackImageView.image
+        trackImageView.tintColor = Constants.TrackImageView.color
     }
 }
