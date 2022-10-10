@@ -11,7 +11,7 @@ class MiniPlayerView: BaseView {
         static let cornerRadius: CGFloat = 16
         
         enum TrackImageView {
-            static let image = UIImage(named: "test")
+            static let image = UIImage(systemName: "person.crop.circle.badge.questionmark.fill")
             static let cornerRadius: CGFloat = 25
             static let top: CGFloat = 10
             static let leading: CGFloat = 18
@@ -107,6 +107,7 @@ private extension MiniPlayerView {
         trackImageView.image = Constants.TrackImageView.image
         trackImageView.layer.cornerRadius = Constants.TrackImageView.cornerRadius
         trackImageView.layer.masksToBounds = true
+        trackImageView.tintColor = UIColor.tabBarItemLight
         
         trackNameLabel.text = Constants.TrackNameLabel.text
         trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines

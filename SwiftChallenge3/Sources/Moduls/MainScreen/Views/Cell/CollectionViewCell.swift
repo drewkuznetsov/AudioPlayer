@@ -15,8 +15,8 @@ final class CollectionViewCell: UICollectionViewCell {
     private enum Constants {
         
         enum TrackImageView {
-            static let image = UIImage(named: "test")
-            static let cornerRadius: CGFloat = 16
+            static let image = UIImage(systemName: "rectangle.stack.badge.person.crop")
+            static let color = UIColor.tabBarItemLight
         }
         
         enum TrackNameLabel {

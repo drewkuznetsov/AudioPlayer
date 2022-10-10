@@ -122,7 +122,7 @@ class PlayerView: BaseView {
         }
         
         enum TrackImageView {
-            static let image = UIImage(named: "test")
+            static let image = UIImage(systemName: "person.crop.circle.badge.questionmark.fill")
             static let top: CGFloat = 130
             static let height: CGFloat = 250
             static let widht: CGFloat = 250
@@ -250,6 +250,7 @@ private extension PlayerView {
         trackImageView.contentMode = .scaleAspectFit
         trackImageView.image = Constants.TrackImageView.image
         trackImageView.clipsToBounds = true
+        trackImageView.tintColor = UIColor.tabBarItemLight
         
         soundMinimimImage.image = Constants.SoundMinimumImage.image
         soundMaximumImage.image = Constants.SoundMaximumImage.image
