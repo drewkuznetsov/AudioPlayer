@@ -1,10 +1,3 @@
-//
-//  CollectionViewCell.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 08.10.2022.
-//
-
 import UIKit
 import SnapKit
 
@@ -32,11 +25,11 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Identifier
+    // MARK: - Identifier
     
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
     
-    //MARK: - Playlist
+    // MARK: - Playlist
     
     var track : TrackModel! {
         didSet {
@@ -66,7 +59,7 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - UI
+    // MARK: - UI
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -87,8 +80,6 @@ final class CollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(artistNameLabel.snp.top)
             make.height.equalTo(Constants.TrackNameLabel.height)
         }
-
-        
         
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
@@ -97,9 +88,13 @@ final class CollectionViewCell: UICollectionViewCell {
             make.height.equalTo(Constants.ArtistNameLabel.height)
         }
     }
+}
+
+// MARK: - Private Methods
+
+private extension CollectionViewCell {
     
-    //MARK: - Private Methods
-    private func setupView() {
+    func setupView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
@@ -109,3 +104,4 @@ final class CollectionViewCell: UICollectionViewCell {
         trackImageView.tintColor = Constants.TrackImageView.color
     }
 }
+

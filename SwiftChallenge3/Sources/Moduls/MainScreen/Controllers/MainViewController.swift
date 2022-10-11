@@ -1,10 +1,3 @@
-//
-//  MainViewControllers.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 06.10.2022.
-//
-
 import UIKit
 
 class MainViewController: BaseViewController<MainView> {
@@ -25,22 +18,6 @@ class MainViewController: BaseViewController<MainView> {
         super.viewWillAppear(animated)
         realmManager.loadFavourites()
         realmManager.loadRecentPlayed()
-    }
-}
-
-// MARK: - Private Methods
-
-private extension MainViewController {
-    
-    func setDelegate() {
-        selfView.songTableView.delegate = self
-        selfView.songTableView.dataSource = self
-        realmManager.delegate = self
-    }
-    
-    func setNavigation() {
-        navigationItem.title = "Айтюнс"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -91,6 +68,22 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
             default: return 0
             }
         }
+    }
+}
+
+// MARK: - Private Methods
+
+private extension MainViewController {
+    
+    func setDelegate() {
+        selfView.songTableView.delegate = self
+        selfView.songTableView.dataSource = self
+        realmManager.delegate = self
+    }
+    
+    func setNavigation() {
+        navigationItem.title = "Айтюнс"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

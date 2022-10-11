@@ -173,7 +173,7 @@ class PlayerView: BaseView {
     lazy var leftTimeLabel = UILabel()
     
     
-    // MARK: - Initilization
+// MARK: - Initilization
     
     override func configure() {
         configureUI()
@@ -281,7 +281,7 @@ private extension PlayerView {
         rightTimeLabel.textAlignment = .right
     }
     
-    private func configureConstraints() {
+        func configureConstraints() {
         
         addSubview(stackView)
         addSubview(dismissButton)
