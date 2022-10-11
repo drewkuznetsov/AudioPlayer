@@ -20,9 +20,9 @@ final class TrackTableViewCell: UITableViewCell {
                 trackImageView.downloadedFrom(link: coverURL)
             }
             if realmManager.isFavourite(track: track) {
-                favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                favoriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
             } else {
-                favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                favoriteButton.setImage(UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
             }
             trackNameLabel.text = track.trackName
             artistNameLabel.text = track.artistName
@@ -59,7 +59,7 @@ final class TrackTableViewCell: UITableViewCell {
         
         enum FavoriteButton {
             static let width = 50
-            static let pointSize : CGFloat = 28
+            static let pointSize : CGFloat = 16
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.FavoriteButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig)
             static let color = UIColor.systemPink
@@ -157,12 +157,13 @@ private extension TrackTableViewCell {
     
     func favoriteButtonPressed(sender: UIButton!) {
         
-        if favoriteButton.image(for: .normal) == UIImage(systemName: "heart") {
+        if favoriteButton.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig) {
             realmManager.addToFavourites(track: track)
-            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favoriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
+//            setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
             realmManager.deleteFromFavourites(track: track)
-            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favoriteButton.setImage(UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
         }
     }
 }
