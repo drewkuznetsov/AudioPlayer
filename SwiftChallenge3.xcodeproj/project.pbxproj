@@ -164,6 +164,23 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		43FB78F028F5D1130038E3AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43FB78F128F5D1380038E3AF /* Cell */,
+				43FB78EE28F5A22D0038E3AF /* ListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		43FB78F128F5D1380038E3AF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		E465C21E28DB6B44008CC3E0 = {
 			isa = PBXGroup;
 			children = (
@@ -276,8 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				E465C25028DB73AC008CC3E0 /* ListViewController.swift */,
-				43FB78EE28F5A22D0038E3AF /* ListView.swift */,
-				A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */,
+				43FB78F028F5D1130038E3AF /* View */,
 			);
 			path = ListScreen;
 			sourceTree = "<group>";

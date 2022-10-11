@@ -160,7 +160,6 @@ private extension TrackTableViewCell {
         if favoriteButton.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig) {
             realmManager.addToFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
-//            setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
             realmManager.deleteFromFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
