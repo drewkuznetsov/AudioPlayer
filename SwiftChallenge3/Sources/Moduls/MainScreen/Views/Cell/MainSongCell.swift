@@ -10,7 +10,7 @@ import SnapKit
 
 final class MainSongCell: UITableViewCell {
     
-    //MARK: - Identifier
+    // MARK: - Identifier
     static let reuseIdentifier = String(describing: MainSongCell.self)
     
     var playlist : PlayListModel? {
@@ -42,7 +42,7 @@ final class MainSongCell: UITableViewCell {
     let headerLabel = UILabel()
     var songCollection = MainSongCell.makeSongCollection()
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,7 +55,7 @@ final class MainSongCell: UITableViewCell {
         configureSongCollection()
     }
     
-    //MARK: - Override methods
+    // MARK: - Override methods
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -65,7 +65,7 @@ final class MainSongCell: UITableViewCell {
         self.songCollection.reloadData()
     }
     
-    //MARK: - UI
+    // MARK: - UI
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -91,7 +91,7 @@ final class MainSongCell: UITableViewCell {
         }
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     
     private func setupView () {
         self.addSubview(contentView)
@@ -129,7 +129,7 @@ extension MainSongCell {
     }
 }
 
-//MARK: - UICollection Delegate
+// MARK: - UICollection Delegate
 
 extension MainSongCell: UICollectionViewDelegateFlowLayout {
     
@@ -147,7 +147,7 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//MARK: - UICollection DataSource
+// MARK: - UICollection DataSource
 
 extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
     

@@ -32,11 +32,11 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Identifier
+    // MARK: - Identifier
     
     static let reuseIdentifier = String(describing: CollectionViewCell.self)
     
-    //MARK: - Playlist
+    // MARK: - Playlist
     
     var track : TrackModel! {
         didSet {
@@ -54,7 +54,7 @@ final class CollectionViewCell: UICollectionViewCell {
     var trackNameLabel = UILabel()
     var artistNameLabel = UILabel()
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +66,7 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - UI
+    // MARK: - UI
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -98,7 +98,8 @@ final class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
+    
     private func setupView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
