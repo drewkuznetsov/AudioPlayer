@@ -1,13 +1,12 @@
-//
-//  ListViewController.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import UIKit
 
 class ListViewController: UITableViewController {
+    
+    // MARK: - RealmManager
+    
+    var realmManager = RealmBaseManager()
+    
+    // MARK: - Playlist
     
     var playList: PlayListModel? {
         didSet {
@@ -16,19 +15,24 @@ class ListViewController: UITableViewController {
         }
     }
     
-    var realmManager = RealmBaseManager()
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureUI()
-        realmManager.delegate = self
+        setupDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         realmManager.loadFavourites()
     }
+}
+
+// MARK: - Private Methods
+
+private extension ListViewController {
     
     private func configureTableView() {
         tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
@@ -37,15 +41,25 @@ class ListViewController: UITableViewController {
     private func configureUI() {
         let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
         sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
+        sortButtonItem.tintColor = UIColor.tabBarItemAccent
         self.navigationItem.rightBarButtonItem  = sortButtonItem
     }
+    func setupDelegate() {
+        realmManager.delegate = self
+    }
+}
+
+// MARK: - @Objc Private Methods
+
+private extension ListViewController {
     
     @objc private func sortPlaylist() {
         print("Sort Playlist")
     }
 }
 
-// MARK: - TableView data source
+
+// MARK: - DataSource + TableView
 
 extension ListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,7 +75,7 @@ extension ListViewController {
     }
 }
 
-// MARK: - TableView delegate
+// MARK: - Delegate + TableView
 
 extension ListViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -75,7 +89,7 @@ extension ListViewController {
     }
 }
 
-//MARK: - Realm Base Manager Delegate
+// MARK: - Realm Base Manager Delegate
 
 extension ListViewController: RealmBaseManagerDelegate {
     

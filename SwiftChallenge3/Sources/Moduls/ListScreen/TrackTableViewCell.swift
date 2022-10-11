@@ -2,16 +2,16 @@ import UIKit
 import SnapKit
 
 final class TrackTableViewCell: UITableViewCell {
-
-    // MARK: - Identifier
+    
+// MARK: - Identifier
     
     static let reuseIdentifier = String(describing: TrackTableViewCell.self)
     
-    // MARK: - internal Property
+// MARK: - internal Property
     
     var realmManager = RealmBaseManager()
     
-    // MARK: - Playlist
+// MARK: - Playlist
     
     var track: TrackModel! {
         didSet {
@@ -29,7 +29,8 @@ final class TrackTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Constants
+// MARK: - Constants
+    
     private enum Constants {
         
         static let indent : CGFloat = 10
@@ -50,10 +51,12 @@ final class TrackTableViewCell: UITableViewCell {
             static let numberOfLines = 1
             static let font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         }
+        
         enum ArtistNameLabel {
             static let numberOfLines = 1
             static let font = UIFont.systemFont(ofSize: 16, weight: .regular)
         }
+        
         enum FavoriteButton {
             static let width = 50
             static let pointSize : CGFloat = 28
@@ -63,7 +66,7 @@ final class TrackTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - UI Elements
+// MARK: - UI Elements
     
     var trackImageView = UIImageView()
     var stackView = UIStackView()
@@ -76,13 +79,14 @@ final class TrackTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
+        addTargets()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI
+// MARK: - UI
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -109,7 +113,7 @@ final class TrackTableViewCell: UITableViewCell {
             make.right.equalTo(favoriteButton.snp.left).offset(Constants.StackView.right)
             make.bottom.equalTo(contentView).offset(Constants.StackView.bottom)
         }
-
+        
         favoriteButton.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(Constants.indent)
             make.width.equalTo(Constants.FavoriteButton.width)
@@ -117,30 +121,42 @@ final class TrackTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView).offset(-Constants.indent)
         }
     }
+}
+
+// MARK: - Private Methods
     
-    //MARK: - Private Methods
-    
-    private func configureUI() {
+    private extension TrackTableViewCell {
         
-        trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines
-        trackNameLabel.font = Constants.TrackNameLabel.font
+        func configureUI() {
+            
+            trackNameLabel.numberOfLines = Constants.TrackNameLabel.numberOfLines
+            trackNameLabel.font = Constants.TrackNameLabel.font
+            
+            artistNameLabel.numberOfLines = Constants.ArtistNameLabel.numberOfLines
+            artistNameLabel.font = Constants.ArtistNameLabel.font
+            
+            favoriteButton.setImage(Constants.FavoriteButton.image, for: .normal)
+            favoriteButton.tintColor = Constants.FavoriteButton.color
+            favoriteButton.startAnimatingPressActions()
+            
+            stackView.axis = .vertical
+            stackView.spacing = Constants.indent
+            stackView.distribution = .fillEqually
+            stackView.alignment = .fill
+        }
         
-        artistNameLabel.numberOfLines = Constants.ArtistNameLabel.numberOfLines
-        artistNameLabel.font = Constants.ArtistNameLabel.font
-        
-        favoriteButton.setImage(Constants.FavoriteButton.image, for: .normal)
-        favoriteButton.tintColor = Constants.FavoriteButton.color
-        favoriteButton.startAnimatingPressActions()
-        
-        stackView.axis = .vertical
-        stackView.spacing = Constants.indent
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
+        func addTargets() {
+            favoriteButton.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
+        }
     }
+
+// MARK: - @Objc Private Methods
+
+@objc
+private extension TrackTableViewCell {
     
-    //MARK: - Private Methods
-    
-    @objc private func favoriteButtonPressed(sender: UIButton!) {
+    func favoriteButtonPressed(sender: UIButton!) {
+        
         if favoriteButton.image(for: .normal) == UIImage(systemName: "heart") {
             realmManager.addToFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
