@@ -1,104 +1,44 @@
-//
-//  MainTabBarController.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import UIKit
-class MainTabBarController: UITabBarController, MiniPlayerDelegate {
-    //MARK: - Let / var
-    let miniPlayer = MiniPlayerViewController()
+import SnapKit
+
+class MainTabBarController: UITabBarController {
     
-    ///Устанавливаем контейнер вью в котором находятся кнопки и имя трека.
-    private lazy var containerView : UIView = {
-        let uiView = UIView()
-        uiView.layer.cornerRadius = 32
-        return uiView
-    }()
+    // MARK: - Constants
+    
+    enum Constants {
+        
+        enum TapBar {
+            static let positionOnX: CGFloat = 10
+            static let positionOnY: CGFloat = 2
+        }
+        
+        enum Container {
+            static let cornerRadius: CGFloat = 32
+            static let leading: CGFloat = 13
+            static let trailing: CGFloat = -13
+            static let bottom: CGFloat = -4
+            static let height: CGFloat = 64
+        }
+    }
+    
+    ///Контейнер вью в котором находятся кнопки и миниплеер.
+    private lazy var containerView = UIView()
+    private lazy var miniPlayer = MiniPlayerViewController()
     
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        self.tabBar.tintColor = .purple
-        
-        setTapBarApppearance()
-        setupMiniPlayer()
-        
-        ///Задаём 4 кнопки вью-контроллера в тап-бар.
-        viewControllers = [
-            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
-            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
-            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
-        ]
-        setConstraints()
         miniPlayer.delegate = self
-    }
-    
-    //MARK: - Methods
-    
-    ///Функция установки мини-плеера.
-    func setupMiniPlayer() {
-        view.addSubview(containerView)
-        addChild(miniPlayer)
-        containerView.addSubview(miniPlayer.view)
-        miniPlayer.didMove(toParent: self)
-    }
-    
-    private func generateViewController(rootViewController: UIViewController, imageVC: String, titleVC: String) -> UIViewController {
-        if let player = rootViewController as? PlayerViewController {
-            player.delegate = miniPlayer
-        }
-        let navigationVC = UINavigationController(rootViewController: rootViewController)
-        navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
-        navigationVC.tabBarItem.title = titleVC
-        navigationVC.navigationBar.prefersLargeTitles = true
-        return navigationVC
-    }
-    
-    ///Устанавливаем констрейны для контейнер-вью и мини-плеера внутри него.
-    func setConstraints() {
-        containerView.snp.makeConstraints { make in
-            let safeArea = view.safeAreaLayoutGuide.snp
-            
-            make.leading.equalTo(safeArea.leading).offset(13)
-            make.trailing.equalTo(safeArea.trailing).offset(-13)
-            make.bottom.equalTo(tabBar.snp.top).offset(-4)
-            make.height.equalTo(64)
-        }
-        miniPlayer.view.snp.makeConstraints { make in
-            make.leading.equalTo(containerView.snp.leading)
-            make.trailing.equalTo(containerView.snp.trailing)
-            make.top.equalTo(containerView.snp.top)
-            make.bottom.equalTo(containerView.snp.bottom)
-        }
-    }
-    ///Создаёт закруглённый тап-бар
-    private func setTapBarApppearance() {
-        let positionOnX: CGFloat = 10
-        let positionOnY: CGFloat = 2
-        let width = tabBar.bounds.width - positionOnX * 2
-        let height = tabBar.bounds.height + positionOnY
-        
-        let roundLayer = CAShapeLayer()
-        let bezierPath = UIBezierPath(
-            roundedRect: CGRect(x: positionOnX, y: tabBar.bounds.minY - positionOnY, width: width, height: height), cornerRadius: height / 2)
-        roundLayer.path = bezierPath.cgPath
-        tabBar.layer.insertSublayer(roundLayer, at: 0)
-        
-        tabBar.itemWidth = width / 2
-        tabBar.itemPositioning = .centered
-        
-        ///Цвета тап-бара.
-        roundLayer.fillColor = UIColor.anotherWhite.cgColor
-        tabBar.tintColor = .tabBarItemAccent
-        tabBar.unselectedItemTintColor = .tabBarItemLight
+        configure()
     }
 }
-//MARK: - Extension PlayerView Delegate
-extension MainTabBarController {
+
+// MARK: - MiniPlayerDelegate
+
+extension MainTabBarController: MiniPlayerDelegate {
+    
     ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
         let vc = PlayerViewController()
@@ -106,11 +46,93 @@ extension MainTabBarController {
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
-    ///Скрытие Мини-плэера.
+    
     func hidePlayerView() {
         UIView.animate(withDuration: 0.3) { [self] in
             containerView.isHidden = true
             miniPlayer.dismiss(animated: true)
+        }
+    }
+}
+
+// MARK: - Private Methods
+
+private extension MainTabBarController {
+    
+    func configure() {
+        setControllers()
+        setupMiniPlayer()
+        configureConstraints()
+        configureApppearance()
+    }
+    
+    func setControllers() {
+        viewControllers = [
+            generateViewController(rootViewController: MainViewController(), imageVC: "music.note.list", titleVC: "Main"),
+            generateViewController(rootViewController: ListViewController(), imageVC: "list.star", titleVC: "List"),
+            generateViewController(rootViewController: SearchViewController(), imageVC: "magnifyingglass.circle", titleVC: "Search")
+        ]
+    }
+    
+    func generateViewController(rootViewController: UIViewController, imageVC: String, titleVC: String) -> UIViewController {
+        if let player = rootViewController as? PlayerViewController {
+            player.delegate = miniPlayer
+        }
+        
+        let navigationVC = UINavigationController(rootViewController: rootViewController)
+        navigationVC.tabBarItem.image = UIImage(systemName: imageVC)
+        navigationVC.tabBarItem.title = titleVC
+        navigationVC.navigationBar.prefersLargeTitles = true
+        return navigationVC
+    }
+    
+    func configureApppearance() {
+        view.backgroundColor = .white
+        self.tabBar.tintColor = .purple
+        
+        containerView.layer.cornerRadius = Constants.Container.cornerRadius
+        
+        let width = tabBar.bounds.width - Constants.TapBar.positionOnX * Constants.TapBar.positionOnY
+        let height = tabBar.bounds.height + Constants.TapBar.positionOnY
+        let roundLayer = CAShapeLayer()
+        let bezierPath = UIBezierPath(
+            roundedRect: CGRect(x: Constants.TapBar.positionOnX,
+                                y: tabBar.bounds.minY - Constants.TapBar.positionOnY,
+                                width: width, height: height),
+            cornerRadius: height / Constants.TapBar.positionOnY)
+        roundLayer.path = bezierPath.cgPath
+        tabBar.layer.insertSublayer(roundLayer, at: .zero)
+        
+        tabBar.itemWidth = width / Constants.TapBar.positionOnY
+        tabBar.itemPositioning = .centered
+        
+        roundLayer.fillColor = UIColor.anotherWhite.cgColor
+        tabBar.tintColor = .tabBarItemAccent
+        tabBar.unselectedItemTintColor = .tabBarItemLight
+    }
+    
+    func setupMiniPlayer() {
+        view.addSubview(containerView)
+        addChild(miniPlayer)
+        containerView.addSubview(miniPlayer.view)
+        miniPlayer.didMove(toParent: self)
+    }
+    
+    func configureConstraints() {
+        containerView.snp.makeConstraints { make in
+            let safeArea = view.safeAreaLayoutGuide.snp
+            
+            make.leading.equalTo(safeArea.leading).offset(Constants.Container.leading)
+            make.trailing.equalTo(safeArea.trailing).offset(Constants.Container.trailing)
+            make.bottom.equalTo(tabBar.snp.top).offset(Constants.Container.bottom)
+            make.height.equalTo(Constants.Container.height)
+        }
+        
+        miniPlayer.view.snp.makeConstraints { make in
+            make.leading.equalTo(containerView.snp.leading)
+            make.trailing.equalTo(containerView.snp.trailing)
+            make.top.equalTo(containerView.snp.top)
+            make.bottom.equalTo(containerView.snp.bottom)
         }
     }
 }

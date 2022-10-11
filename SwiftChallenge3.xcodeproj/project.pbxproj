@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11A2A06B28EEBB1000AD9EC5 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06A28EEBB1000AD9EC5 /* MiniPlayerView.swift */; };
+		11A2A06E28EEBB6800AD9EC5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06D28EEBB6800AD9EC5 /* BaseView.swift */; };
+		11A2A07028EEBB7400AD9EC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06F28EEBB7400AD9EC5 /* BaseViewController.swift */; };
 		43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43224E0528E1BF210013A829 /* UIColor + Extension.swift */; };
 		438207F328E4C2680008DE49 /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438207F228E4C2680008DE49 /* UIButton + Extension.swift */; };
 		43B40E7628DE1D0700F44109 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B40E7528DE1D0700F44109 /* MainSongCell.swift */; };
@@ -15,7 +18,6 @@
 		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
-		E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22E28DB6B45008CC3E0 /* ViewController.swift */; };
 		E465C23428DB6B47008CC3E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E465C23328DB6B47008CC3E0 /* Assets.xcassets */; };
 		E465C23728DB6B47008CC3E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E465C23528DB6B47008CC3E0 /* LaunchScreen.storyboard */; };
 		E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */; };
@@ -36,6 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11A2A06A28EEBB1000AD9EC5 /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
+		11A2A06D28EEBB6800AD9EC5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		11A2A06F28EEBB7400AD9EC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		43224E0528E1BF210013A829 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		438207F228E4C2680008DE49 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		43B40E7528DE1D0700F44109 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
@@ -45,7 +50,6 @@
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E465C22E28DB6B45008CC3E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E465C23328DB6B47008CC3E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E465C23628DB6B47008CC3E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E465C23828DB6B47008CC3E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +81,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11A2A06728EEBAC600AD9EC5 /* MiniPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				11A2A06928EEBAFA00AD9EC5 /* View */,
+				11A2A06828EEBAD400AD9EC5 /* Controllers */,
+			);
+			path = MiniPlayer;
+			sourceTree = "<group>";
+		};
+		11A2A06828EEBAD400AD9EC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		11A2A06928EEBAFA00AD9EC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11A2A06A28EEBB1000AD9EC5 /* MiniPlayerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		11A2A06C28EEBB5D00AD9EC5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				11A2A06D28EEBB6800AD9EC5 /* BaseView.swift */,
+				11A2A06F28EEBB7400AD9EC5 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		43CDEAF628E3983D00D059AE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,17 +149,10 @@
 			path = SwiftChallenge3;
 			sourceTree = "<group>";
 		};
-		E465C23E28DB6BB9008CC3E0 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E465C22E28DB6B45008CC3E0 /* ViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		E465C24128DB6BD7008CC3E0 /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				11A2A06728EEBAC600AD9EC5 /* MiniPlayer */,
 				E465C24E28DB7376008CC3E0 /* TabBar */,
 				E465C24F28DB7389008CC3E0 /* MainScreen */,
 				E465C25228DB73B8008CC3E0 /* ListScreen */,
@@ -148,11 +179,9 @@
 		E465C24728DB6FB6008CC3E0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E465C24A28DB70A4008CC3E0 /* Supporting */,
 				E465C24428DB6C35008CC3E0 /* Services */,
-				43CDEAF628E3983D00D059AE /* Extension */,
 				E465C24128DB6BD7008CC3E0 /* Moduls */,
-				E465C23E28DB6BB9008CC3E0 /* Controllers */,
+				E465C24A28DB70A4008CC3E0 /* Supporting */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -179,6 +208,8 @@
 		E465C24A28DB70A4008CC3E0 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				43CDEAF628E3983D00D059AE /* Extension */,
+				11A2A06C28EEBB5D00AD9EC5 /* Base */,
 				E465C24928DB7091008CC3E0 /* Application */,
 			);
 			path = Supporting;
@@ -188,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */,
-				43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -311,8 +341,9 @@
 				E4B1B3EE28DE4C7900F57483 /* RealmBaseManager.swift in Sources */,
 				E465C24D28DB7371008CC3E0 /* MainViewController.swift in Sources */,
 				E465C24328DB6C2B008CC3E0 /* NetworkService.swift in Sources */,
+				11A2A06B28EEBB1000AD9EC5 /* MiniPlayerView.swift in Sources */,
+				11A2A07028EEBB7400AD9EC5 /* BaseViewController.swift in Sources */,
 				E4B1B3E728DDF4CE00F57483 /* ImageDownload.swift in Sources */,
-				E465C22F28DB6B45008CC3E0 /* ViewController.swift in Sources */,
 				E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */,
 				43B40E7828DE1D2100F44109 /* CollectionViewCell.swift in Sources */,
 				438207F328E4C2680008DE49 /* UIButton + Extension.swift in Sources */,
@@ -325,6 +356,7 @@
 				E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */,
 				E4B1B3F028DE4C8600F57483 /* RealmDataModel.swift in Sources */,
 				E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */,
+				11A2A06E28EEBB6800AD9EC5 /* BaseView.swift in Sources */,
 				E465C25128DB73AC008CC3E0 /* ListViewController.swift in Sources */,
 				E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */,
 				A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */,
