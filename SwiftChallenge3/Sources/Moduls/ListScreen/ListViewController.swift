@@ -1,6 +1,6 @@
 import UIKit
 
-class ListViewController: UITableViewController {
+class ListViewController: BaseViewController<ListView> {
     
     // MARK: - RealmManager
     
@@ -11,7 +11,7 @@ class ListViewController: UITableViewController {
     var playList: PlayListModel? {
         didSet {
             title = playList?.playListName
-            tableView.reloadData()
+            selfView.trackTableView.reloadData()
         }
     }
     
@@ -19,8 +19,7 @@ class ListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        configureUI()
+        setupSortButton()
         setupDelegate()
     }
     
@@ -34,26 +33,26 @@ class ListViewController: UITableViewController {
 
 private extension ListViewController {
     
-    private func configureTableView() {
-        tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
-    }
-    
-    private func configureUI() {
+    func setupSortButton() {
         let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
         sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
         sortButtonItem.tintColor = UIColor.tabBarItemAccent
         self.navigationItem.rightBarButtonItem  = sortButtonItem
     }
+    
     func setupDelegate() {
+        selfView.trackTableView.delegate = self
+        selfView.trackTableView.dataSource = self
         realmManager.delegate = self
     }
 }
 
 // MARK: - @Objc Private Methods
 
+@objc
 private extension ListViewController {
     
-    @objc private func sortPlaylist() {
+    func sortPlaylist() {
         print("Sort Playlist")
     }
 }
@@ -61,12 +60,13 @@ private extension ListViewController {
 
 // MARK: - DataSource + TableView
 
-extension ListViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ListViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playList?.tracks.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell else {
             return UITableViewCell()
         }
@@ -77,12 +77,13 @@ extension ListViewController {
 
 // MARK: - Delegate + TableView
 
-extension ListViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+extension ListViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard  let track = playList?.tracks[indexPath.row] else { return }
         realmManager.addToRecentPlayed(track: track)
         print("Segue in controller player")
@@ -100,10 +101,8 @@ extension ListViewController: RealmBaseManagerDelegate {
     
     func favouriteTracksDidLoad(_ playList: PlayListModel) {
         self.playList = playList
-        self.configureUI()
     }
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
-        
     }
 }
