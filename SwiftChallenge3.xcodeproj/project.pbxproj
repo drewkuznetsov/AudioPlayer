@@ -16,7 +16,6 @@
 		43AB87D228F210FF00E2063A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AB87D128F210FF00E2063A /* PlayerView.swift */; };
 		43B123D728EF29BA00EF5E9C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B123D628EF29BA00EF5E9C /* MainView.swift */; };
 		43B123D928EF349200EF5E9C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B123D828EF349200EF5E9C /* MainViewController.swift */; };
-		43B34C2828F6EC3C00BA33E8 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B34C2728F6EC3C00BA33E8 /* SearchView.swift */; };
 		43C207AC28F0873900F20013 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C207AB28F0873900F20013 /* MainSongCell.swift */; };
 		43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */; };
 		43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */; };
@@ -51,7 +50,6 @@
 		43AB87D128F210FF00E2063A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		43B123D628EF29BA00EF5E9C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		43B123D828EF349200EF5E9C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		43B34C2728F6EC3C00BA33E8 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		43C207AB28F0873900F20013 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
 		43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -155,14 +153,6 @@
 				43AB87CE28F1EF2800E2063A /* CollectionViewCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		43B34C2628F6EC2900BA33E8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				43B34C2728F6EC3C00BA33E8 /* SearchView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		43CDEAF628E3983D00D059AE /* Extension */ = {
@@ -321,7 +311,6 @@
 			isa = PBXGroup;
 			children = (
 				E465C25628DB7525008CC3E0 /* SearchViewController.swift */,
-				43B34C2628F6EC2900BA33E8 /* View */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -424,7 +413,6 @@
 				43B123D928EF349200EF5E9C /* MainViewController.swift in Sources */,
 				43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */,
 				E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */,
-				43B34C2828F6EC3C00BA33E8 /* SearchView.swift in Sources */,
 				E4B1B3F028DE4C8600F57483 /* RealmDataModel.swift in Sources */,
 				E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */,
 				11A2A06E28EEBB6800AD9EC5 /* BaseView.swift in Sources */,
