@@ -28,7 +28,7 @@ class SearchView : BaseView {
 
 // MARK: - Private Methods
 
- private extension SearchView {
+private extension SearchView {
     
     func configureTableView() {
         

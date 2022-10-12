@@ -97,7 +97,7 @@ private extension SearchViewController  {
     }
 }
 
-//MARK: - NetworkServiceDelegate
+// MARK: - NetworkServiceDelegate
 
 extension SearchViewController: NetworkServiceDelegate {
     
@@ -114,7 +114,7 @@ extension SearchViewController: NetworkServiceDelegate {
     }
 }
 
-//MARK: - UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
     
