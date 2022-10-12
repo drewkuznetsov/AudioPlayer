@@ -90,10 +90,13 @@ final class CollectionViewCell: UICollectionViewCell {
             make.height.equalTo(Constants.ArtistNameLabel.height)
         }
     }
-    
-    // MARK: - Private Methods
+}
 
-    private func setupDefaultView() {
+// MARK: - Private Methods
+
+private extension CollectionViewCell {
+
+        func setupDefaultView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
@@ -103,3 +106,4 @@ final class CollectionViewCell: UICollectionViewCell {
         trackImageView.tintColor = Constants.TrackImageView.color
     }
 }
+

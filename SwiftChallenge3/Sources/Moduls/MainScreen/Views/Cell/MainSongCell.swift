@@ -4,7 +4,7 @@ import SnapKit
 final class MainSongCell: UITableViewCell {
 
     // MARK: - Identifier
-    
+
     static let reuseIdentifier = String(describing: MainSongCell.self)
     
     var playlist : PlayListModel? {
@@ -13,9 +13,9 @@ final class MainSongCell: UITableViewCell {
             self.songCollection.reloadData()
         }
     }
-    
-// MARK: - Constants
 
+    // MARK: - Constantы
+    
     private enum Constants {
         
         enum ContentView {
@@ -42,9 +42,7 @@ final class MainSongCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureSongCollection()
-        
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureSongCollection()
@@ -61,7 +59,7 @@ final class MainSongCell: UITableViewCell {
     }
     
     // MARK: - UI
- 
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -85,38 +83,40 @@ final class MainSongCell: UITableViewCell {
             make.bottom.equalTo(contentView.snp.bottom)
         }
     }
-    
+}
+
     // MARK: - Private Methods
-    
-    private func setupView () {
+
+private extension MainSongCell {
+ 
+    func setupView () {
         self.addSubview(contentView)
         self.contentView.addSubview(self.headerLabel)
         self.contentView.addSubview(self.songCollection)
     }
     
-    private func configureHeader() {
+    func configureHeader() {
         headerLabel.textColor = .black
         headerLabel.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
     }
-    
-    private func configureSongCollection() {
-        
+
+    func configureSongCollection() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         songCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         songCollection.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
     }
-    
-    private func setupDelegate() {
+  
+    func setupDelegate() {
         songCollection.delegate = self
         songCollection.dataSource = self
     }
 }
 
-// MARK: - Creating Subviews
-
-extension MainSongCell {
+ // MARK: - Creating Subviews
+ 
+  extension MainSongCell {
     
     static func makeSongCollection() -> UICollectionView {
         

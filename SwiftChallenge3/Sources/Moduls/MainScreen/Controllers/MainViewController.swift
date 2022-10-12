@@ -21,22 +21,6 @@ class MainViewController: BaseViewController<MainView> {
     }
 }
 
-// MARK: - Private Methods
-
-private extension MainViewController {
-    
-    func setDelegate() {
-        selfView.songTableView.delegate = self
-        selfView.songTableView.dataSource = self
-        realmManager.delegate = self
-    }
-    
-    func setNavigation() {
-        navigationItem.title = "Айтюнс"
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-}
-
 // MARK: - Delegate + DataSource TableView
 
 extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
@@ -84,6 +68,22 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
             default: return 0
             }
         }
+    }
+}
+
+// MARK: - Private Methods
+
+private extension MainViewController {
+    
+    func setDelegate() {
+        selfView.songTableView.delegate = self
+        selfView.songTableView.dataSource = self
+        realmManager.delegate = self
+    }
+    
+    func setNavigation() {
+        navigationItem.title = "Айтюнс"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

@@ -1,12 +1,5 @@
-//
-//  UIColor + Extension.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 26.09.2022.
-//
-
 import UIKit
-//MARK: - Extension + UIColor
+// MARK: - Extension + UIColor
 extension UIColor {
     static var tabBarItemAccent: UIColor {
         #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)
