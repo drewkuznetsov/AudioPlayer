@@ -2,23 +2,36 @@ import UIKit
 
 class SearchViewController: BaseViewController<SearchView> {
     
-    // MARK: - RealmManager
+// MARK: - Constants
+    
+    private enum Constants {
+        
+        enum SearchLimit {
+            static let limit : Int = 25
+        }
+        
+        enum tableCell {
+            static let numberOfLines : Int = 2
+        }
+        
+        enum SongTable {
+            static let height : CGFloat = 90
+            static let numberOfSection : Int = 1
+        }
+    }
+    
+// MARK: - RealmManager
     
     private var realmManager = RealmBaseManager()
     
-    // MARK: - Internal parameter
+// MARK: - Internal parameter
     
-    private var searchController = UISearchController(searchResultsController: nil)
-    
+    private let searchController = UISearchController(searchResultsController: nil)
     private let networkService = NetworkService()
-    
     private var tracks: [TrackModel] = []
-    
     private var timer: Timer?
     
-    let searchLimit = 25
-    
-    // MARK: - Lifecycle
+// MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +50,7 @@ class SearchViewController: BaseViewController<SearchView> {
 extension SearchViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Constants.SongTable.numberOfSection
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +64,7 @@ extension SearchViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
             let track = self.tracks[indexPath.row]
             cell.textLabel?.text = track.trackName + "\n" + track.artistName
-            cell.textLabel?.numberOfLines = 2
+            cell.textLabel?.numberOfLines = Constants.tableCell.numberOfLines
             if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
                 cell.imageView?.downloadedFrom(link: coverURL)
             }
@@ -68,32 +81,13 @@ extension SearchViewController : UITableViewDataSource {
 extension SearchViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return Constants.SongTable.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let track = tracks[indexPath.row]
         realmManager.addToRecentPlayed(track: track)
         print("Choose in \(track.trackName) in SearchVC")
-        
-    }
-}
-
-// MARK: - Private Methods
-
-private extension SearchViewController  {
-    
-    func setupSearchBar() {
-        navigationItem.title = "Search"
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-    }
-    
-    func setupDelegate() {
-        searchController.searchBar.delegate = self
-        selfView.trackTableView.delegate = self
-        selfView.trackTableView.dataSource = self
-        networkService.delegate = self
     }
 }
 
@@ -122,12 +116,30 @@ extension SearchViewController: UISearchBarDelegate {
         
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            self.networkService.fetchData(searchRequest: searchText, limit: self.searchLimit)
+            self.networkService.fetchData(searchRequest: searchText, limit: Constants.SearchLimit.limit)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.tracks = []
         selfView.trackTableView.reloadData()
+    }
+}
+
+// MARK: - Private Methods
+
+private extension SearchViewController  {
+    
+    func setupSearchBar() {
+        navigationItem.title = "Search"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    func setupDelegate() {
+        searchController.searchBar.delegate = self
+        selfView.trackTableView.delegate = self
+        selfView.trackTableView.dataSource = self
+        networkService.delegate = self
     }
 }

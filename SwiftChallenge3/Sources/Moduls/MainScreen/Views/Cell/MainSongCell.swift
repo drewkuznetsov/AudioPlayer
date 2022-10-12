@@ -14,7 +14,7 @@ final class MainSongCell: UITableViewCell {
         }
     }
 
-    // MARK: - Constantы
+    // MARK: - Constants
     
     private enum Constants {
         

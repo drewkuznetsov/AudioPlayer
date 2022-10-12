@@ -26,7 +26,7 @@ class SearchView : BaseView {
     }
 }
 
-// MARK: - Private Methods
+    // MARK: - Private Methods
 
 private extension SearchView {
     
