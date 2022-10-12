@@ -1,58 +1,72 @@
-//
-//  ListViewController.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import UIKit
 
-class ListViewController: UITableViewController {
+class ListViewController: BaseViewController<ListView> {
+    
+    // MARK: - RealmManager
+    
+    var realmManager = RealmBaseManager()
+    
+    // MARK: - Playlist
     
     var playList: PlayListModel? {
         didSet {
             title = playList?.playListName
-            tableView.reloadData()
+            selfView.trackTableView.reloadData()
         }
     }
     
-    var realmManager = RealmBaseManager()
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        configureUI()
-        realmManager.delegate = self
+        setupSortButton()
+        setupDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         realmManager.loadFavourites()
     }
+}
+
+// MARK: - Private Methods
+
+private extension ListViewController {
     
-    private func configureTableView() {
-        tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
-    }
-    
-    private func configureUI() {
+    func setupSortButton() {
         let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
         sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
+        sortButtonItem.tintColor = UIColor.tabBarItemAccent
         self.navigationItem.rightBarButtonItem  = sortButtonItem
     }
     
-    @objc private func sortPlaylist() {
+    func setupDelegate() {
+        selfView.trackTableView.delegate = self
+        selfView.trackTableView.dataSource = self
+        realmManager.delegate = self
+    }
+}
+
+// MARK: - @Objc Private Methods
+
+@objc
+private extension ListViewController {
+    
+    func sortPlaylist() {
         print("Sort Playlist")
     }
 }
 
-// MARK: - TableView data source
 
-extension ListViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - DataSource + TableView
+
+extension ListViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playList?.tracks.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell else {
             return UITableViewCell()
         }
@@ -61,21 +75,22 @@ extension ListViewController {
     }
 }
 
-// MARK: - TableView delegate
+// MARK: - Delegate + TableView
 
-extension ListViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+extension ListViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard  let track = playList?.tracks[indexPath.row] else { return }
         realmManager.addToRecentPlayed(track: track)
         print("Segue in controller player")
     }
 }
 
-//MARK: - Realm Base Manager Delegate
+// MARK: - Realm Base Manager Delegate
 
 extension ListViewController: RealmBaseManagerDelegate {
     
@@ -86,10 +101,8 @@ extension ListViewController: RealmBaseManagerDelegate {
     
     func favouriteTracksDidLoad(_ playList: PlayListModel) {
         self.playList = playList
-        self.configureUI()
     }
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
-        
     }
 }
