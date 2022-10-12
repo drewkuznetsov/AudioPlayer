@@ -6,6 +6,7 @@ class ListView : BaseView {
     // MARK: - Constants
     
     private enum Constants {
+        
         enum TrackTableView {
             static let bot: CGFloat = -80
             static let leading: CGFloat = 16
@@ -25,7 +26,7 @@ class ListView : BaseView {
     }
 }
 
-// MARK: - Methods
+// MARK: - Private Methods
 
  private extension ListView {
     

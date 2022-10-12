@@ -47,7 +47,7 @@ private extension ListViewController {
     }
 }
 
-// MARK: - @Objc Private Methods
+// MARK: - Action
 
 @objc
 private extension ListViewController {
@@ -58,7 +58,7 @@ private extension ListViewController {
 }
 
 
-// MARK: - DataSource + TableView
+// MARK: - UITableViewDataSource
 
 extension ListViewController : UITableViewDataSource {
     
@@ -75,7 +75,7 @@ extension ListViewController : UITableViewDataSource {
     }
 }
 
-// MARK: - Delegate + TableView
+// MARK: - UITableViewDelegate
 
 extension ListViewController : UITableViewDelegate {
     

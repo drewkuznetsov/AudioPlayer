@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 // MARK: - Extension + UIButton
+
 extension UIButton {
     
     func startAnimatingPressActions() {
