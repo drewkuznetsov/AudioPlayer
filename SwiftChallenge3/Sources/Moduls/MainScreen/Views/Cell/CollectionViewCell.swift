@@ -8,9 +8,9 @@ final class CollectionViewCell: UICollectionViewCell {
     private enum Constants {
         
         enum TrackImageView {
-            static let image = UIImage(systemName: "rectangle.badge.person.crop")
+
+            static let image = UIImage(systemName: "rectangle.stack.badge.person.crop")
             static let color = UIColor.tabBarItemLight
-            static let cornerRadius: CGFloat = 16
         }
         
         enum TrackNameLabel {
@@ -64,19 +64,18 @@ final class CollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)
-        
+
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(trackNameLabel.snp.top)
         }
-        trackNameLabel.font = Constants.TrackNameLabel.font
-        
+
         trackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
@@ -84,8 +83,6 @@ final class CollectionViewCell: UICollectionViewCell {
             make.height.equalTo(Constants.TrackNameLabel.height)
         }
         
-        artistNameLabel.font = Constants.ArtistNameLabel.font
-
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
             make.leading.equalTo(contentView.snp.leading)
@@ -95,7 +92,11 @@ final class CollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Private Methods
+
     private func setupDefaultView() {
+        contentView.addSubview(self.trackImageView)
+        contentView.addSubview(self.trackNameLabel)
+        contentView.addSubview(self.artistNameLabel)
         trackNameLabel.text = Constants.TrackNameLabel.text
         artistNameLabel.text = Constants.ArtistNameLabel.text
         trackImageView.image = Constants.TrackImageView.image

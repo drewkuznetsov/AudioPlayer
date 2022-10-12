@@ -1,14 +1,8 @@
-//
-//  UiButton + Extension.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 28.09.2022.
-//
 
 import Foundation
 import UIKit
 
-//MARK: - Extension + UIButton
+// MARK: - Extension + UIButton
 extension UIButton {
     
     func startAnimatingPressActions() {
@@ -33,6 +27,5 @@ extension UIButton {
                        animations: {
             button.transform = transform
         }, completion: nil)
-        
     }
 }
