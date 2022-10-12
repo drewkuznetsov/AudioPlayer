@@ -1,10 +1,3 @@
-//
-//  CollectionViewCell.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 08.10.2022.
-//
-
 import UIKit
 import SnapKit
 
@@ -15,6 +8,7 @@ final class CollectionViewCell: UICollectionViewCell {
     private enum Constants {
         
         enum TrackImageView {
+
             static let image = UIImage(systemName: "rectangle.stack.badge.person.crop")
             static let color = UIColor.tabBarItemLight
         }
@@ -59,7 +53,7 @@ final class CollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        self.setupView()
+        self.setupDefaultView()
     }
     
     required init?(coder: NSCoder) {
@@ -70,25 +64,24 @@ final class CollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        trackNameLabel.font = Constants.TrackNameLabel.font
-        artistNameLabel.font = Constants.ArtistNameLabel.font
-        
+
+        contentView.addSubview(self.trackImageView)
+        contentView.addSubview(self.trackNameLabel)
+        contentView.addSubview(self.artistNameLabel)
+
         trackImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top)
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(trackNameLabel.snp.top)
         }
-        
+
         trackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading)
             make.trailing.equalTo(contentView.snp.trailing)
             make.bottom.equalTo(artistNameLabel.snp.top)
             make.height.equalTo(Constants.TrackNameLabel.height)
         }
-
-        
         
         artistNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom)
@@ -99,8 +92,8 @@ final class CollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Private Methods
-    
-    private func setupView() {
+
+    private func setupDefaultView() {
         contentView.addSubview(self.trackImageView)
         contentView.addSubview(self.trackNameLabel)
         contentView.addSubview(self.artistNameLabel)

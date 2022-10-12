@@ -1,10 +1,3 @@
-//
-//  MainViewControllers.swift
-//  SwiftChallenge3
-//
-//  Created by Ilya Vasilev on 06.10.2022.
-//
-
 import UIKit
 
 class MainViewController: BaseViewController<MainView> {

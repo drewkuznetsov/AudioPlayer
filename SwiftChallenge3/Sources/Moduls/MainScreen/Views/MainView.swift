@@ -47,7 +47,7 @@ private extension MainView {
         songTableView.register(MainSongCell.self, forCellReuseIdentifier: MainSongCell.reuseIdentifier)
         songTableView.allowsSelection = false
         songTableView.separatorStyle = Constants.SongTableView.separator
-        songTableView.sectionHeaderTopPadding = 0
+        songTableView.sectionHeaderTopPadding = .zero
     }
     
     func configureConstraints() {
