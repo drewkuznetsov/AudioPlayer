@@ -24,6 +24,7 @@ class PlayerViewController: BaseViewController<PlayerView>  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        playPauseAction(selfView.pauseButton)
     }
 }
 
@@ -38,7 +39,7 @@ private extension PlayerViewController {
     }
     
     func configure(_ track: TrackModel) {
-        if let coverURL = track.coverURL {
+        if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
             selfView.trackImageView.downloadedFrom(link: coverURL)
         }
         selfView.trackNameLabel.text = track.trackName
@@ -61,6 +62,17 @@ private extension PlayerViewController {
         selfView.rightBackwardButton.addTarget(self, action: #selector(nextTrack), for: .touchUpInside)
         selfView.sliderTime.addTarget(self, action: #selector(timeSliderChanged), for: .valueChanged)
         selfView.sliderSound.addTarget(self, action: #selector(soundSliderChanged), for: .valueChanged)
+    }
+    
+    func enLargeTrackImageView() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.selfView.trackImageView.transform = .identity
+        })
+    }
+    
+    func reduceTrackImageView() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {let scale: CGFloat = 0.8
+            self.selfView.trackImageView.transform = CGAffineTransform(scaleX: scale, y: scale) } , completion: nil)
     }
 }
 
@@ -101,7 +113,6 @@ private extension PlayerViewController {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
         if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: largeConfig) {
             sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
-            
         } else {
             sender.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
         }
@@ -112,10 +123,13 @@ private extension PlayerViewController {
         if AudioPlayer.mainPlayer.playStatus == .paused {
             delegate?.playPauseActionDelegate()
             AudioPlayer.mainPlayer.playTrack()
+            selfView.player.play()
+            enLargeTrackImageView()
             sender.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         } else {
             AudioPlayer.mainPlayer.pauseTrack()
             sender.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
+            reduceTrackImageView()
         }
     }
     
@@ -130,9 +144,7 @@ private extension PlayerViewController {
         delegate?.nextTrackDelegate()
         print("Next track tapped")
     }
-    
-    
-    
+
     func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
         self.dismiss(animated: true)
     }
