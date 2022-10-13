@@ -45,6 +45,7 @@ private extension PlayerViewController {
         }
         selfView.trackNameLabel.text = track.trackName
         selfView.authorNameLabel.text = track.artistName
+         selfView.sliderTime.value = AudioPlayer.mainPlayer.timePercent
     }
     
      func playTrack(previewURL: String?) {

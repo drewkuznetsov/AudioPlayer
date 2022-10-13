@@ -13,6 +13,10 @@ protocol AudioPlayerDelegate {
     func timeChaneged()
 }
 
+protocol MiniAudioPlayerDelegate {
+    func trackPlay(track: TrackModel)
+}
+
 enum Constats {
     static let minPlayTime = 3.0
 }
@@ -22,6 +26,7 @@ class AudioPlayer {
 //MARK: - Audio Player Delegate
     
     var delegate: AudioPlayerDelegate?
+    var miniDelegate: MiniAudioPlayerDelegate?
     
 //MARK: - Static Audio Player
     
@@ -83,6 +88,7 @@ class AudioPlayer {
         self.player.play()
         self.observePlayerCurrentTime()
         self.delegate?.trackPlay(track: track)
+        self.miniDelegate?.trackPlay(track: track)
     }
     
     func playTrack() {

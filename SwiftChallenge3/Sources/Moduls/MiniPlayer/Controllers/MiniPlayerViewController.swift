@@ -16,6 +16,7 @@ class MiniPlayerViewController: BaseViewController<MiniPlayerView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGestureRecognizers()
+        AudioPlayer.mainPlayer.miniDelegate = self
     }
 }
 
@@ -158,24 +159,32 @@ private extension MiniPlayerViewController {
     ///Замечает тап по кнопке плэй.
     @objc func playPauseAction() {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
-        if selfView.player.timeControlStatus == .paused {
-            selfView.player.play()
+        if AudioPlayer.mainPlayer.playStatus == .paused {
+            AudioPlayer.mainPlayer.playTrack()
             selfView.pauseButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         } else {
-            selfView.player.pause()
+            AudioPlayer.mainPlayer.pauseTrack()
             selfView.pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
     }
     
     ///Кнопка. Замечает нажатие по кнопке предыдущего трека.
     @objc func previousTrack() {
+        AudioPlayer.mainPlayer.previousTrack()
         print("left animation")
         makeLeftAnimation()
     }
     
     ///Кнопка. Замечает нажатие по кнопке следующего трека.
     @objc func nextTrack() {
+        AudioPlayer.mainPlayer.nextTrack()
         print("Right animation")
         makeRightAnimation()
+    }
+}
+
+extension MiniPlayerViewController: MiniAudioPlayerDelegate {
+    func trackPlay(track: TrackModel) {
+        self.configure(track)
     }
 }
