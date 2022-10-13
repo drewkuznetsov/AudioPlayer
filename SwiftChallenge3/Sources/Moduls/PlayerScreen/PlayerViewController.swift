@@ -11,6 +11,8 @@ class PlayerViewController: BaseViewController<PlayerView>  {
     
     var delegate : ChangeTrackDelegate?
     
+    let realmManager = RealmBaseManager()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -109,11 +111,16 @@ extension PlayerViewController: AudioPlayerDelegate  {
 private extension PlayerViewController {
     
     func favoriteButtonTapped(_ sender : UIButton) {
+        guard let track =  AudioPlayer.mainPlayer.currentTrack else { return }
+        
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
-        if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: largeConfig) {
-            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
-        } else {
+        
+        if realmManager.isFavourite(track: track) {
             sender.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
+            realmManager.deleteFromFavourites(track: track)
+        } else {
+            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
+            realmManager.addToFavourites(track: track)
         }
     }
     
