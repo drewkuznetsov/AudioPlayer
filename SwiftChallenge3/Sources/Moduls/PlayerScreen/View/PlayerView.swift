@@ -96,13 +96,13 @@ class PlayerView: BaseView {
         enum LeftTimeLabel {
             static let text = "00:00"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
+            static let font = UIFont.systemFont(ofSize: 18, weight: .regular)
         }
         
         enum RightTimeLabel {
             static let text = "--:--"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
+            static let font = UIFont.systemFont(ofSize: 18, weight: .regular)
         }
         
         enum AuthorNameLabel {
@@ -123,7 +123,7 @@ class PlayerView: BaseView {
         
         enum TrackImageView {
             static let image = UIImage(systemName: "person.crop.circle.badge.questionmark.fill")
-            static let top: CGFloat = 130
+            static let top: CGFloat = 110
             static let height: CGFloat = 250
             static let widht: CGFloat = 250
         }
