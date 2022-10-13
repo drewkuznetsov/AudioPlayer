@@ -60,6 +60,11 @@ final class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.trackImageView = UIImageView()
+    }
+    
     // MARK: - UI
     
     override func layoutSubviews() {
