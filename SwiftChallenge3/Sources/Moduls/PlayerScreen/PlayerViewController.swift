@@ -36,7 +36,7 @@ private extension PlayerViewController {
     }
     
      func configure(_ track: TrackModel) {
-        if let coverURL = track.coverURL {
+         if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
             selfView.trackImageView.downloadedFrom(link: coverURL)
         }
         selfView.trackNameLabel.text = track.trackName
