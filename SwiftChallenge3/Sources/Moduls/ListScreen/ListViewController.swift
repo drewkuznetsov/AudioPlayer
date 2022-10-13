@@ -84,13 +84,10 @@ extension ListViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard  let track = playList?.tracks[indexPath.row] else { return }
-        realmManager.addToRecentPlayed(track: track)
         self.playList?.currentIndex = indexPath.row
         if let playList = self.playList {
             AudioPlayer.mainPlayer.playList(playList: playList)
         }
-        print("Segue in controller player")
     }
 }
 

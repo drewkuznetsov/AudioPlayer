@@ -18,6 +18,10 @@ class SearchViewController: BaseViewController<SearchView> {
             static let height : CGFloat = 90
             static let numberOfSection : Int = 1
         }
+        
+        enum PlayList {
+            static let name: String = "Search"
+        }
     }
     
 // MARK: - RealmManager
@@ -28,7 +32,8 @@ class SearchViewController: BaseViewController<SearchView> {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private let networkService = NetworkService()
-    private var tracks: [TrackModel] = []
+//    private var tracks: [TrackModel] = []
+    private var playList = PlayListModel(playListName: Constants.PlayList.name)
     private var timer: Timer?
     
 // MARK: - Lifecycle
@@ -54,7 +59,7 @@ extension SearchViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tracks.count
+        return playList.tracks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +67,7 @@ extension SearchViewController : UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
-            let track = self.tracks[indexPath.row]
+            let track = self.playList.tracks[indexPath.row]
             cell.textLabel?.text = track.trackName + "\n" + track.artistName
             cell.textLabel?.numberOfLines = Constants.tableCell.numberOfLines
             if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
@@ -70,8 +75,9 @@ extension SearchViewController : UITableViewDataSource {
             }
             return cell
         }
-        let track = self.tracks[indexPath.row]
+        let track = self.playList.tracks[indexPath.row]
         cell.track = track
+        
         return cell
     }
 }
@@ -85,9 +91,8 @@ extension SearchViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let track = tracks[indexPath.row]
-        realmManager.addToRecentPlayed(track: track)
-        print("Choose in \(track.trackName) in SearchVC")
+        self.playList.currentIndex = indexPath.row
+        AudioPlayer.mainPlayer.playList(playList: self.playList)
     }
 }
 
@@ -96,7 +101,7 @@ extension SearchViewController : UITableViewDelegate {
 extension SearchViewController: NetworkServiceDelegate {
     
     func didFetchTracks(tracks: [TrackModel]) {
-        self.tracks = tracks
+        self.playList.tracks = tracks
         DispatchQueue.main.async {
             self.selfView.trackTableView.reloadData()
         }
@@ -121,7 +126,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.tracks = []
+        self.playList = PlayListModel(playListName: Constants.PlayList.name)
         selfView.trackTableView.reloadData()
     }
 }

@@ -71,8 +71,6 @@ extension RealmBaseManager {
         } catch {
             delegate?.showError(error: error)
         }
-        
-        self.loadFavourites()
     }
     
     func loadFavourites() {
@@ -149,8 +147,6 @@ extension RealmBaseManager {
                 delegate?.showError(error: error)
             }
         }
-        
-        self.loadRecentPlayed()
     }
     
     func loadRecentPlayed() {
