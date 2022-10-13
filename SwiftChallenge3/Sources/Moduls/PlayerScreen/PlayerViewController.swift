@@ -19,9 +19,7 @@ class PlayerViewController: BaseViewController<PlayerView>  {
         setupGestureRecognizer()
         setupTarget()
         setupAudioPlayerDelegate()
-        if let track = AudioPlayer.mainPlayer.currentTrack {
-            self.configure(track)
-        }
+        checkCurrentTrack()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,22 +31,22 @@ class PlayerViewController: BaseViewController<PlayerView>  {
 
 private extension PlayerViewController {
     
-     func setupGestureRecognizer() {
+    func setupGestureRecognizer() {
         let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
         swipeGestureRecognizerDown.direction = .down
         view.addGestureRecognizer(swipeGestureRecognizerDown)
     }
     
-     func configure(_ track: TrackModel) {
+    func configure(_ track: TrackModel) {
         if let coverURL = track.coverURL {
             selfView.trackImageView.downloadedFrom(link: coverURL)
         }
         selfView.trackNameLabel.text = track.trackName
         selfView.authorNameLabel.text = track.artistName
-         selfView.sliderTime.value = AudioPlayer.mainPlayer.timePercent
+        selfView.sliderTime.value = AudioPlayer.mainPlayer.timePercent
     }
     
-     func playTrack(previewURL: String?) {
+    func playTrack(previewURL: String?) {
         guard let url = URL(string: previewURL ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         selfView.player.replaceCurrentItem(with: playerItem)
@@ -85,6 +83,11 @@ extension PlayerViewController: AudioPlayerDelegate  {
         selfView.rightTimeLabel.text = AudioPlayer.mainPlayer.timeLeft
         selfView.sliderTime.value = AudioPlayer.mainPlayer.timePercent
     }
+    func checkCurrentTrack() {
+        if let track = AudioPlayer.mainPlayer.currentTrack {
+            self.configure(track)
+        }
+    }
     
     
 }
@@ -94,7 +97,7 @@ extension PlayerViewController: AudioPlayerDelegate  {
 @objc
 private extension PlayerViewController {
     
-     func favoriteButtonTapped(_ sender : UIButton) {
+    func favoriteButtonTapped(_ sender : UIButton) {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
         if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: largeConfig) {
             sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
@@ -116,9 +119,9 @@ private extension PlayerViewController {
         }
     }
     
-     func previousTrack() {
-         AudioPlayer.mainPlayer.previousTrack()
-         delegate?.previousTrackDelegate()
+    func previousTrack() {
+        AudioPlayer.mainPlayer.previousTrack()
+        delegate?.previousTrackDelegate()
         print("Previous track tapped")
     }
     
@@ -130,7 +133,7 @@ private extension PlayerViewController {
     
     
     
-     func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+    func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
         self.dismiss(animated: true)
     }
     
