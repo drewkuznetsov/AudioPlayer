@@ -29,29 +29,28 @@ class PlayerViewController: BaseViewController<PlayerView>  {
 
 private extension PlayerViewController {
     
-    private func setupGestureRecognizer() {
+     func setupGestureRecognizer() {
         let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown(_:)))
         swipeGestureRecognizerDown.direction = .down
         view.addGestureRecognizer(swipeGestureRecognizerDown)
     }
     
-    private func configure(_ track: TrackModel) {
+     func configure(_ track: TrackModel) {
         if let coverURL = track.coverURL {
             selfView.trackImageView.downloadedFrom(link: coverURL)
         }
-        
         selfView.trackNameLabel.text = track.trackName
         selfView.authorNameLabel.text = track.artistName
     }
     
-    private func playTrack(previewURL: String?) {
+     func playTrack(previewURL: String?) {
         guard let url = URL(string: previewURL ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         selfView.player.replaceCurrentItem(with: playerItem)
         selfView.player.play()
     }
     
-    private func setupTarget() {
+     func setupTarget() {
         selfView.addFavoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         selfView.pauseButton.addTarget(self, action: #selector(playPauseAction), for: .touchUpInside)
         selfView.dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
@@ -60,7 +59,7 @@ private extension PlayerViewController {
     }
 }
 
-// MARK: - Objc Methods
+// MARK: - Action
 
 @objc
 private extension PlayerViewController {
@@ -97,7 +96,7 @@ private extension PlayerViewController {
         print("Previous track tapped")
     }
     
-    private func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+     func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
         self.dismiss(animated: true)
     }
     

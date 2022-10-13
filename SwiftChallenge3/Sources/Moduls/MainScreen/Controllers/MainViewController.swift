@@ -21,9 +21,9 @@ class MainViewController: BaseViewController<MainView> {
     }
 }
 
-// MARK: - Delegate + DataSource TableView
+// MARK: - UITableViewDataSource
 
-extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
+extension MainViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -49,7 +49,12 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource  {
         
         return cell
     }
-    
+}
+
+// MARK: - UITableViewDelegate
+
+    extension MainViewController : UITableViewDelegate {
+        
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if selfView.favourites?.tracks.count == 0 {

@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class ListView : BaseView {
+class SearchView : BaseView {
     
     // MARK: - Constants
     
@@ -26,14 +26,14 @@ class ListView : BaseView {
     }
 }
 
-// MARK: - Private Methods
+    // MARK: - Private Methods
 
- private extension ListView {
+private extension SearchView {
     
     func configureTableView() {
         
         trackTableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
-
+        trackTableView.register(UITableViewCell.self, forCellReuseIdentifier: "defoultCell")
         addSubview(trackTableView)
         trackTableView.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
@@ -43,5 +43,4 @@ class ListView : BaseView {
         }
     }
 }
-
 

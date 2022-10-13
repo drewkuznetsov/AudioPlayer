@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class ListView : BaseView {
+class SearchView : BaseView {
     
     // MARK: - Constants
     
@@ -28,7 +28,7 @@ class ListView : BaseView {
 
 // MARK: - Private Methods
 
- private extension ListView {
+ private extension SearchView {
     
     func configureTableView() {
         
@@ -43,5 +43,3 @@ class ListView : BaseView {
         }
     }
 }
-
-

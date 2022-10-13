@@ -1,68 +1,70 @@
-//
-//  SearchViewController.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import UIKit
 
-class SearchViewController: UITableViewController {
+class SearchViewController: BaseViewController<SearchView> {
     
-    let searchLimit = 25
+// MARK: - Constants
     
-    private var searchController = UISearchController(searchResultsController: nil)
-    
-    private let networkService = NetworkService()
-    
-    private var tracks: [TrackModel] = []
-    
-    private var timer: Timer?
-    
-    private var realmManager = RealmBaseManager()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private enum Constants {
         
-        self.navigationItem.title = "Search"
+        enum SearchLimit {
+            static let limit : Int = 25
+        }
         
-        self.tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defoultCell")
+        enum tableCell {
+            static let numberOfLines : Int = 2
+        }
         
-        self.setupSearchBar()
-        
-        self.networkService.delegate = self
+        enum SongTable {
+            static let height : CGFloat = 90
+            static let numberOfSection : Int = 1
+        }
     }
     
-    private func setupSearchBar() {
-        self.searchController.searchBar.delegate = self
-        self.navigationItem.searchController = searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
+// MARK: - RealmManager
+    
+    private var realmManager = RealmBaseManager()
+    
+// MARK: - Internal parameter
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private let networkService = NetworkService()
+    private var tracks: [TrackModel] = []
+    private var timer: Timer?
+    
+// MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupDelegate()
+        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        selfView.trackTableView.reloadData()
     }
+}
 
-    // MARK: - Table view data source
+// MARK: - UITableViewDataSource
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+extension SearchViewController : UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Constants.SongTable.numberOfSection
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tracks.count
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
             let track = self.tracks[indexPath.row]
             cell.textLabel?.text = track.trackName + "\n" + track.artistName
-            cell.textLabel?.numberOfLines = 2
+            cell.textLabel?.numberOfLines = Constants.tableCell.numberOfLines
             if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
                 cell.imageView?.downloadedFrom(link: coverURL)
             }
@@ -72,26 +74,31 @@ class SearchViewController: UITableViewController {
         cell.track = track
         return cell
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension SearchViewController : UITableViewDelegate {
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Constants.SongTable.height
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let track = tracks[indexPath.row]
         realmManager.addToRecentPlayed(track: track)
-        print("Segue in controller player")
+        print("Choose in \(track.trackName) in SearchVC")
     }
 }
 
-//MARK: - Extensions
+// MARK: - NetworkServiceDelegate
 
 extension SearchViewController: NetworkServiceDelegate {
     
     func didFetchTracks(tracks: [TrackModel]) {
         self.tracks = tracks
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.selfView.trackTableView.reloadData()
         }
     }
     
@@ -101,64 +108,38 @@ extension SearchViewController: NetworkServiceDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
+
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            self.networkService.fetchData(searchRequest: searchText, limit: self.searchLimit)
+            self.networkService.fetchData(searchRequest: searchText, limit: Constants.SearchLimit.limit)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.tracks = []
-        self.tableView.reloadData()
+        selfView.trackTableView.reloadData()
     }
-    
 }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+// MARK: - Private Methods
+
+private extension SearchViewController  {
+    
+    func setupSearchBar() {
+        navigationItem.title = "Search"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func setupDelegate() {
+        searchController.searchBar.delegate = self
+        selfView.trackTableView.delegate = self
+        selfView.trackTableView.dataSource = self
+        networkService.delegate = self
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+}

@@ -14,7 +14,7 @@ final class MainSongCell: UITableViewCell {
         }
     }
 
-    // MARK: - Constantы
+    // MARK: - Constants
     
     private enum Constants {
         
@@ -32,7 +32,7 @@ final class MainSongCell: UITableViewCell {
         }
     }
     
-// MARK: - UI Elements
+    // MARK: - UI Elements
     
     let headerLabel = UILabel()
     var songCollection = MainSongCell.makeSongCollection()
@@ -128,7 +128,7 @@ private extension MainSongCell {
     }
 }
 
-// MARK: - UICollection Delegate
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension MainSongCell: UICollectionViewDelegateFlowLayout {
     
@@ -146,9 +146,9 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UICollection DataSource
+// MARK: - UICollectionViewDataSource
 
-extension MainSongCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MainSongCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return playlist?.tracks.count ?? .zero

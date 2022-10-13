@@ -150,7 +150,7 @@ final class TrackTableViewCell: UITableViewCell {
         }
     }
 
-// MARK: - @Objc Private Methods
+// MARK: - Action
 
 @objc
 private extension TrackTableViewCell {

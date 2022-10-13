@@ -32,14 +32,16 @@ class MainView : BaseView {
             print("RECENT UPDATED")
         }
     }
+    
     // MARK: - Initilization
+    
     override func configure() {
         configureConstraints()
         configureSongTableView()
     }
 }
 
-// MARK: - Private Methods
+    // MARK: - Private Methods
 
 private extension MainView {
     

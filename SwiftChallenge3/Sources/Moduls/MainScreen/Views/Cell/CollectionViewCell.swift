@@ -97,9 +97,6 @@ final class CollectionViewCell: UICollectionViewCell {
 private extension CollectionViewCell {
 
         func setupDefaultView() {
-        contentView.addSubview(self.trackImageView)
-        contentView.addSubview(self.trackNameLabel)
-        contentView.addSubview(self.artistNameLabel)
         trackNameLabel.text = Constants.TrackNameLabel.text
         artistNameLabel.text = Constants.ArtistNameLabel.text
         trackImageView.image = Constants.TrackImageView.image
