@@ -1,6 +1,11 @@
 import UIKit
 import SnapKit
 
+
+protocol MainSongCellDelegate {
+    func reloadData()
+}
+
 final class MainSongCell: UITableViewCell {
 
     // MARK: - Identifier
@@ -13,6 +18,8 @@ final class MainSongCell: UITableViewCell {
             self.songCollection.reloadData()
         }
     }
+    
+    var delegate: MainSongCellDelegate?
 
     // MARK: - Constants
     
@@ -143,10 +150,10 @@ extension MainSongCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected track - `\(playlist?.tracks[indexPath.row].trackName ?? "Selected cell in MainSongCell")` in MainSongCell")
         self.playlist?.currentIndex = indexPath.item
         if let playlist = self.playlist {
-            AudioPlayer.mainPlayer.playList(playList: playlist )
+            AudioPlayer.mainPlayer.playList(playList: playlist)
+            self.delegate?.reloadData()
         }
     }
 }

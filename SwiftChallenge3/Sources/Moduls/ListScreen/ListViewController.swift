@@ -71,6 +71,7 @@ extension ListViewController : UITableViewDataSource {
             return UITableViewCell()
         }
         cell.track = playList?.tracks[indexPath.row]
+        cell.delegate = self
         return cell
     }
 }
@@ -106,4 +107,15 @@ extension ListViewController: RealmBaseManagerDelegate {
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
     }
+}
+
+//MARK: - TrackTableViewCellDelegate
+
+extension ListViewController: TrackTableViewCellDelegate {
+    func reloadData() {
+        realmManager.loadFavourites()
+        selfView.trackTableView.reloadData()
+    }
+    
+    
 }

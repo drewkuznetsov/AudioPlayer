@@ -1,6 +1,11 @@
 import UIKit
 import SnapKit
 
+
+protocol TrackTableViewCellDelegate {
+    func reloadData()
+}
+
 final class TrackTableViewCell: UITableViewCell {
     
 // MARK: - Identifier
@@ -10,6 +15,8 @@ final class TrackTableViewCell: UITableViewCell {
 // MARK: - internal Property
     
     var realmManager = RealmBaseManager()
+    
+    var delegate: TrackTableViewCellDelegate?
     
 // MARK: - Playlist
     
@@ -164,5 +171,6 @@ private extension TrackTableViewCell {
             realmManager.deleteFromFavourites(track: track)
             favoriteButton.setImage(UIImage(systemName: "heart", withConfiguration: Constants.FavoriteButton.largeConfig), for: .normal)
         }
+        self.delegate?.reloadData()
     }
 }
