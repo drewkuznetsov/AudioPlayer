@@ -22,6 +22,7 @@ class PlayerViewController: BaseViewController<PlayerView>  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        playPauseAction(selfView.pauseButton)
     }
 }
 
@@ -57,6 +58,17 @@ private extension PlayerViewController {
         selfView.leftBackwardButton.addTarget(self, action: #selector(previousTrack), for: .touchUpInside)
         selfView.rightBackwardButton.addTarget(self, action: #selector(nextTrack), for: .touchUpInside)
     }
+    
+    func enLargeTrackImageView() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.selfView.trackImageView.transform = .identity
+        })
+        }
+
+    func reduceTrackImageView() {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {let scale: CGFloat = 0.8
+                self.selfView.trackImageView.transform = CGAffineTransform(scaleX: scale, y: scale) } , completion: nil)
+        }
 }
 
 // MARK: - Action
@@ -68,7 +80,6 @@ private extension PlayerViewController {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
         if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: largeConfig) {
             sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
-            
         } else {
             sender.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
         }
@@ -77,12 +88,14 @@ private extension PlayerViewController {
     func playPauseAction(_ sender: UIButton) {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold, scale: .large)
         if selfView.player.timeControlStatus == .paused {
-            delegate?.playPauseActionDelegate()
+//            delegate?.playPauseActionDelegate()
             selfView.player.play()
+            enLargeTrackImageView()
             sender.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         } else {
             selfView.player.pause()
             sender.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
+            reduceTrackImageView()
         }
     }
     
