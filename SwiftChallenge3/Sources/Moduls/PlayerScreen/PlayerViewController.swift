@@ -18,6 +18,10 @@ class PlayerViewController: BaseViewController<PlayerView>  {
         view.backgroundColor = .white
         setupGestureRecognizer()
         setupTarget()
+        setupAudioPlayerDelegate()
+        if let track = AudioPlayer.mainPlayer.currentTrack {
+            self.configure(track)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,13 +54,38 @@ private extension PlayerViewController {
         selfView.player.play()
     }
     
-     func setupTarget() {
+    func setupTarget() {
         selfView.addFavoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         selfView.pauseButton.addTarget(self, action: #selector(playPauseAction), for: .touchUpInside)
         selfView.dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
         selfView.leftBackwardButton.addTarget(self, action: #selector(previousTrack), for: .touchUpInside)
         selfView.rightBackwardButton.addTarget(self, action: #selector(nextTrack), for: .touchUpInside)
+        selfView.sliderTime.addTarget(self, action: #selector(timeSliderChanged), for: .valueChanged)
+        selfView.sliderSound.addTarget(self, action: #selector(soundSliderChanged), for: .valueChanged)
     }
+}
+
+//MARK: - Main Player Delegate
+
+extension PlayerViewController: AudioPlayerDelegate  {
+    
+    func setupAudioPlayerDelegate() {
+        AudioPlayer.mainPlayer.delegate = self
+        print("AUDIO PLAYER DELEGAT SETUP")
+    }
+    
+    func trackPlay(track: TrackModel) {
+        self.configure(track)
+        print("CONFIGURE TRACK")
+    }
+    
+    func timeChaneged() {
+        selfView.leftTimeLabel.text = AudioPlayer.mainPlayer.currentTime
+        selfView.rightTimeLabel.text = AudioPlayer.mainPlayer.timeLeft
+        selfView.sliderTime.value = AudioPlayer.mainPlayer.timePercent
+    }
+    
+    
 }
 
 // MARK: - Action
@@ -76,25 +105,29 @@ private extension PlayerViewController {
     
     func playPauseAction(_ sender: UIButton) {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold, scale: .large)
-        if selfView.player.timeControlStatus == .paused {
+        if AudioPlayer.mainPlayer.playStatus == .paused {
             delegate?.playPauseActionDelegate()
-            selfView.player.play()
+            AudioPlayer.mainPlayer.playTrack()
             sender.setImage(UIImage(systemName: "pause.fill", withConfiguration: largeConfig), for: .normal)
         } else {
-            selfView.player.pause()
+            AudioPlayer.mainPlayer.pauseTrack()
             sender.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
     }
     
      func previousTrack() {
+         AudioPlayer.mainPlayer.previousTrack()
          delegate?.previousTrackDelegate()
         print("Previous track tapped")
     }
     
     func nextTrack() {
+        AudioPlayer.mainPlayer.nextTrack()
         delegate?.nextTrackDelegate()
-        print("Previous track tapped")
+        print("Next track tapped")
     }
+    
+    
     
      func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
         self.dismiss(animated: true)
@@ -103,5 +136,14 @@ private extension PlayerViewController {
     func dismissButtonTapped() {
         print("Dismiss Button tapped")
         self.dismiss(animated: true)
+    }
+    
+    func timeSliderChanged() {
+        let percent =  selfView.sliderTime.value
+        AudioPlayer.mainPlayer.setTrackPosition(percents: percent)
+    }
+    
+    func soundSliderChanged() {
+        AudioPlayer.mainPlayer.setPlayerVolume(volume: selfView.sliderSound.value)
     }
 }
