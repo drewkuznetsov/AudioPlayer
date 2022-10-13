@@ -42,8 +42,6 @@ extension MiniPlayerViewController : ChangeTrackDelegate {
     }
 }
 
-
-
 // MARK: - Actions
 
 @objc
@@ -62,13 +60,17 @@ private extension MiniPlayerViewController {
     }
     
     @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
-        makeLeftAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            makeLeftAnimation()
+        }
         AudioPlayer.mainPlayer.previousTrack()
         print("Previos track")
     }
     
     @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
-        makeRightAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            makeRightAnimation()
+        }
         AudioPlayer.mainPlayer.nextTrack()
         print("Next track")
     }
@@ -84,18 +86,6 @@ private extension MiniPlayerViewController {
             AudioPlayer.mainPlayer.pauseTrack()
             selfView.pauseButton.setImage(UIImage(systemName: "play.fill", withConfiguration: largeConfig), for: .normal)
         }
-    }
-    
-    @objc func previousTrack() {
-        AudioPlayer.mainPlayer.previousTrack()
-        print("left animation")
-        makeLeftAnimation()
-    }
-    
-    @objc func nextTrack() {
-        AudioPlayer.mainPlayer.nextTrack()
-        print("Right animation")
-        makeRightAnimation()
     }
 }
 
@@ -121,14 +111,11 @@ private extension MiniPlayerViewController {
         if let coverURL = track.coverURL {
             selfView.trackImageView.downloadedFrom(link: coverURL)
         }
-        
         selfView.trackNameLabel.text = track.trackName
         selfView.artistNameLabel.text = track.artistName
     }
     
     func addTargets() {
-        selfView.leftBackwardButton.addTarget(self, action: #selector(self.previousTrack), for: .touchUpInside)
-        selfView.rightBackwardButton.addTarget(self, action: #selector(self.nextTrack), for: .touchUpInside)
         selfView.pauseButton.addTarget(self, action: #selector(self.playPauseAction), for: .touchUpInside)
     }
     
@@ -166,32 +153,35 @@ private extension MiniPlayerViewController {
     
     func makeLeftAnimation() {
         var frame = selfView.labelStackView.frame
-        UIView.animate(withDuration: 0.25) {
-            self.selfView.labelStackView.alpha = 0.1
-        }
-        
-        frame.origin.x -= 400
-        UIView.animate(withDuration: 0.6) {
-            self.selfView.labelStackView.frame = frame
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
-            selfView.labelStackView.alpha = 1
-            selfView.labelStackView.frame.origin.x += 400
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            UIView.animate(withDuration: 0.25) {
+                self.selfView.labelStackView.alpha = 0.1
+            }
+            
+            frame.origin.x -= 400
+            UIView.animate(withDuration: 0.6) {
+                self.selfView.labelStackView.frame = frame
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [self] in
+                selfView.labelStackView.alpha = 1
+                selfView.labelStackView.frame.origin.x += 400
+            }
         }
     }
     
     func makeRightAnimation() {
         var frame = selfView.labelStackView.frame
-        
-        frame.origin.x += 400
-        UIView.animate(withDuration: 0.6) {
-            self.selfView.labelStackView.alpha = 0.1
-            self.selfView.labelStackView.frame = frame
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [self] in
-            selfView.labelStackView.alpha = 1
-            selfView.labelStackView.frame.origin.x -= 400
+       
+            frame.origin.x += 400
+            UIView.animate(withDuration: 0.6) {
+                self.selfView.labelStackView.alpha = 0.1
+                self.selfView.labelStackView.frame = frame
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [self] in
+                selfView.labelStackView.alpha = 1
+                selfView.labelStackView.frame.origin.x -= 400
+            }
         }
     }
-}
+

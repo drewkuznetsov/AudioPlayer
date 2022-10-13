@@ -7,7 +7,7 @@ class SearchViewController: BaseViewController<SearchView> {
     private enum Constants {
         
         enum SearchLimit {
-            static let limit : Int = 25
+            static let limit : Int = 50
         }
         
         enum tableCell {

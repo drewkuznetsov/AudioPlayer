@@ -24,7 +24,6 @@ class PlayerViewController: BaseViewController<PlayerView>  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        playPauseAction(selfView.pauseButton)
     }
 }
 
