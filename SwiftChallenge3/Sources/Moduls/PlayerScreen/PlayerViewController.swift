@@ -98,11 +98,22 @@ extension PlayerViewController: AudioPlayerDelegate  {
     }
     func checkCurrentTrack() {
         if let track = AudioPlayer.mainPlayer.currentTrack {
+            checkAddToFavorite()
             self.configure(track)
         }
     }
     
-    
+   func  checkAddToFavorite() {
+        guard let track =  AudioPlayer.mainPlayer.currentTrack else { return }
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .bold, scale: .large)
+        if realmManager.isFavourite(track: track) {
+            selfView.addFavoriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: largeConfig), for: .normal)
+            print("When checking - the track was added to favorites")
+        } else {
+            selfView.addFavoriteButton.setImage(UIImage(systemName: "heart", withConfiguration: largeConfig), for: .normal)
+            print("When checking - the track was NOT added to favorites")
+        }
+    }
 }
 
 // MARK: - Action
