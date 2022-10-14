@@ -31,30 +31,18 @@ class MiniPlayerView: BaseView {
         
         enum TrackNameLabel {
             static let text = "Track Name"
-            static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            static let numberOfLines = 2
+            static let font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         }
         
         enum ArtistNameLabel {
             static let text = "Artist Name"
-            static let numberOfLines = 1
+            static let numberOfLines = 2
             static let font = UIFont.systemFont(ofSize: 14, weight: .light)
         }
         
-        enum LeftButton {
-            static let pointSize: CGFloat = 10
-            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.LeftButton.pointSize, weight: .bold, scale: .large)
-            static let image = UIImage(systemName: "backward.end.alt.fill", withConfiguration: Constants.LeftButton.largeConfig)
-        }
-        
-        enum RightButton {
-            static let pointSize: CGFloat = 10
-            static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.RightButton.pointSize, weight: .bold, scale: .large)
-            static let image = UIImage(systemName: "forward.end.alt.fill", withConfiguration: Constants.RightButton.largeConfig)
-        }
-        
         enum PauseButton {
-            static let pointSize: CGFloat = 15
+            static let pointSize: CGFloat = 20
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.PauseButton.pointSize, weight: .bold, scale: .large)
             static let image = UIImage(systemName: "pause.fill", withConfiguration: Constants.PauseButton.largeConfig)
         }
@@ -72,8 +60,6 @@ class MiniPlayerView: BaseView {
     lazy var trackNameLabel = UILabel()
     lazy var artistNameLabel = UILabel()
     
-    lazy var leftBackwardButton = UIButton()
-    lazy var rightBackwardButton = UIButton()
     lazy var pauseButton = UIButton()
     
     // MARK: - Initilization
@@ -116,15 +102,7 @@ private extension MiniPlayerView {
         artistNameLabel.text = Constants.ArtistNameLabel.text
         artistNameLabel.numberOfLines = Constants.ArtistNameLabel.numberOfLines
         artistNameLabel.font = Constants.ArtistNameLabel.font
-        
-        leftBackwardButton.setImage(Constants.LeftButton.image, for: .normal)
-        leftBackwardButton.tintColor = .black
-        leftBackwardButton.startAnimatingPressActions()
-        
-        rightBackwardButton.setImage(Constants.RightButton.image, for: .normal)
-        rightBackwardButton.tintColor = .black
-        rightBackwardButton.startAnimatingPressActions()
-        
+          
         pauseButton.setImage(Constants.PauseButton.image, for: .normal)
         pauseButton.tintColor = .black
         pauseButton.startAnimatingPressActions()
@@ -148,9 +126,7 @@ private extension MiniPlayerView {
         }
         
         addSubview(сontrollersStackView)
-        сontrollersStackView.addArrangedSubview(leftBackwardButton)
         сontrollersStackView.addArrangedSubview(pauseButton)
-        сontrollersStackView.addArrangedSubview(rightBackwardButton)
         сontrollersStackView.snp.makeConstraints { make in
             make.top.equalTo(snp.top).offset(Constants.ControllersStackView.top)
             make.trailing.equalTo(snp.trailing).offset(Constants.ControllersStackView.trealing)

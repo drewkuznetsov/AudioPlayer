@@ -46,6 +46,7 @@ extension MainViewController : UITableViewDataSource {
         } else {
             cell.playlist = selfView.recentlyPlayed
         }
+        cell.delegate = self
         
         return cell
     }
@@ -110,4 +111,15 @@ extension MainViewController: RealmBaseManagerDelegate {
         selfView.recentlyPlayed = playList
         print("MainViewController - RECENT tracks")
     }
+}
+
+//MARK: - Main Song Cell Delegate
+
+extension MainViewController: MainSongCellDelegate {
+    func reloadData() {
+        realmManager.loadRecentPlayed()
+        selfView.songTableView.reloadData()
+    }
+    
+    
 }

@@ -71,6 +71,7 @@ extension ListViewController : UITableViewDataSource {
             return UITableViewCell()
         }
         cell.track = playList?.tracks[indexPath.row]
+        cell.delegate = self
         return cell
     }
 }
@@ -84,13 +85,10 @@ extension ListViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard  let track = playList?.tracks[indexPath.row] else { return }
-        realmManager.addToRecentPlayed(track: track)
         self.playList?.currentIndex = indexPath.row
         if let playList = self.playList {
             AudioPlayer.mainPlayer.playList(playList: playList)
         }
-        print("Segue in controller player")
     }
 }
 
@@ -109,4 +107,15 @@ extension ListViewController: RealmBaseManagerDelegate {
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
     }
+}
+
+//MARK: - TrackTableViewCellDelegate
+
+extension ListViewController: TrackTableViewCellDelegate {
+    func reloadData() {
+        realmManager.loadFavourites()
+        selfView.trackTableView.reloadData()
+    }
+    
+    
 }

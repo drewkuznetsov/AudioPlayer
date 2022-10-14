@@ -40,6 +40,10 @@ class AudioPlayer {
     
     var currentPlayList: PlayListModel?
     
+//MARK: - Realm Base manager
+    
+    private let realmManager = RealmBaseManager()
+    
 //MARK: - Time Vars
     
     private var time = CMTime()
@@ -89,6 +93,7 @@ class AudioPlayer {
         self.observePlayerCurrentTime()
         self.delegate?.trackPlay(track: track)
         self.miniDelegate?.trackPlay(track: track)
+        self.realmManager.addToRecentPlayed(track: track)
     }
     
     func playTrack() {
