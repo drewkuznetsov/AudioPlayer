@@ -60,18 +60,18 @@ private extension MiniPlayerViewController {
     }
     
     @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            makeLeftAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            AudioPlayer.mainPlayer.previousTrack()
         }
-        AudioPlayer.mainPlayer.previousTrack()
+        makeLeftAnimation()
         print("Previos track")
     }
     
     @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            makeRightAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            AudioPlayer.mainPlayer.nextTrack()
         }
-        AudioPlayer.mainPlayer.nextTrack()
+        makeRightAnimation()
         print("Next track")
     }
     
@@ -153,20 +153,17 @@ private extension MiniPlayerViewController {
     
     func makeLeftAnimation() {
         var frame = selfView.labelStackView.frame
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.6) {
                 self.selfView.labelStackView.alpha = 0.1
             }
-            
             frame.origin.x -= 400
             UIView.animate(withDuration: 0.6) {
                 self.selfView.labelStackView.frame = frame
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [self] in
                 selfView.labelStackView.alpha = 1
                 selfView.labelStackView.frame.origin.x += 400
             }
-        }
     }
     
     func makeRightAnimation() {
