@@ -1,14 +1,9 @@
-//
-//  ImageDownload.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 23.09.2022.
-//
-
 import UIKit
 
 let imageCache = NSCache<NSString, UIImage>()
+
 extension UIImageView {
+    
     func downloadedFrom(url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
         contentMode = mode
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
@@ -17,6 +12,7 @@ extension UIImageView {
                 print("Get image from cache")
                 return
             }
+            
         } else {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard
@@ -30,9 +26,11 @@ extension UIImageView {
                     self.image = image
                     print("Get image from url")
                 }
-            }.resume()            
+            }
+            .resume()
         }
     }
+    
     func downloadedFrom(link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else { return }
         downloadedFrom(url: url, contentMode: mode)
