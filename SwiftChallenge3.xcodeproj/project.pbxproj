@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		115FCDA928FEC00F00B4153C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115FCDA828FEC00F00B4153C /* ListViewController.swift */; };
+		115FCDAE28FEC06B00B4153C /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115FCDAC28FEC06B00B4153C /* TrackTableViewCell.swift */; };
+		115FCDAF28FEC06B00B4153C /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115FCDAD28FEC06B00B4153C /* ListView.swift */; };
 		11A2A06B28EEBB1000AD9EC5 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06A28EEBB1000AD9EC5 /* MiniPlayerView.swift */; };
 		11A2A06E28EEBB6800AD9EC5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06D28EEBB6800AD9EC5 /* BaseView.swift */; };
 		11A2A07028EEBB7400AD9EC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2A06F28EEBB7400AD9EC5 /* BaseViewController.swift */; };
@@ -20,8 +23,6 @@
 		43C207AC28F0873900F20013 /* MainSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C207AB28F0873900F20013 /* MainSongCell.swift */; };
 		43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */; };
 		43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */; };
-		43FB78EF28F5A22D0038E3AF /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FB78EE28F5A22D0038E3AF /* ListView.swift */; };
-		A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */; };
 		E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */; };
 		E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */; };
 		E465C23428DB6B47008CC3E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E465C23328DB6B47008CC3E0 /* Assets.xcassets */; };
@@ -29,7 +30,6 @@
 		E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */; };
 		E465C24328DB6C2B008CC3E0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C24228DB6C2B008CC3E0 /* NetworkService.swift */; };
 		E465C24628DB6CEA008CC3E0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */; };
-		E465C25128DB73AC008CC3E0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25028DB73AC008CC3E0 /* ListViewController.swift */; };
 		E465C25728DB7525008CC3E0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C25628DB7525008CC3E0 /* SearchViewController.swift */; };
 		E465C26028DB76CB008CC3E0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E465C25F28DB76CB008CC3E0 /* SnapKit */; };
 		E465C26228DC6793008CC3E0 /* TrackDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E465C26128DC6793008CC3E0 /* TrackDataModel.swift */; };
@@ -43,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		115FCDA828FEC00F00B4153C /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		115FCDAC28FEC06B00B4153C /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
+		115FCDAD28FEC06B00B4153C /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		11A2A06A28EEBB1000AD9EC5 /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 		11A2A06D28EEBB6800AD9EC5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		11A2A06F28EEBB7400AD9EC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -56,8 +59,6 @@
 		43C207AB28F0873900F20013 /* MainSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSongCell.swift; sourceTree = "<group>"; };
 		43CDEAF228E2FEBB00D059AE /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		43FB78EE28F5A22D0038E3AF /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		E465C22728DB6B45008CC3E0 /* SwiftChallenge3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftChallenge3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E465C22A28DB6B45008CC3E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E465C22C28DB6B45008CC3E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		E465C24228DB6C2B008CC3E0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E465C24528DB6CEA008CC3E0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		E465C25028DB73AC008CC3E0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E465C25628DB7525008CC3E0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E465C26128DC6793008CC3E0 /* TrackDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDataModel.swift; sourceTree = "<group>"; };
 		E465C26528DC718D008CC3E0 /* PlayListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListModel.swift; sourceTree = "<group>"; };
@@ -91,6 +91,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		115FCDA728FEC00F00B4153C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				115FCDA828FEC00F00B4153C /* ListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		115FCDAA28FEC06B00B4153C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				115FCDAB28FEC06B00B4153C /* Cells */,
+				115FCDAD28FEC06B00B4153C /* ListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		115FCDAB28FEC06B00B4153C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				115FCDAC28FEC06B00B4153C /* TrackTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		115FCDB028FEC0AA00B4153C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		115FCDB128FEC10400B4153C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				43B34C2928F72F6100BA33E8 /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		115FCDB228FEC10D00B4153C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E465C25628DB7525008CC3E0 /* SearchViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		11A2A06728EEBAC600AD9EC5 /* MiniPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,12 +226,12 @@
 			path = ImageLoader;
 			sourceTree = "<group>";
 		};
-		43AB87D028F210EE00E2063A /* View */ = {
+		43AB87D028F210EE00E2063A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				43AB87D128F210FF00E2063A /* PlayerView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		43B123DA28EF419D00EF5E9C /* Views */ = {
@@ -218,23 +267,6 @@
 				438207F228E4C2680008DE49 /* UIButton + Extension.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		43FB78F028F5D1130038E3AF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				43FB78F128F5D1380038E3AF /* Cell */,
-				43FB78EE28F5A22D0038E3AF /* ListView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		43FB78F128F5D1380038E3AF /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				A50EBCA328DC3C1200DCC2B2 /* TrackTableViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		E465C21E28DB6B44008CC3E0 = {
@@ -345,8 +377,8 @@
 		E465C25228DB73B8008CC3E0 /* ListScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E465C25028DB73AC008CC3E0 /* ListViewController.swift */,
-				43FB78F028F5D1130038E3AF /* View */,
+				115FCDAA28FEC06B00B4153C /* Views */,
+				115FCDA728FEC00F00B4153C /* Controllers */,
 			);
 			path = ListScreen;
 			sourceTree = "<group>";
@@ -354,8 +386,8 @@
 		E465C25528DB742E008CC3E0 /* PlayerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */,
-				43AB87D028F210EE00E2063A /* View */,
+				115FCDB028FEC0AA00B4153C /* Controllers */,
+				43AB87D028F210EE00E2063A /* Views */,
 			);
 			path = PlayerScreen;
 			sourceTree = "<group>";
@@ -363,8 +395,8 @@
 		E465C25828DB752F008CC3E0 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E465C25628DB7525008CC3E0 /* SearchViewController.swift */,
-				43B34C2928F72F6100BA33E8 /* SearchView.swift */,
+				115FCDB228FEC10D00B4153C /* Controllers */,
+				115FCDB128FEC10400B4153C /* Views */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -448,7 +480,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				115FCDA928FEC00F00B4153C /* ListViewController.swift in Sources */,
 				E465C25728DB7525008CC3E0 /* SearchViewController.swift in Sources */,
+				115FCDAF28FEC06B00B4153C /* ListView.swift in Sources */,
 				43B123D728EF29BA00EF5E9C /* MainView.swift in Sources */,
 				43AB87CF28F1EF2800E2063A /* CollectionViewCell.swift in Sources */,
 				E4B1B3EE28DE4C7900F57483 /* RealmBaseManager.swift in Sources */,
@@ -462,8 +496,8 @@
 				438207F328E4C2680008DE49 /* UIButton + Extension.swift in Sources */,
 				43224E0628E1BF210013A829 /* UIColor + Extension.swift in Sources */,
 				E465C26628DC718D008CC3E0 /* PlayListModel.swift in Sources */,
+				115FCDAE28FEC06B00B4153C /* TrackTableViewCell.swift in Sources */,
 				43CDEAF328E2FEBB00D059AE /* MiniPlayerViewController.swift in Sources */,
-				43FB78EF28F5A22D0038E3AF /* ListView.swift in Sources */,
 				E465C24028DB6BD0008CC3E0 /* TrackModel.swift in Sources */,
 				43B123D928EF349200EF5E9C /* MainViewController.swift in Sources */,
 				43E7E5AC28F3206F00C6A27A /* PlayerViewController.swift in Sources */,
@@ -472,10 +506,8 @@
 				E4B1B3F028DE4C8600F57483 /* RealmDataModel.swift in Sources */,
 				E465C22B28DB6B45008CC3E0 /* AppDelegate.swift in Sources */,
 				11A2A06E28EEBB6800AD9EC5 /* BaseView.swift in Sources */,
-				E465C25128DB73AC008CC3E0 /* ListViewController.swift in Sources */,
 				43C207AC28F0873900F20013 /* MainSongCell.swift in Sources */,
 				E465C22D28DB6B45008CC3E0 /* SceneDelegate.swift in Sources */,
-				A50EBCA428DC3C1200DCC2B2 /* TrackTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
