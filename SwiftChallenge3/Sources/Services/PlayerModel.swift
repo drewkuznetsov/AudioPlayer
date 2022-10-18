@@ -1,10 +1,3 @@
-//
-//  PlayerModel.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 12.10.2022.
-//
-
 import Foundation
 import AVKit
 
@@ -17,18 +10,21 @@ protocol MiniAudioPlayerDelegate {
     func trackPlay(track: TrackModel)
 }
 
-enum Constats {
-    static let minPlayTime = 3.0
-}
-
 class AudioPlayer {
+   
+    // MARK: - Constants
+    
+    enum Constats {
+        static let minPlayTime = 3.0
+        static let minute = 60
+    }
 
-//MARK: - Audio Player Delegate
+// MARK: - Audio Player Delegate
     
     var delegate: AudioPlayerDelegate?
     var miniDelegate: MiniAudioPlayerDelegate?
     
-//MARK: - Static Audio Player
+// MARK: - Static Audio Player
     
     static let mainPlayer = AudioPlayer()
     
@@ -40,16 +36,16 @@ class AudioPlayer {
     
     var currentPlayList: PlayListModel?
     
-//MARK: - Realm Base manager
+// MARK: - Realm Base manager
     
     private let realmManager = RealmBaseManager()
     
-//MARK: - Time Vars
+// MARK: - Time Vars
     
     private var time = CMTime()
     
     private var duaration: CMTime {
-        guard let duaration = self.player.currentItem?.duration else { return CMTime(seconds: 0, preferredTimescale: 1)}
+        guard let duaration = self.player.currentItem?.duration else { return CMTime(seconds: .zero, preferredTimescale: 1)}
         return duaration
     }
     
@@ -74,7 +70,7 @@ class AudioPlayer {
         return Float(curentTime / durationTime)
     }
     
-//MARK: - Public Controlls
+// MARK: - Public Controlls
     
     func playList(playList: PlayListModel) {
         self.currentPlayList = playList
@@ -115,7 +111,7 @@ class AudioPlayer {
         
         let curentTime = CMTimeGetSeconds(player.currentTime())
         if curentTime > Constats.minPlayTime {
-            self.setTrackPosition(percents: 0)
+            self.setTrackPosition(percents: .zero)
             return
         }
         
@@ -146,10 +142,13 @@ class AudioPlayer {
     func setPlayerVolume(volume: Float) {
         self.player.volume = volume
     }
+}
+
+// MARK: - Private Methods
     
-//MARK: - Private Funcs
+private extension AudioPlayer {
     
-    private func observePlayerCurrentTime() {
+    func observePlayerCurrentTime() {
         let interval = CMTimeMake(value: 1, timescale: 2)
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
             self?.time = time
@@ -157,11 +156,11 @@ class AudioPlayer {
         }
     }
     
-    private func convertTimeToString(time: CMTime) -> String {
+    func convertTimeToString(time: CMTime) -> String {
         guard !CMTimeGetSeconds(time).isNaN else { return "" }
         let totalSeconds = Int(CMTimeGetSeconds(time))
-        let seconds = totalSeconds % 60
-        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % Constats.minute
+        let minutes = totalSeconds / Constats.minute
         let timeFormatString = String(format: "%2d:%2d", minutes, seconds)
         return timeFormatString
     }
