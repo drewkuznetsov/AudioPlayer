@@ -1,10 +1,3 @@
-//
-//  RealmBaseManager.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 23.09.2022.
-//
-
 import Foundation
 import RealmSwift
 
@@ -52,7 +45,7 @@ class RealmBaseManager {
     }
 }
 
-//MARK: - Favourites Track
+// MARK: - Favourites Track
 
 extension RealmBaseManager {
     
@@ -117,7 +110,7 @@ extension RealmBaseManager {
     
 }
 
-//MARK: - Reacent Played
+// MARK: - Reacent Played
 
 extension RealmBaseManager {
     
@@ -175,7 +168,7 @@ extension RealmBaseManager {
     }
 }
 
-//MARK: - Debug
+// MARK: - Debug
 
 extension RealmBaseManager {
     
