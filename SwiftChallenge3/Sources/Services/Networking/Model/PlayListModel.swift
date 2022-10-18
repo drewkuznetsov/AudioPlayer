@@ -1,19 +1,12 @@
-//
-//  PlayListModel.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 22.09.2022.
-//
-
 import Foundation
 
 struct PlayListModel {
+    
     var playListName: String
     var tracks: [TrackModel] = []
     
     var currentIndex: Int {
         set {
-            
             if newValue < 0 {
                 self.trackIndex = 0
                 return
@@ -25,6 +18,7 @@ struct PlayListModel {
                 self.trackIndex = tracks.count - 1
             }
         }
+        
         get {
             return trackIndex
         }

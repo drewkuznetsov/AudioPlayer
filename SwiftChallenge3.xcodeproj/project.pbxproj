@@ -125,6 +125,58 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		11CBA54A28FEBB25008255E0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E465C24228DB6C2B008CC3E0 /* NetworkService.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		11CBA54B28FEBB46008255E0 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				E4B1B3ED28DE4C7800F57483 /* RealmBaseManager.swift */,
+				E4B1B3EF28DE4C8600F57483 /* RealmDataModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		11CBA54C28FEBB57008255E0 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				E465C26128DC6793008CC3E0 /* TrackDataModel.swift */,
+				E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		11CBA54D28FEBB8A008255E0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				11CBA54F28FEBBAC008255E0 /* ImageLoader */,
+				11CBA54E28FEBBA2008255E0 /* Model */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		11CBA54E28FEBBA2008255E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E465C26528DC718D008CC3E0 /* PlayListModel.swift */,
+				E490FEB728F7555D00F9851E /* PlayerModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		11CBA54F28FEBBAC008255E0 /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				E4B1B3E628DDF4CE00F57483 /* ImageDownload.swift */,
+			);
+			path = ImageLoader;
+			sourceTree = "<group>";
+		};
 		43AB87D028F210EE00E2063A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,14 +278,10 @@
 		E465C24428DB6C35008CC3E0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E465C24228DB6C2B008CC3E0 /* NetworkService.swift */,
-				E465C26128DC6793008CC3E0 /* TrackDataModel.swift */,
-				E465C23F28DB6BD0008CC3E0 /* TrackModel.swift */,
-				E465C26528DC718D008CC3E0 /* PlayListModel.swift */,
-				E4B1B3E628DDF4CE00F57483 /* ImageDownload.swift */,
-				E4B1B3ED28DE4C7800F57483 /* RealmBaseManager.swift */,
-				E4B1B3EF28DE4C8600F57483 /* RealmDataModel.swift */,
-				E490FEB728F7555D00F9851E /* PlayerModel.swift */,
+				11CBA54D28FEBB8A008255E0 /* Networking */,
+				11CBA54C28FEBB57008255E0 /* DTO */,
+				11CBA54B28FEBB46008255E0 /* Realm */,
+				11CBA54A28FEBB25008255E0 /* Core */,
 			);
 			path = Services;
 			sourceTree = "<group>";

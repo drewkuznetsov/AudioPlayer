@@ -1,10 +1,3 @@
-//
-//  NetworkService.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 21.09.2022.
-//
-
 import Foundation
 
 protocol NetworkServiceDelegate {
@@ -34,7 +27,6 @@ class NetworkService {
                             trackName: track.trackName,
                             artistName: track.artistName,
                             albumName: track.collectionName ?? "",
-//                            coverSmallURL: track.artworkUrl60 ?? "",
                             coverURL: track.artworkUrl100 ?? "",
                             previewURL: track.previewUrl ?? "")
                     }
@@ -44,8 +36,13 @@ class NetworkService {
         }
         task.resume()
     }
+}
+
+// MARK: - Private Methods
+
+private extension NetworkService {
     
-    private func parseJSON(_ tracksData: Data) -> [Track]? {
+    func parseJSON(_ tracksData: Data) -> [Track]? {
         let decoder = JSONDecoder()
         do{
             let result = try decoder.decode(FetchResults.self, from: tracksData)
@@ -56,7 +53,7 @@ class NetworkService {
         }
     }
     
-    private func getURLOfRequest(for searchRequest: String, limit: Int) -> URL? {
+    func getURLOfRequest(for searchRequest: String, limit: Int) -> URL? {
         
         var components = URLComponents()
         components.scheme = "https"

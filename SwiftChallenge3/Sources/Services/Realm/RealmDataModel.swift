@@ -1,10 +1,3 @@
-//
-//  RealmDataModel.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 23.09.2022.
-//
-
 import Foundation
 import RealmSwift
 
