@@ -272,7 +272,7 @@
 		E465C21E28DB6B44008CC3E0 = {
 			isa = PBXGroup;
 			children = (
-				E465C22928DB6B45008CC3E0 /* SwiftChallenge3 */,
+				E465C22928DB6B45008CC3E0 /* AudioPlayer */,
 				E465C22828DB6B45008CC3E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -285,13 +285,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E465C22928DB6B45008CC3E0 /* SwiftChallenge3 */ = {
+		E465C22928DB6B45008CC3E0 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				E465C24728DB6FB6008CC3E0 /* Sources */,
 				E465C24828DB6FD7008CC3E0 /* Resources */,
 			);
-			path = SwiftChallenge3;
+			path = AudioPlayer;
 			sourceTree = "<group>";
 		};
 		E465C24128DB6BD7008CC3E0 /* Moduls */ = {
@@ -441,7 +441,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E465C22228DB6B44008CC3E0 /* Build configuration list for PBXProject "SwiftChallenge3" */;
+			buildConfigurationList = E465C22228DB6B44008CC3E0 /* Build configuration list for PBXProject "AudioPlayer" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -696,7 +696,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E465C22228DB6B44008CC3E0 /* Build configuration list for PBXProject "SwiftChallenge3" */ = {
+		E465C22228DB6B44008CC3E0 /* Build configuration list for PBXProject "AudioPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E465C23928DB6B47008CC3E0 /* Debug */,
