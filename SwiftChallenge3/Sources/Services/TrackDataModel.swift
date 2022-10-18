@@ -1,10 +1,3 @@
-//
-//  TrackDataModel.swift
-//  SwiftChallenge3
-//
-//  Created by Андрей Кузнецов on 22.09.2022.
-//
-
 import Foundation
 
 struct Track: Decodable {
