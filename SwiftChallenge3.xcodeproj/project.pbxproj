@@ -116,6 +116,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		115FCDB028FEC0AA00B4153C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		11A2A06728EEBAC600AD9EC5 /* MiniPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,12 +210,12 @@
 			path = ImageLoader;
 			sourceTree = "<group>";
 		};
-		43AB87D028F210EE00E2063A /* View */ = {
+		43AB87D028F210EE00E2063A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				43AB87D128F210FF00E2063A /* PlayerView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		43B123DA28EF419D00EF5E9C /* Views */ = {
@@ -362,8 +370,8 @@
 		E465C25528DB742E008CC3E0 /* PlayerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				43E7E5AB28F3206F00C6A27A /* PlayerViewController.swift */,
-				43AB87D028F210EE00E2063A /* View */,
+				115FCDB028FEC0AA00B4153C /* Controllers */,
+				43AB87D028F210EE00E2063A /* Views */,
 			);
 			path = PlayerScreen;
 			sourceTree = "<group>";
