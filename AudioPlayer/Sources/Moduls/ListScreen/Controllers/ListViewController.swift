@@ -30,6 +30,7 @@ class ListViewController: BaseViewController<ListView> {
 }
 
 // MARK: - Private Methods
+
 private extension ListViewController {
     
     func setupSortButton() {
@@ -47,6 +48,7 @@ private extension ListViewController {
 }
 
 // MARK: - @Objc Private Methods
+
 @objc
 private extension ListViewController {
     
@@ -57,6 +59,7 @@ private extension ListViewController {
 
 
 // MARK: - DataSource + TableView
+
 extension ListViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,6 +76,7 @@ extension ListViewController : UITableViewDataSource {
 }
 
 // MARK: - Delegate + TableView
+
 extension ListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -87,6 +91,7 @@ extension ListViewController : UITableViewDelegate {
 }
 
 // MARK: - Realm Base Manager Delegate
+
 extension ListViewController: RealmBaseManagerDelegate {
     
     func showError(error: Error) {

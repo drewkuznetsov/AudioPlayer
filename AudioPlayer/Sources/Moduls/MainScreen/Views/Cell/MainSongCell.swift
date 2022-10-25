@@ -8,18 +8,6 @@ protocol MainSongCellDelegate {
 
 final class MainSongCell: UITableViewCell {
 
-    // MARK: - Identifier
-
-    static let reuseIdentifier = String(describing: MainSongCell.self)
-    
-    var playlist : PlayListModel? {
-        didSet {
-            headerLabel.text = playlist?.playListName
-            self.songCollection.reloadData()
-        }
-    }
-    
-    var delegate: MainSongCellDelegate?
 
     // MARK: - Constants
     
@@ -39,6 +27,19 @@ final class MainSongCell: UITableViewCell {
         }
     }
     
+    // MARK: - Identifier
+
+    static let reuseIdentifier = String(describing: MainSongCell.self)
+    
+    var playlist : PlayListModel? {
+        didSet {
+            headerLabel.text = playlist?.playListName
+            self.songCollection.reloadData()
+        }
+    }
+    
+    var delegate: MainSongCellDelegate?
+
     // MARK: - UI Elements
     
     let headerLabel = UILabel()
