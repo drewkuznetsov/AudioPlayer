@@ -2,12 +2,16 @@ import UIKit
 
 class ListViewController: BaseViewController<ListView> {
     
-    lazy var realmManager = RealmBaseManager()
+    // MARK: - RealmManager
+    
+    var realmManager = RealmBaseManager()
+    
+    // MARK: - Playlist
     
     var playList: PlayListModel? {
         didSet {
             title = playList?.playListName
-            selfView.tableView.reloadData()
+            selfView.trackTableView.reloadData()
         }
     }
     
@@ -15,9 +19,8 @@ class ListViewController: BaseViewController<ListView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureNavigation()
-        realmManager.delegate = self
+        setupSortButton()
+        setupDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -26,9 +29,35 @@ class ListViewController: BaseViewController<ListView> {
     }
 }
 
-// MARK: - TableView data source
+// MARK: - Private Methods
+private extension ListViewController {
+    
+    func setupSortButton() {
+        let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
+        sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
+        sortButtonItem.tintColor = UIColor.tabBarItemAccent
+        self.navigationItem.rightBarButtonItem  = sortButtonItem
+    }
+    
+    func setupDelegate() {
+        selfView.trackTableView.delegate = self
+        selfView.trackTableView.dataSource = self
+        realmManager.delegate = self
+    }
+}
 
-extension ListViewController: UITableViewDataSource {
+// MARK: - @Objc Private Methods
+@objc
+private extension ListViewController {
+    
+    func sortPlaylist() {
+        print("Sort Playlist")
+    }
+}
+
+
+// MARK: - DataSource + TableView
+extension ListViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playList?.tracks.count ?? 0
@@ -43,9 +72,8 @@ extension ListViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TableView delegate
-
-extension ListViewController: UITableViewDelegate {
+// MARK: - Delegate + TableView
+extension ListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
@@ -59,7 +87,6 @@ extension ListViewController: UITableViewDelegate {
 }
 
 // MARK: - Realm Base Manager Delegate
-
 extension ListViewController: RealmBaseManagerDelegate {
     
     func showError(error: Error) {
@@ -69,31 +96,8 @@ extension ListViewController: RealmBaseManagerDelegate {
     
     func favouriteTracksDidLoad(_ playList: PlayListModel) {
         self.playList = playList
-        self.selfView.setTableViewCell()
     }
     
     func recentPlayedTracksDidLoad(_ playList: PlayListModel) {
-        
-    }
-}
-
-// MARK: - Private Methods
-
-private extension ListViewController {
-    
-    func configureNavigation() {
-        let sortButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(sortPlaylist))
-        sortButtonItem.image = UIImage(systemName: "list.bullet.indent")
-        self.navigationItem.rightBarButtonItem  = sortButtonItem
-    }
-}
-
-// MARK: - Actions
-
-@objc
-private extension ListViewController {
-    
-    func sortPlaylist() {
-        print("Sort Playlist")
     }
 }
