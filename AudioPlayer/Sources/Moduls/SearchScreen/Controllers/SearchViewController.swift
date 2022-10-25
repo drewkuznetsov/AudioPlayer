@@ -7,7 +7,7 @@ class SearchViewController: BaseViewController<SearchView> {
     private enum Constants {
         
         enum SearchLimit {
-            static let limit : Int = 50
+            static let limit : Int = 25
         }
         
         enum tableCell {
@@ -17,10 +17,6 @@ class SearchViewController: BaseViewController<SearchView> {
         enum SongTable {
             static let height : CGFloat = 90
             static let numberOfSection : Int = 1
-        }
-        
-        enum PlayList {
-            static let name: String = "Search"
         }
     }
     
@@ -32,8 +28,7 @@ class SearchViewController: BaseViewController<SearchView> {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private let networkService = NetworkService()
-//    private var tracks: [TrackModel] = []
-    private var playList = PlayListModel(playListName: Constants.PlayList.name)
+    private var tracks: [TrackModel] = []
     private var timer: Timer?
     
 // MARK: - Lifecycle
@@ -51,7 +46,6 @@ class SearchViewController: BaseViewController<SearchView> {
 }
 
 // MARK: - UITableViewDataSource
-
 extension SearchViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,7 +53,7 @@ extension SearchViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playList.tracks.count
+        return tracks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,7 +61,7 @@ extension SearchViewController : UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.reuseIdentifier, for: indexPath) as? TrackTableViewCell
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "defoultCell", for: indexPath)
-            let track = self.playList.tracks[indexPath.row]
+            let track = self.tracks[indexPath.row]
             cell.textLabel?.text = track.trackName + "\n" + track.artistName
             cell.textLabel?.numberOfLines = Constants.tableCell.numberOfLines
             if let coverURL = track.coverURL?.replacingOccurrences(of: "100x100", with: "600x600") {
@@ -75,15 +69,13 @@ extension SearchViewController : UITableViewDataSource {
             }
             return cell
         }
-        let track = self.playList.tracks[indexPath.row]
+        let track = self.tracks[indexPath.row]
         cell.track = track
-        
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
-
 extension SearchViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,17 +83,17 @@ extension SearchViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.playList.currentIndex = indexPath.row
-        AudioPlayer.mainPlayer.playList(playList: self.playList)
+        let track = tracks[indexPath.row]
+        realmManager.addToRecentPlayed(track: track)
+        print("Choose in \(track.trackName) in SearchVC")
     }
 }
 
 // MARK: - NetworkServiceDelegate
-
 extension SearchViewController: NetworkServiceDelegate {
     
     func didFetchTracks(tracks: [TrackModel]) {
-        self.playList.tracks = tracks
+        self.tracks = tracks
         DispatchQueue.main.async {
             self.selfView.trackTableView.reloadData()
         }
@@ -114,7 +106,6 @@ extension SearchViewController: NetworkServiceDelegate {
 }
 
 // MARK: - UISearchBarDelegate
-
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -126,7 +117,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.playList = PlayListModel(playListName: Constants.PlayList.name)
+        self.tracks = []
         selfView.trackTableView.reloadData()
     }
 }

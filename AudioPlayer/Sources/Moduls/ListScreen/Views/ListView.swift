@@ -1,30 +1,46 @@
 import UIKit
 import SnapKit
 
-class ListView: BaseView {
+class ListView : BaseView {
     
-    lazy var tableView = UITableView()
+    // MARK: - Constants
     
-    override func configure() {
-        setTableViewCell()
-        configureConstraints()
+    private enum Constants {
+        enum TrackTableView {
+            static let bot: CGFloat = -80
+            static let leading: CGFloat = 16
+            static let trailing: CGFloat = -16
+            static let separator = UITableViewCell.SeparatorStyle.none
+        }
     }
     
-    func setTableViewCell() {
-        tableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
+    // MARK: - UI Elements
+    
+    let trackTableView = UITableView()
+    
+    // MARK: - Initilization
+    
+    override func configure() {
+        configureTableView()
     }
 }
 
-// MARK: - Private Methods
+// MARK: - Methods
 
-private extension ListView {
+ private extension ListView {
     
-    func configureConstraints() {
-        tableView.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height)
+    func configureTableView() {
+        
+        trackTableView.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.reuseIdentifier)
+
+        addSubview(trackTableView)
+        trackTableView.snp.makeConstraints { make in
+            make.top.equalTo(snp.top)
+            make.bottom.equalTo(snp.bottomMargin).offset(Constants.TrackTableView.bot)
+            make.leading.equalTo(snp.leading).offset(Constants.TrackTableView.leading)
+            make.trailing.equalTo(snp.trailing).offset(Constants.TrackTableView.trailing)
         }
     }
 }
+
+
