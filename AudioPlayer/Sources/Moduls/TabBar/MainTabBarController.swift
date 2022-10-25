@@ -21,7 +21,8 @@ class MainTabBarController: UITabBarController {
         }
     }
     
-    ///Контейнер вью в котором находятся кнопки и миниплеер.
+    // MARK: - Parameter
+    
     private lazy var containerView = UIView()
     private lazy var miniPlayer = MiniPlayerViewController()
     
@@ -39,7 +40,6 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: MiniPlayerDelegate {
     
-    ///Функция делегата которая после диссмиса детального просмотра трека возвращает Мини-Плеер назад.
     func presentPlayerVC() {
         let vc = PlayerViewController()
         vc.modalPresentationStyle = .overFullScreen
