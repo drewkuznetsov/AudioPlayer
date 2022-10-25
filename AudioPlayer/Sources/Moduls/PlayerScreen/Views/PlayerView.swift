@@ -77,7 +77,7 @@ class PlayerView: BaseView {
         enum AddFavoriteButton {
             static let pointSize : CGFloat = 22
             static let largeConfig = UIImage.SymbolConfiguration(pointSize: Constants.AddFavoriteButton.pointSize, weight: .bold, scale: .large)
-            static let image = UIImage(systemName: "heart", withConfiguration: Constants.AddFavoriteButton.largeConfig) 
+            static let image = UIImage(systemName: "heart", withConfiguration: Constants.AddFavoriteButton.largeConfig)
             static let color = UIColor.systemPink
         }
         
@@ -96,13 +96,13 @@ class PlayerView: BaseView {
         enum LeftTimeLabel {
             static let text = "00:00"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
         }
         
         enum RightTimeLabel {
             static let text = "--:--"
             static let numberOfLines = 1
-            static let font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
         }
         
         enum AuthorNameLabel {
@@ -123,7 +123,7 @@ class PlayerView: BaseView {
         
         enum TrackImageView {
             static let image = UIImage(systemName: "person.crop.circle.badge.questionmark.fill")
-            static let top: CGFloat = 110
+            static let top: CGFloat = 130
             static let height: CGFloat = 250
             static let widht: CGFloat = 250
         }
@@ -173,7 +173,7 @@ class PlayerView: BaseView {
     lazy var leftTimeLabel = UILabel()
     
     
-// MARK: - Initilization
+    // MARK: - Initilization
     
     override func configure() {
         configureUI()
@@ -281,7 +281,7 @@ private extension PlayerView {
         rightTimeLabel.textAlignment = .right
     }
     
-        func configureConstraints() {
+    private func configureConstraints() {
         
         addSubview(stackView)
         addSubview(dismissButton)
